@@ -13,6 +13,7 @@
     {!!Html::style("css/bootstrap.min.css" )!!}
     {!!Html::style("css/sb-admin-2.css" )!!}
     {!!Html::style("css/layout/layout.css" )!!}
+    {!!Html::style("css/layout/kppz.css" )!!}
     @section('css')
 
     @show
@@ -22,9 +23,9 @@
     <!-- Left Side Of Navbar -->
     <ul class="nav navbar-nav">
         <li><a href="{{ url('/начало') }}"><i class="fa fa-home fa-fw blue_color"></i> Начало</a></li>
-        <!-- <li>
-            <a href="{!! '/' !!}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-briefcase control_color" aria-hidden="true"></i>
-                &nbsp;Контрол на Пазара &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+        <li>
+            <a href="{!! '/' !!}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o dark_color" aria-hidden="true"></i>
+                &nbsp;КППЗ &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </a>
             <ul class="dropdown-menu" >
                 <li ><a href="{!! URL::to( '/фирми') !!}" class="my_a back_link"> <i class="fa fa-bank fa-fw blue_color "></i> Всички фирми</a></li>
@@ -45,8 +46,8 @@
                 <li><a href="{!! URL::to('/проби')!!}" class="my_a back_link"> <i class="fa fa-flask fa-fw brown"></i> Дневник проби от ПРЗ</a></li>
                 <li><a href="{!! URL::to('/проби-тор')!!}" class="my_a back_link"> <i class="fa fa-leaf fa-fw brown"></i> Дневник проби от ТОРОВЕ</a></li>
             </ul>
-        </li> -->
-        <!-- <li>
+        </li>
+        {{-- <li>
             <a href="{!! '/' !!}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users green_color" aria-hidden="true"></i>
                 &nbsp;Контрол на Употребата &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </a>
@@ -68,10 +69,10 @@
                 <li><a href="{!! URL::to('/месечни-справки-контрол')!!}" class="my_a back_link"> <i class="fa fa-check-circle-o fa-fw red"></i> Таблица Регистър - Контрол на Употребата</a></li>
                 <li><a href="{!! URL::to('/протоколи-регистър')!!}" class="my_a back_link"> <i class="fa fa-file-powerpoint-o fa-fw red"></i> Регистър - Констативни Протоколи</a></li>
             </ul>
-        </li> -->
+        </li> --}}
 
 
-        <!-- <li>
+        {{-- <li>
             <a href="{!! '/' !!}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sun-o yellow" aria-hidden="true"></i>
                 &nbsp;Сертификати &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </a>
@@ -94,7 +95,7 @@
                 <li><a class="text" href="{!! URL::to( '/регистър-въздушни') !!}"><i class="fa fa-calendar fa-fw red"></i> Таблица Регистър - Издадени Разрешения</a></li>
                 <li><a class="" href="{!! URL::to( '/') !!}"><i class="fa fa-calendar fa-fw red"></i> Таблица Регистър - Услуги</a></li>
             </ul>
-        </li> -->
+        </li> --}}
     </ul>
     <!-- Right Side Of Navbar -->
     <ul class="nav navbar-nav navbar-right">
@@ -119,7 +120,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Излез</a></li>
-                        <li><a href="{{ url('/парола/'.Auth::user()->id) }}"><i class="fa fa-edit"></i> Смяна на парола</a></li>
+                        <li><a href="{{ url('/парола/'.Auth::user()->id) }}"><i class="fa fa-key"></i> Смяна на парола</a></li>
                     </ul>
                 </li>
             @endif
