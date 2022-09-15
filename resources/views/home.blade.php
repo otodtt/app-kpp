@@ -24,12 +24,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <fieldset class=""><legend class="">Фирми,Сертификати</legend>
-                                    <a class="my_a back_link" href="{!! URL::to( '/фирми') !!}"><i class="fa fa-bank fa-fw blue_color"></i> Всички фирми доставчици</a><br/>
-                                    <a class="my_a back_link" href="{!! URL::to( '/сертификати') !!}"> <i class="fa fa-plus-square fa-fw blue_color"></i> Издадени сертификати</a><br/>
-                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-shield fa-fw blue_color"></i> Тест</a><br/>
-                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-cubes fa-fw blue_color"></i> Тест</a><br/>
-                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-times fa-fw blue_color"></i> Тест</a>
+                                <fieldset class=""><legend class="">Фирми, Сертификати</legend>
+                                    <a class="my_a back_link" href="{!! URL::to( '/фирми') !!}"><i class="fa fa-truck fa-fw green_color "></i> Всички фирми доставчици</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( '/сертификати') !!}"> <i class="fa fa-certificate fa-fw green_color"></i> Издадени сертификати</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-shield fa-fw green_color"></i> Тест</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-cubes fa-fw green_color"></i> Тест</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-times fa-fw green_color"></i> Тест</a>
                                 </fieldset>
                             </div>
                             <div class="col-lg-6">
