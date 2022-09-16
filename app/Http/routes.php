@@ -33,6 +33,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     
 });
 
+Route::group(['middleware' => ['auth', 'quality']], function () {
+
+});
+
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -41,6 +45,12 @@ Route::group(['middleware' => ['auth']], function () {
     //СМЯНА НА ПАРОЛА
     Route::get('парола/{id}', 'PersonalDataController@show');
     Route::post('password/change/{id}', 'PersonalDataController@update');
+
+    /////////////////////////////
+    //ФИРМИ ВНОСИТЕЛИ
+    Route::get('/контрол/вносители', 'ImportersController@index');
+
+
 
 
 
