@@ -63,6 +63,11 @@ class AppServiceProvider extends ServiceProvider
             $pattern = '/^[\w\d\s -_]*$/';
             return trim(preg_match($pattern, $value));
         });
+        Validator::extend('latin_letters', function($attribute, $value)
+        {
+            $pattern = '/^[\w\d\s]*$/';
+            return trim(preg_match($pattern, $value));
+        });
 
         Validator::extend('min_date_create', function($attribute, $value)
         {

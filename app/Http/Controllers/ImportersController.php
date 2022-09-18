@@ -3,10 +3,15 @@
 namespace odbh\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 use odbh\Http\Requests;
 use odbh\Http\Controllers\Controller;
 use odbh\Set;
+use odbh\Http\Requests\ImportersRequest;
+use odbh\Importer;
+use Auth;
+use Session;
 
 class ImportersController extends Controller
 {
@@ -17,7 +22,7 @@ class ImportersController extends Controller
     {
         parent::__construct();
         $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'destroy']]);
-        $this->middleware('admin', ['only'=>['edit', 'update', 'destroy']]);
+        // $this->middleware('admin', ['only'=>['edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -29,12 +34,9 @@ class ImportersController extends Controller
         $districts_list = $this->districts_list;
         $districts_list[0] = 'Друга област';
 
-        $this->index = Set::select('area_id', 'index_in', 'index_out', 'in_second', 'out_second')->get()->toArray();
+       $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
 
-        $abc = null;
-//        $alphabet = Firm::lists('alphabet')->toArray();
-//        $firms = Firm::orderBy('alphabet', 'asc')->get();
-        return view('quality.importers.index', compact( 'districts_list', 'abc'));
+        return view('quality.importers.index', compact( 'importers', 'districts_list'));
     }
 
     /**
@@ -44,7 +46,7 @@ class ImportersController extends Controller
      */
     public function create()
     {
-        //
+        return view('quality.importers.create');
     }
 
     /**
@@ -53,9 +55,22 @@ class ImportersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ImportersRequest $request)
     {
-        //
+        Importer::create ([
+            'is_active'=> 1,
+            'is_bulgarian'=> $request['is_bulgarian'],
+            'name_bg'=> mb_convert_case  ($request['name_bg'], MB_CASE_TITLE, "UTF-8"),
+            'address_bg'=> $request['address_bg'],
+            'name_en'=> mb_convert_case  ($request['name_en'], MB_CASE_TITLE),
+            'address_en'=> $request['address_en'],
+            'vin'=> $request['vin'],
+            'created_by'=> Auth::user()->id,
+            'date_create' => date('d.m.Y H:i:s', time()) ,
+        ]);
+    
+        Session::flash('message', 'Записа е успешен!');
+        return Redirect::to('/контрол/вносители');
     }
 
     /**
@@ -77,7 +92,8 @@ class ImportersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $importers = Importer::findOrFail($id);
+        return view('quality.importers.edit', compact('importers'));
     }
 
     /**
@@ -87,9 +103,27 @@ class ImportersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ImportersRequest $request, $id)
     {
-        //
+        $importers = Importer::findOrFail($id);
+        $data =([
+            'is_active'=> $request['is_active'],
+            'is_bulgarian'=> $request['is_bulgarian'],
+            'name_bg'=> mb_convert_case  ($request['name_bg'], MB_CASE_TITLE, "UTF-8"),
+            'address_bg'=> $request['address_bg'],
+            'name_en'=> mb_convert_case  ($request['name_en'], MB_CASE_TITLE),
+            'address_en'=> $request['address_en'],
+            'vin'=> $request['vin'],
+            'updated_by'=> Auth::user()->id,
+            'date_update' => date('d.m.Y H:i:s', time()) ,
+        ]);
+        
+
+        $importers->fill($data);
+        $importers->save();
+
+        Session::flash('message', 'Фирмата е редактирана успешно!');
+        return Redirect::to('/контрол/вносители');
     }
 
     /**
