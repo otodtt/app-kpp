@@ -1,0 +1,12 @@
+.first_td {
+    width: 50px;
+}
+.crop_td {
+    width: 150px;
+}
+.crop_btn {
+    text-align: right;
+}
+.crop_center {
+    text-align: center;
+}

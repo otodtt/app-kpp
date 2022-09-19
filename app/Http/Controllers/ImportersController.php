@@ -22,7 +22,6 @@ class ImportersController extends Controller
     {
         parent::__construct();
         $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'destroy']]);
-        // $this->middleware('admin', ['only'=>['edit', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.

@@ -60,6 +60,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/контрол/вносители/{id}/update', 'ImportersController@update');
 
 
+    /////////////////////////////
+    //КУЛТУРИ
+    Route::resource('контрол/култури', 'CropsController');
+    Route::get('crops/edit/{id}', 'CropsController@edit');
+    Route::get('crops/show/{id}', 'CropsController@show');
+
 
 
 
