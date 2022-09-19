@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('контрол/култури', 'CropsController');
     Route::get('crops/edit/{id}', 'CropsController@edit');
     Route::get('crops/show/{id}', 'CropsController@show');
+    Route::post('/контрол/култури/{id}/update', 'CropsController@update');
 
 
 

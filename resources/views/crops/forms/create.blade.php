@@ -1,4 +1,7 @@
 @extends('layouts.quality')
+@section('title')
+    {{ 'Добавяне на Култура!' }}
+@endsection
 
 @section('content')
     <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-home btn btn-info my_btn" style="margin-top: 15px"> Откажи. Назад</a>
@@ -18,8 +21,7 @@
                         </ul>
                     </div>
                 @endif
-{{--                {!! Form::open(['url'=>'контрол/култури/store', 'method'=>'POST', 'id'=>'form', 'class'=>'form-horizontal']) !!}--}}
-                    {!! Form::open(['route'=>'контрол.култури.store', 'method'=>'POST', 'class'=>'form-horizontal']) !!}
+                {!! Form::open(['route'=>'контрол.култури.store', 'method'=>'POST', 'class'=>'form-horizontal']) !!}
                 <fieldset>
                     @include('crops.forms.form')
 

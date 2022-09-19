@@ -51,13 +51,12 @@ class CropsController extends Controller
      */
     public function store(CropsRequest $request)
     {
-//        echo('OK');
+        
         $string = $request->latin;
         $insert = preg_replace('/(\w+)/', '-$1', $string);
         $remove= str_replace(' ', '', $insert);
         $first = substr($remove, 1);
         $lower = strtolower($first);
-//        dd((int)$request['group_id']);
 
         $data = [
             'name' => $request['name'],
@@ -70,7 +69,6 @@ class CropsController extends Controller
             'created_by' => Auth::user()->id,
         ];
         Crop::create($data);
-//        dd($data);
         Session::flash('message', 'Културата е добавена успешно!');
         return Redirect::to('/контрол/култури');
     }
@@ -94,7 +92,8 @@ class CropsController extends Controller
      */
     public function edit($id)
     {
-        echo('ok');
+        $crops = Crop::findOrFail($id);
+        return view('crops.forms.edit', compact('crops'));
     }
 
     /**
@@ -104,9 +103,32 @@ class CropsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CropsRequest $request, $id)
     {
-        //
+        $crop = Crop::findOrFail($id);
+        $string = $request->latin;
+        $insert = preg_replace('/(\w+)/', '-$1', $string);
+        $remove= str_replace(' ', '', $insert);
+        $first = substr($remove, 1);
+        $lower = strtolower($first);
+
+       $data = [
+            'name' => $request['name'],
+            'group_id' => (int)$request['group_id'],
+            'name_en' => $request['name_en'],
+            'latin' => $request['latin'],
+            'latin_name' => $lower,
+            'cropDescription' => $request['cropDescription'],
+            'date_update' => date('d.m.Y H:i:s', time()),
+            'updated_by' => Auth::user()->id,
+        ];
+        
+
+        $crop->fill($data);
+        $crop->save();
+
+        Session::flash('message', 'Културата е редактирана успешно!');
+        return Redirect::to('/контрол/култури');
     }
 
     /**
