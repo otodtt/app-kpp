@@ -45,7 +45,14 @@
                         <li>
                             <a href="{!!URL::to('/админ')!!}"><i class='fa fa-dashboard fa-fw'></i> Дашборд</a>
                         </li>
-                       
+                        <li>
+                            <a href="{!!URL::to('/админ')!!}"><i class="fa fa-gear fa-fw"></i> Настройки<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{!!URL::to('/админ/настройки')!!}"><i class='fa fa-gears fa-fw'></i> Виж настройките!</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="{!!URL::to('/админ')!!}"><i class="fa fa-users fa-fw"></i> Инспектори<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

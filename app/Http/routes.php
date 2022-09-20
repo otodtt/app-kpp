@@ -23,6 +23,21 @@ Route::get('начало', 'FrontController@index');
 Route::get('админ', 'FrontController@admin');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
+    //За Настройки
+    Route::resource('admin/settings', 'SettingsController');
+    Route::resource('админ/настройки', 'SettingsController');
+    Route::get('админ/настройки/редактирай/{id}', 'SettingsController@edit');
+    //За Редактиране на индексите
+    Route::get('админ/настройки/индекси/{id}', 'SettingsController@edit_index');
+    Route::post('admin/settings/add-index/{id}', 'SettingsController@add_index');
+
+    Route::get('админ/настройки/сертификат/{id}', 'SettingsController@stamp_index');
+    // КРАЙ - За Редактиране на индексите
+    //За заключване и отключване на разрешителните
+    Route::post('admin/settings/lock-permits/{id}', 'SettingsController@lock_permits');
+    Route::post('admin/settings/unlock-permits/{id}', 'SettingsController@unlock_permits');
+    // КРАЙ - За заключване на разрешителните
+
     //За инспекторите
     Route::resource('admin/users', 'UsersController');
 

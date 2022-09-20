@@ -89,6 +89,7 @@
 <div class="row" style="margin: 20px 0 10px 0">
     <div class="col-md-8" >
         <p class="description"><span class="bold red">ВАЖНО!</span> Ако фирмата е българска се изписват само цифри без идентификатор BG! Ако е чужда се изписва всичко!</p>
+        <p class="description"><span class="bold red">ВАЖНО!</span>  Ако е чужда се изписва всичко или се оставя празно!</p>
         {!! Form::label('vin', 'ЕИК/Булстат:', ['class'=>'my_labels']) !!}
         {!! Form::text('vin', null, ['class'=>'form-control form-control-my', 'maxlength'=>40 ]) !!}
     </div>

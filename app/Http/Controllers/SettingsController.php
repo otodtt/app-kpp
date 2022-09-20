@@ -26,7 +26,7 @@ class SettingsController extends Controller
         $districts = $this->district_full;
         $settings = Set::all()->toArray();
 
-        return view('admin.settings.index', compact('settings','districts', 'settings_all'));
+        return view('admin.settings.index', compact('settings','districts'));
     }
 
     /**
@@ -176,5 +176,19 @@ class SettingsController extends Controller
         $locks->save();
 
         return Redirect::to('/админ/настройки' );
+    }
+
+
+    /**
+     * Промяна на индексите.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function stamp_index($id)
+    {
+        $districts = $this->district_full;
+        $area = Set::findOrFail($id);
+        return view('admin.settings.edit_stamp_index', compact('area', 'districts'));
     }
 }

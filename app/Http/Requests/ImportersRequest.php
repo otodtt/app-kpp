@@ -28,7 +28,7 @@ class ImportersRequest extends Request
         $request = Request::all();
         
         if ($request['is_bulgarian'] == 0) {
-            $is_valid = '|max:9|is_valid';
+            $is_valid = 'required|max:9|is_valid';
             $required = '|required';
         } else {
             $is_valid = '';
@@ -41,7 +41,7 @@ class ImportersRequest extends Request
             'address_bg'=>'cyrillic_with|min:5|max:500'.$required,
             'name_en'=>'required|latin|min:3|max:300',
             'address_en'=>'required|latin|min:5|max:500',
-            'vin'=>'required'.$is_valid.'|unique:importers,vin,'.$id,
+            'vin'=> $is_valid.'|unique:importers,vin,'.$id,
         ];
     }
 

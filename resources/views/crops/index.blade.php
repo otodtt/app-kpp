@@ -18,10 +18,10 @@
     <hr/>
     <div class="btn-group" >
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
-        <span class="fa fa-bank btn btn-default my_btn"> Всички култури</span>
-        {{--<a href="{!! URL::to('/аптеки')!!}" class="fa fa-plus-square btn btn-info my_btn"> Всички аптеки</a>--}}
+        <a href="{!! URL::to('/аптеки')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
+        <a href="{!! URL::to('/контрол/вносители')!!}" class="fa fa-truck btn btn-info my_btn"> Всички вносители</a>
+        <span class="fa fa-leaf btn btn-default my_btn"> Всички култури</span>
         {{--<a href="{!! URL::to('/складове')!!}" class="fa fa-shield btn btn-info my_btn"> Всички складове</a>--}}
-        {{--<a href="{!! URL::to('/цехове')!!}" class="fa fa-cubes btn btn-info my_btn"> Всички цехове</a>--}}
         {{--<a href="{!!URL::to('/изтекъл-срок')!!}" class="fa fa-times btn btn-info my_btn"> С изтекъл или прекратен срок</a>--}}
     </div>
     <div class="btn_add_firm">
@@ -206,15 +206,44 @@
                 @foreach($cultures as $culture)
                     @if($culture->group_id == 7)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                    &nbsp;ВИЖ КУЛТУРАТА!
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        </div>
+
+        <div class="row">
+            <h4>Листни зеленчуци</h4>
+            <table class="table">
+                @foreach($cultures as $culture)
+                    @if($culture->group_id == 8)
+                        <tr>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
+                                <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
+                                    &nbsp;Редактирай!
+                                </a>
+                            </td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -228,17 +257,20 @@
             <h4>Коренови и стъблени</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 8)
+                    @if($culture->group_id == 9)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                        <tr>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -252,17 +284,19 @@
             <h4>Овощни</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 9)
+                    @if($culture->group_id == 10)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -276,17 +310,19 @@
             <h4>Ягодоплодни</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 10)
+                    @if($culture->group_id == 11)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -300,17 +336,19 @@
             <h4>Лозя</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 11)
+                    @if($culture->group_id == 12)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -324,17 +362,19 @@
             <h4>Етерично-Маслени</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 12)
+                    @if($culture->group_id == 13)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -348,17 +388,19 @@
             <h4>Украсни и Горски видове</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 13)
+                    @if($culture->group_id == 14)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
@@ -372,17 +414,45 @@
             <h4>Цитросови</h4>
             <table class="table">
                 @foreach($cultures as $culture)
-                    @if($culture->group_id == 14)
+                    @if($culture->group_id == 15)
                         <tr>
-                            <td>{{$culture->id}}</td>
-                            <td>{{$culture ->name}}</td>
-                            <td>{{$culture ->latin_name}}</td>
-                            <td>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
-                            <td>
+                            <td class="crop_btn">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                    &nbsp;ВИЖ КУЛТУРАТА!
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+        </div>
+        <div class="row">
+            <h4>Други</h4>
+            <table class="table">
+                @foreach($cultures as $culture)
+                    @if($culture->group_id == 16)
+                        <tr>
+                            <td class="first_td">{{$culture->id}}</td>
+                            <td class="crop_td">{{$culture ->name}}</td>
+                            <td class="crop_td">{{$culture ->name_en}}</td>
+                            <td class="crop_td">{{$culture ->latin}}</td>
+                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td class="crop_btn">
+                                <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
+                                    &nbsp;Редактирай!
+                                </a>
+                            </td>
+                            <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
