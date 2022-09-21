@@ -31,7 +31,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('админ/настройки/индекси/{id}', 'SettingsController@edit_index');
     Route::post('admin/settings/add-index/{id}', 'SettingsController@add_index');
 
-    Route::get('админ/настройки/сертификат/{id}', 'SettingsController@stamp_index');
     // КРАЙ - За Редактиране на индексите
     //За заключване и отключване на разрешителните
     Route::post('admin/settings/lock-permits/{id}', 'SettingsController@lock_permits');
@@ -45,12 +44,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('admin/locations', 'LocationsController');
     //КРАЙ - За Населените места
 
-    //За Държавите
+    //НОВО ЗА ПЕЧАТА И КППЗ /////////////////////////////////////////////////////
+    //НОВО ЗА ПЕЧАТА И КППЗ /////////////////////////////////////////////////////
+    Route::get('админ/настройки/сертификат/{id}', 'SettingsController@stamp_index');
+    Route::post('admin/settings/add_stamp/{id}', 'SettingsController@add_stamp');
+    //НОВО За Държавите
     Route::resource('admin/countries', 'CountriesController');
     Route::get('admin/countries', 'CountriesController@index');
     Route::get('admin/country/{id}/edit', 'CountriesController@edit');
-    // Route::put('admin/countries/update/{id}', 'LocationsController@update');
-    //КРАЙ - За Населените места
+    //КРАЙ - За Държавите
     
 });
 
@@ -81,6 +83,22 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('crops/edit/{id}', 'CropsController@edit');
     Route::get('crops/show/{id}', 'CropsController@show');
     Route::post('/контрол/култури/{id}/update', 'CropsController@update');
+
+    // /////// Q-СЕРТИФИКАТИ
+     Route::resource('контрол/сертификати', 'QCertificatesController');
+    Route::get('/контрол/сертификати/добави', 'QCertificatesController@create');
+    // Route::post('сертификати', 'CertificatesController@search');
+    // Route::get('сертификат/{id}', 'CertificatesController@show');
+    // // Сортиране на Сертификати
+    // Route::any('сертификати/сортирай/{abc_list?}/{start_year?}/{end_year?}/{limit_sort?}/{inspector_sort?}', 'CertificatesController@sort');
+    // // КРАЙ Сортиране на Сертификати
+    // // Добавяне и Редакция на Сертификати
+    // Route::get('сертификати/добави', 'CertificatesController@create');
+    // Route::post('сертификати/store', 'CertificatesController@store');
+
+    // Route::get('сертификат/{id}/редактирай', 'CertificatesController@edit');
+    // Route::post('сертификати/update/{id}', 'CertificatesController@update');
+    // // КРАЙ Добавяне и Редакция на Сертификати
 
 
 
@@ -215,20 +233,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::post('workshops/change-workshop-add/{id}', 'ChangeObjectsController@store_workshop');
     // // КРАЙ Цех промяна в обстоятелства
 
-    // /////// СЕРТИФИКАТИ
-    // Route::resource('сертификати', 'CertificatesController');
-    // Route::post('сертификати', 'CertificatesController@search');
-    // Route::get('сертификат/{id}', 'CertificatesController@show');
-    // // Сортиране на Сертификати
-    // Route::any('сертификати/сортирай/{abc_list?}/{start_year?}/{end_year?}/{limit_sort?}/{inspector_sort?}', 'CertificatesController@sort');
-    // // КРАЙ Сортиране на Сертификати
-    // // Добавяне и Редакция на Сертификати
-    // Route::get('сертификати/добави', 'CertificatesController@create');
-    // Route::post('сертификати/store', 'CertificatesController@store');
 
-    // Route::get('сертификат/{id}/редактирай', 'CertificatesController@edit');
-    // Route::post('сертификати/update/{id}', 'CertificatesController@update');
-    // // КРАЙ Добавяне и Редакция на Сертификати
 
     // /////// ПРОТОКОЛИ Аптеки Складове Цехове
     // Route::resource('протоколи', 'ProtocolsController');

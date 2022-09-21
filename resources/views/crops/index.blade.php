@@ -18,7 +18,7 @@
     <hr/>
     <div class="btn-group" >
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
-        <a href="{!! URL::to('/аптеки')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
+        <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
         <a href="{!! URL::to('/контрол/вносители')!!}" class="fa fa-truck btn btn-info my_btn"> Всички вносители</a>
         <span class="fa fa-leaf btn btn-default my_btn"> Всички култури</span>
         {{--<a href="{!! URL::to('/складове')!!}" class="fa fa-shield btn btn-info my_btn"> Всички складове</a>--}}

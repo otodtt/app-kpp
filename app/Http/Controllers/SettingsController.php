@@ -8,11 +8,13 @@ use odbh\Area;
 use odbh\Http\Requests;
 
 use odbh\Set;
+use odbh\Http\Requests\SetStampRequest;
 
 use odbh\Http\Requests\SetRequest;
 use odbh\Http\Requests\SetIndexRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+
 
 class SettingsController extends Controller
 {
@@ -178,7 +180,7 @@ class SettingsController extends Controller
         return Redirect::to('/админ/настройки' );
     }
 
-
+    //////////// НОВО ///////////////////
     /**
      * Промяна на индексите.
      *
@@ -190,5 +192,28 @@ class SettingsController extends Controller
         $districts = $this->district_full;
         $area = Set::findOrFail($id);
         return view('admin.settings.edit_stamp_index', compact('area', 'districts'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \odbh\Http\Requests\SetIndexRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function add_stamp(SetStampRequest $request, $id)
+    {
+        $set = Set::findOrFail($id);
+
+        $data = ([
+            'q_index'=> $request['q_index'],
+            'authority_bg'=> $request['authority_bg'],
+            'authority_en'=> $request['authority_en'],
+        ]);
+        $set->fill($data);
+        $set->save();
+
+        Session::flash('message', 'Настройките са добавени успешно!');
+        return Redirect::to('/админ/настройки');
     }
 }

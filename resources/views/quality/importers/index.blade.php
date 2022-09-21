@@ -20,14 +20,9 @@
     <hr/>
     <div class="btn-group" >
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
-        <a href="{!! URL::to('/аптеки')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
-        <span class="fa fa-truck btn btn-default my_btn"> Всички фирми</span>
+        <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
+        <span class="fa fa-truck btn btn-default my_btn"> Всички вносители</span>
         <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Всички култури</a>
-
-        {{--<a href="{!! URL::to('/аптеки')!!}" class="fa fa-plus-square btn btn-info my_btn"> Всички аптеки</a>--}}
-        {{--<a href="{!! URL::to('/складове')!!}" class="fa fa-shield btn btn-info my_btn"> Всички складове</a>--}}
-        {{--<a href="{!! URL::to('/цехове')!!}" class="fa fa-cubes btn btn-info my_btn"> Всички цехове</a>--}}
-        {{--<a href="{!!URL::to('/изтекъл-срок')!!}" class="fa fa-times btn btn-info my_btn"> С изтекъл или прекратен срок</a>--}}
     </div>
     <div class="btn_add_firm">
         <a href="{!!URL::to('/контрол/вносители/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави НОВА фирма</a>

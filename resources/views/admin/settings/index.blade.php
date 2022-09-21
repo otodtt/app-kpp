@@ -102,7 +102,7 @@
                             <span class="bold red">Задължително</span> e след като бъдат въведени всички разрешителни в базата данни да се заключи!!!</p>
                     </td>
                     <td>
-                        {!! Form::model($settings, ['url'=>'admin/setting/'.$settings[0]['id'] , 'method'=>'POST', 'id'=>'form']) !!}
+                        {!! Form::model($settings, ['url'=>'admin/settings/lock-permits/'.$settings[0]['id'] , 'method'=>'POST', 'id'=>'form']) !!}
                         <button type="submit" class="btn-sm btn-success " id="lockConfirm">
                             <i class="fa fa-lock"></i> Заключи!
                         </button>
@@ -132,12 +132,15 @@
     <table class="table">
         <tbody>
         <tr>
-            {{--<td>--}}
-                {{--<p>За Входящи Номера <span class="bold red">{{ $settings[0]['q_index'] }}</span> - 0000 <span class="bold red">{{ $settings[0]['in_second'] }}</span> </p>--}}
-            {{--</td>--}}
-            {{--<td>--}}
-                {{--<p>За Изходящи Номера <span class="bold red">{{ $settings[0]['authority_bg'] }}</span> - 0000 <span class="bold red">{{ $settings[0]['authority_en'] }}</span> </p>--}}
-            {{--</td>--}}
+            <td>
+                <p>За Номер на Печат <span class="bold red">{{ $settings[0]['q_index'] }}</span> - 0000 <span class="bold red">{{ $settings[0]['in_second'] }}</span> </p>
+            </td>
+            <td>
+                <p>Име на контролен орган <span class="bold red">{{ $settings[0]['authority_bg'] }} </span></p>
+            </td>
+            <td>
+                <p>Име на английски <span class="bold red">{{ $settings[0]['authority_en'] }}</span> </p>
+            </td>
             <td>
                 <a class="fa fa-edit btn btn-primary my_btn" href="{!!URL::to('/админ/настройки/сертификат/1')!!}">  Редактирай!</a>
             </td>

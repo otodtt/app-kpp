@@ -33,7 +33,7 @@ class ImportersController extends Controller
         $districts_list = $this->districts_list;
         $districts_list[0] = 'Друга област';
 
-       $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
+        $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
 
         return view('quality.importers.index', compact( 'importers', 'districts_list'));
     }
