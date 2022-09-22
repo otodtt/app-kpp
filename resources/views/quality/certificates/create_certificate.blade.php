@@ -34,12 +34,12 @@
                 </ul>
             </div>
         @endif
-        {!! Form::open(['url'=>'сертификати/store' , 'method'=>'POST', 'id'=>'form', 'files'=>true]) !!}
+        {!! Form::open(['url'=>'контрол/сертификати/store' , 'method'=>'POST', 'id'=>'form', 'files'=>true]) !!}
             @include('quality.certificates.forms.form_create_certificate')
             <div class="col-md-6 " >
                 <a href="{{ '/контрол/сертификати' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
             </div>
-            <div class="col-md-6 hidden" id="add_certificate">
+            <div class="col-md-6" id="add_certificate">
                 {!! Form::submit('Добави НОВ Сертификат!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
             </div>
             <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
@@ -102,5 +102,14 @@
 //            $( "#date_end" ).addClass( "hidden" );
 //            $( "#date_end_label" ).addClass( "hidden" );
 //        }
+
+            $('#importer_data').change(function () {
+                var en_name=$(this).find('option:selected').attr('name_en');
+                var en_address=$(this).find('option:selected').attr('address_en');
+                var vin_hidden=$(this).find('option:selected').attr('vin');
+                $('#en_name').val(en_name);
+                $('#en_address').val(en_address);
+                $('#vin_hidden').val(vin_hidden);
+            });
     </script>
 @endsection

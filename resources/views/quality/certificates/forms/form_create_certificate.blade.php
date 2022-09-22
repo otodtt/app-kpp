@@ -55,33 +55,79 @@ if (isset($last_number[0]['number'])){
 <hr class="my_hr_in"/>
 <div id="field_wrapper" class="">
     <div class="container-fluid" >
-        {{--<p class="bold "><span class="red"> Последно използван номер за Сертификат e {!! $last !!}.</span> Използвай {!! $last_plus !!} !</p>--}}
         <div class="row">
-            <div class="col-md-5" >
-                <fieldset class="small_field"><legend class="small_legend">Номер и дата на Сертификат</legend>
+            <div class="col-md-6" >
+                <fieldset class="small_field"><legend class="small_legend">Данни за Опаковчик, посочен върху опаковката</legend>
                     <div class="col-md-6 col-md-6_my" >
-{{--                        {!! Form::select('localsID', $importers['name_bg'],  ['id' =>'localsID', 'class' =>'localsID form-control']) !!}--}}
-                        {!! Form::text('list_name',  ['class'=>'form-control form-control-my', 'list'=>'places', 'id'=>'list_name', 'size'=>25, 'autocomplete'=>'off' ]) !!}
-                        <datalist id="places" name="places_name" >
+                        <p class="description">
+                            Поле № 2. Опаковчик. Избери фирмата вносител.
+                        </p> 
+                        {{-- РАБОТИ ТОЗИ ВАРИАНР --}}
+                        <label for="importers_choice">Избери вносител:</label>
+                        <select name="importer_data" id="importer_data" class="localsID form-control">
+                            <option value="">-- Избери --</option>
                             @foreach($importers as $importer)
-                                <option value="{{$importer['name_bg']}}" data_id="{{$importer['id']}}" address_en="{{$importer['address_en']}}"
-                                        vin="{{$importer['vin']}}" >{{$importer['name_en']}}</option>
+                                <option value="{{$importer['id']}}" 
+                                        name_en="{{$importer['name_en']}}" 
+                                        address_en="{{$importer['address_en']}}"
+                                        vin="{{$importer['vin']}}" >{{$importer['id']}} - {{ strtoupper($importer['name_en']) }}</option>
                             @endforeach
-                        </datalist>
-                    </div>
-                    <div class="col-md-6" >
-                        {{--{!! Form::label('date', 'Дата:', ['class'=>'my_labels']) !!}--}}
-                        {{--{!! Form::text('date', null, ['class'=>'form-control form-control-my date_certificate',--}}
-                        {{--'id'=>'date', 'size'=>15, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг' ]) !!}--}}
+                        </select>
+                        <input type=hidden name="en_name" id="en_name" />
+                        <input type=hidden name="en_address" id="en_address" />
+                        <input type=hidden name="vin_hidden" id="vin_hidden" />
+
+                        {{-- И това работи --}}
+                        {{-- <label for="importers_choice">Избери вносител:</label>
+                        <select name="importer_data" id="importer_data" class="localsID form-control">
+                            <option value="">-- Избери --</option>
+                            @foreach($importers as $importer)
+                                <option value="{{$importer['id']}}|{{$importer['name_en']}}|{{$importer['address_en']}}|{{$importer['vin']}}" >{{$importer['name_en']}}</option>
+                            @endforeach
+                        </select> --}}
+
+
                     </div>
                 </fieldset>
             </div>
-            <div class="col-md-7 ">
-                <p class="description">
+            <div class="col-md-6">
+                {{-- <p class="description">
                     <span class="fa fa-warning red" aria-hidden="true"> ВНИМАНИЕ! </span> Номера на сертификата е попълнен автоматично. Не променяй ако не е необходимо!<br/>
                     Попълва се само номера на сертификата, без индекса пред него! Индекса ще се полпълни автоматично.<br/>
                     <span class="bold red">Пример!</span> Ако Сертификата е "26 - 0001" изписва се само 1 или 0001 .
-                </p>
+                </p> --}}
+                <fieldset class="small_field"><legend class="small_legend">Регион или страна на местоназначение</legend>
+                    <div class="col-md-5 col-md-6_my" >
+                        <p class="description">
+                            Поле № 5. Регион или страна на местоназначение.
+                        </p> 
+                        <label for="country">Избери страна:</label>
+                        <select name="country" id="country" class="localsID form-control">
+                            <option value="">-- Избери --</option>
+                            @foreach($countries as $country)
+                                
+                                <option value="{{$country['id']}}|{{ $country['name_en'] }}" >{{ mb_strtoupper($country['name'], 'utf-8' )  }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-5 col-md-6_my" >
+                        <p class="description">
+                            Поле № 5. Регион или страна на местоназначение.
+                        </p> 
+                        <label for="country">Избери страна:</label>
+                        {{-- <select name="country" id="country" class="localsID form-control">
+                            <option value="">-- Избери --</option>
+                            @foreach($countries as $country)
+                                
+                                <option value="{{$country['id']}}|{{ $country['name_en'] }}" >{{ mb_strtoupper($country['name'], 'utf-8' )  }}</option>
+                            @endforeach
+                        </select> --}}
+                        {!! Form::label('petition', 'Заявление №', ['class'=>'my_labels']) !!}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bold"> {{$index[0]['q_index']}} - </span>
+                        {!! Form::text('petition', null, ['class'=>'form-control form-control-my', 'size'=>2, 'maxlength'=>6 ]) !!}
+
+                    </div>
+                </fieldset>
             </div>
         </div>
     </div>

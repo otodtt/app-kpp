@@ -9,6 +9,7 @@ use odbh\Http\Controllers\Controller;
 use odbh\Importer;
 use odbh\QCertificate;
 use odbh\Set;
+use odbh\Country;
 
 class QCertificatesController extends Controller
 {
@@ -50,11 +51,22 @@ class QCertificatesController extends Controller
             ->orderBy('number_certificate', 'desc')
             ->limit(1)->get()->toArray();
 
-        $importers = Importer::get()->toArray();
+        // $importers = Importer::get()->toArray();
+        $importers = Importer::all(['id', 'name_bg', 'name_en', 'address_en', 'vin'])->toArray();
 
-//        dd($importers);
+        $countries= Country::select('id', 'name', 'name_en', 'EC')
+            ->where('EC', '=', 1)
+            ->orderBy('name', 'asc')->get()->toArray();
+        // $importers_list = Importer::select('name_en', 'address_en', 'vin')
+        //     ->orderBy('name_en', 'asc')
+        //     ->lists('address_en', 'name_en')->toArray();
 
-        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers'));
+        // $importers_list[0] = 'Избери фирма';
+        // $importers_list = array_sort_recursive($importers_list);
+
+    //    dd($countries);
+
+        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers', 'countries'));
     }
 
     /**
@@ -65,7 +77,7 @@ class QCertificatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
