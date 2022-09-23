@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Време на генериране: 22 септ 2022 в 20:16
+-- Време на генериране: 23 септ 2022 в 14:19
 -- Версия на сървъра: 5.7.36
 -- Версия на PHP: 7.4.26
 
@@ -49,13 +49,14 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
   `transport` varchar(100) NOT NULL,
   `type_packages` varchar(100) NOT NULL,
   `packages_qu` int(11) NOT NULL,
+  `crops_id` int(11) NOT NULL,
   `crops_bg` varchar(100) NOT NULL,
   `crops_en` varchar(100) NOT NULL,
   `variety` varchar(100) NOT NULL,
   `crops_other` varchar(100) NOT NULL,
   `quality_class` varchar(50) NOT NULL,
   `weight` varchar(500) NOT NULL,
-  `weight_kg` varchar(500) NOT NULL,
+  `weight_kg` tinyint(1) NOT NULL,
   `customs_bg` varchar(100) NOT NULL,
   `customs_en` varchar(100) NOT NULL,
   `place_bg` varchar(100) NOT NULL,

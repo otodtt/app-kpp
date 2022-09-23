@@ -34,7 +34,7 @@
                 </ul>
             </div>
         @endif
-        {!! Form::open(['url'=>'контрол/сертификати/store' , 'method'=>'POST', 'id'=>'form', 'files'=>true]) !!}
+        {!! Form::open(['url'=>'контрол/сертификати/store' , 'method'=>'POST', 'id'=>'form', 'files'=>true, 'autocomplete'=>'off']) !!}
             @include('quality.certificates.forms.form_create_certificate')
             <div class="col-md-6 " >
                 <a href="{{ '/контрол/сертификати' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
@@ -58,9 +58,39 @@
 
             if($('input[name=what_7]:checked').val() == 0){
                 $( "#show_type" ).addClass( "hidden" );
+                $( "#p_internal_yes" ).addClass( "hidden" );
+                $( "#p_import_yes" ).addClass( "hidden" );
+                $( "#p_export_yes" ).addClass( "hidden" );
             }
-            else if($('input[name=what_7]:checked').val() != 0){
+            else if($('input[name=what_7]:checked').val() == 1){
                 $( "#show_type" ).removeClass( "hidden" );
+                $( "#p_internal_yes" ).removeClass( "hidden" );
+                $( "#p_internal_no" ).addClass( "hidden" );
+
+                $( "#p_import_yes" ).addClass( "hidden" );
+                $( "#p_import_no" ).removeClass( "hidden" );
+                $( "#p_export_yes" ).addClass( "hidden" );
+                $( "#p_export_no" ).removeClass( "hidden" );
+            }
+            else if($('input[name=what_7]:checked').val() == 2){
+                $( "#show_type" ).removeClass( "hidden" );
+                $( "#p_import_yes" ).removeClass( "hidden" );
+                $( "#p_import_no" ).addClass( "hidden" );
+
+                $( "#p_internal_yes" ).addClass( "hidden" );
+                $( "#p_internal_no" ).removeClass( "hidden" );
+                $( "#p_export_yes" ).addClass( "hidden" );
+                $( "#p_export_no" ).removeClass( "hidden" );
+            }
+            else if($('input[name=what_7]:checked').val() == 3){
+                $( "#show_type" ).removeClass( "hidden" );
+                $( "#p_export_yes" ).removeClass( "hidden" );
+                $( "#p_export_no" ).addClass( "hidden" );
+
+                $( "#p_internal_yes" ).addClass( "hidden" );
+                $( "#p_internal_no" ).removeClass( "hidden" );
+                $( "#p_import_yes" ).addClass( "hidden" );
+                $( "#p_import_no" ).removeClass( "hidden" );
             }
             else{
                 $( "#show_type" ).addClass( "hidden" );
@@ -83,6 +113,25 @@
             }
         });
 
+        function run() {
+            var different = document.getElementsByClassName('type_pack')[0].value;
+            if (different == 1) {
+                $( ".different_row" ).removeClass( "hidden" );
+            }
+            else {
+                $( ".different_row" ).addClass( "hidden" );
+            }
+        }
+        function runCrop() {
+            var different = document.getElementById("crops").value;
+            if (different == 1) {
+                $( ".different_crops" ).removeClass( "hidden" );
+            }
+            else {
+                $( ".different_crops" ).addClass( "hidden" );
+            }
+        }
+
 //        if ($("input[name='limit_certificate']").is(':checked')){
 //            if($('input[name=limit_certificate]:checked').val() == 1){
 //                $( "#date_end" ).addClass( "hidden" );
@@ -103,13 +152,13 @@
 //            $( "#date_end_label" ).addClass( "hidden" );
 //        }
 
-            $('#importer_data').change(function () {
-                var en_name=$(this).find('option:selected').attr('name_en');
-                var en_address=$(this).find('option:selected').attr('address_en');
-                var vin_hidden=$(this).find('option:selected').attr('vin');
-                $('#en_name').val(en_name);
-                $('#en_address').val(en_address);
-                $('#vin_hidden').val(vin_hidden);
-            });
+        $('#importer_data').change(function () {
+            var en_name=$(this).find('option:selected').attr('name_en');
+            var en_address=$(this).find('option:selected').attr('address_en');
+            var vin_hidden=$(this).find('option:selected').attr('vin');
+            $('#en_name').val(en_name);
+            $('#en_address').val(en_address);
+            $('#vin_hidden').val(vin_hidden);
+        });
     </script>
 @endsection

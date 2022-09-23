@@ -28,7 +28,7 @@
                 &nbsp;КППЗ &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </a>
             <ul class="dropdown-menu" >
-                <li><a href="{!! URL::to( '/сертификати') !!}" class="my_a back_link"> <i class="fa fa-certificate fa-fw yellow"></i> Издадени сертификати</a></li>
+                <li><a href="{!! URL::to( '/контрол/сертификати') !!}" class="my_a back_link"> <i class="fa fa-certificate fa-fw yellow"></i> Издадени сертификати</a></li>
                 {{--<li><a href="{!! URL::to('/складове')!!}" class="my_a back_link"> <i class="fa fa-shield fa-fw blue_color"></i> Всички складове </a></li>--}}
                 {{--<li><a href="{!! URL::to('/цехове')!!}" class="my_a back_link"> <i class="fa fa-cubes fa-fw blue_color"></i> Всички цехове</a></li>--}}
                 {{--<li><a href="{!!URL::to('/изтекъл-срок')!!}" class="my_a back_link"> <i class="fa fa-times fa-fw blue_color"></i> С изтекъл или прекратен срок</a></li>--}}

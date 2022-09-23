@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth', 'quality']], function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
-
+    Route::get('/test', 'QCertificatesController@test');
     /////////////////////////////
     //СМЯНА НА ПАРОЛА
     Route::get('парола/{id}', 'PersonalDataController@show');

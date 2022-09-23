@@ -28,7 +28,7 @@
                                     <a class="my_a back_link" href="{!! URL::to( 'контрол/сертификати') !!}"> <i class="fa fa-certificate fa-fw green_color"></i> Издадени сертификати</a><br/>
                                     <a class="my_a back_link" href="{!! URL::to( '/контрол/вносители') !!}"><i class="fa fa-truck fa-fw green_color "></i> Всички фирми доставчици</a><br/>
                                     <a class="my_a back_link" href="{!! URL::to( '/контрол/култури') !!}"><i class="fa fa-leaf fa-fw green_color"></i> Всички култури</a><br/>
-                                    <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-cubes fa-fw green_color"></i> Тест</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( '/test') !!}"><i class="fa fa-cubes fa-fw green_color"></i> Тест</a><br/>
                                     <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-times fa-fw green_color"></i> Тест</a>
                                 </fieldset>
                             </div>

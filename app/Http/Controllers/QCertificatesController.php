@@ -4,6 +4,7 @@ namespace odbh\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use odbh\Crop;
 use odbh\Http\Requests;
 use odbh\Http\Controllers\Controller;
 use odbh\Importer;
@@ -57,16 +58,25 @@ class QCertificatesController extends Controller
         $countries= Country::select('id', 'name', 'name_en', 'EC')
             ->where('EC', '=', 1)
             ->orderBy('name', 'asc')->get()->toArray();
-        // $importers_list = Importer::select('name_en', 'address_en', 'vin')
-        //     ->orderBy('name_en', 'asc')
-        //     ->lists('address_en', 'name_en')->toArray();
 
+        $crops= Crop::select('id', 'name', 'name_en', 'group_id')
+            ->where('group_id', '=', 4)
+            ->orWhere('group_id', '=', 5)
+            ->orWhere('group_id', '=', 6)
+            ->orWhere('group_id', '=', 7)
+            ->orWhere('group_id', '=', 8)
+            ->orWhere('group_id', '=', 9)
+            ->orWhere('group_id', '=', 10)
+            ->orWhere('group_id', '=', 11)
+            ->orWhere('group_id', '=', 15)
+            ->orWhere('group_id', '=', 16)
+            ->orderBy('group_id', 'asc')->get()->toArray();
         // $importers_list[0] = 'Избери фирма';
         // $importers_list = array_sort_recursive($importers_list);
 
-    //    dd($countries);
+//        dd($crops);
 
-        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers', 'countries'));
+        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers', 'countries', 'crops'));
     }
 
     /**
@@ -124,4 +134,11 @@ class QCertificatesController extends Controller
     {
         //
     }
+
+
+    public function test()
+    {
+        return view('quality.certificates.test');
+    }
+
 }
