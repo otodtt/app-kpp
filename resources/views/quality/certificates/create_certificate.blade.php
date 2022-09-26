@@ -52,7 +52,9 @@
 @section('scripts')
     {!!Html::script("js/build/jquery.datetimepicker.full.min.js" )!!}
     {!!Html::script("js/date/in_date.js" )!!}
-    {!!Html::script("js/confirm/prevent.js" )!!}
+    {!!Html::script("js/quality/showHideDiff.js" )!!}
+    {!!Html::script("js/quality/addRemoveDiv.js" )!!}
+    {{--{!!Html::script("js/confirm/prevent.js" )!!}--}}
     <script>
         $('input[name="what_7"]').on('click', function(){
 
@@ -113,24 +115,26 @@
             }
         });
 
-        function run() {
-            var different = document.getElementsByClassName('type_pack')[0].value;
-            if (different == 1) {
-                $( ".different_row" ).removeClass( "hidden" );
-            }
-            else {
-                $( ".different_row" ).addClass( "hidden" );
-            }
-        }
-        function runCrop() {
-            var different = document.getElementById("crops").value;
-            if (different == 1) {
-                $( ".different_crops" ).removeClass( "hidden" );
-            }
-            else {
-                $( ".different_crops" ).addClass( "hidden" );
-            }
-        }
+//        function run1() {
+//            var different = document.getElementsByClassName('type_pack1')[0].value;
+//            if (different == 1) {
+//                $( ".different_row1" ).removeClass( "hidden" );
+//                $( ".hide_number1" ).addClass( "hidden" );
+//            }
+//            else {
+//                $( ".different_row1" ).addClass( "hidden" );
+//                $( ".hide_number1" ).removeClass( "hidden" );
+//            }
+//        }
+//        function runCrop() {
+//            var different = document.getElementById("crops").value;
+//            if (different == 1) {
+//                $( ".different_crops" ).removeClass( "hidden" );
+//            }
+//            else {
+//                $( ".different_crops" ).addClass( "hidden" );
+//            }
+//        }
 
 //        if ($("input[name='limit_certificate']").is(':checked')){
 //            if($('input[name=limit_certificate]:checked').val() == 1){
@@ -160,5 +164,8 @@
             $('#en_address').val(en_address);
             $('#vin_hidden').val(vin_hidden);
         });
+
+
+
     </script>
 @endsection

@@ -1,3 +1,17 @@
+{{--@foreach($array as $k => $v)--}}
+{{--<?php--}}
+{{--if($v == 1) {--}}
+{{--$display = "block";--}}
+{{--$minus_btn = "none";--}}
+{{--}--}}
+{{--else {--}}
+{{--$display = "none";--}}
+{{--$minus_btn = "block";--}}
+{{--}--}}
+{{--?>--}}
+
+{{--@endforeach--}}
+{{--<input type="hidden" value="" name="hidden" id="hidden_value">--}}
 <div class="container-fluid" style="display: {{$display}}" id="container{{$v}}">
     <div class="row">
         <div class="col-md-12" >

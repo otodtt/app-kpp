@@ -74,9 +74,13 @@ class QCertificatesController extends Controller
         // $importers_list[0] = 'Избери фирма';
         // $importers_list = array_sort_recursive($importers_list);
 
-//        dd($crops);
+        $array = ["1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "6", "7" => "7", "8" => "8", "9" => "9", "10" => "10",
+                    "11" => "11", "12" => "12", "13" => "13", "14" => "14", "15" => "15"
+        ];
 
-        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers', 'countries', 'crops'));
+//        dd($array);
+
+        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers', 'countries', 'crops', 'array'));
     }
 
     /**

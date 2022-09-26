@@ -18,61 +18,69 @@
         <h4 class="bold layout-title">TEST</h4>
     </div>
 
-    <body><div class="col-md-12">
-        <form>
-            <div class="input_fields_wrap">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="">Websites</label>
-                            <select name="websites[]" class="form-control" required="">
-                                <option value="">--Select Websites--</option>
-                                <option value="pakainfo">Pakainfo</option>
-                                <option value="4cgandhi">4cgandhi</option>
-                                <option value="infinityknow">infinityknow</option>
-                                <option value="w3school">w3school </option>
-                                <option value="tutorialspoint">tutorialspoint</option>
-                            </select>
-                        </div>
-                        <div class="form-group" >
-                            <label for="">Email</label>
-                            <input name="email[]" type="text" value="" class="form-control" required="">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="">Numbers</label>
-                            <input name="number[]" type="text" value="" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Location</label>
-                            <textarea class="form-control" name="locations[]" required=""></textarea>
-                        </div>
-                    </div>
-                    <button style="background-color:green;" class="add_field_button btn btn-info active">Add More Location</button>
-                </div>
-            </div>
-        </form>
+    <body>
+
+
+
+
+    <div id="SELECT_country">
     </div>
+
+    <div id="DIV_country">
+    </div>
+
+    <button id="add">
+        add
+    </button>
+
+    <button id="remove">
+        remove
+    </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </body>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/fields.js"></script>
     <script>
-        $(document).ready(function() {
-            var max_fields = 15;
-            var wrapper = $(".input_fields_wrap");
-            var add_button = $(".add_field_button");
-            var x = 1; //initlal text box count
-            $(add_button).click(function(e){
-                e.preventDefault();
-                if(x < max_fields){
-                    x++;
-                    $(wrapper).append('<div class="row"><div class="col-md-6"><div class="form-group"><label for="">Websites</label><select name="websites[]" class="form-control"><option value="">--Select Websites--</option><option value="pakainfo">Pakainfo</option><option value="4cgandhi">4cgandhi</option><option value="infinityknow">infinityknow</option><option value="w3school">w3school </option><option value="tutorialspoint">tutorialspoint</option></select></div><div class="form-group"><label for="">Email</label><input name="email[]" type="text" class="form-control"></div></div><div class="col-md-6"><div class="form-group"><label for="">Numbers</label><input name="number[]" type="text" class="form-control"></div><div class="form-group"><label for="">Location</label><textarea class="form-control" name="locations[]"></textarea></div></div><div style="cursor:pointer;background-color:red;" class="remove_field btn btn-info">Remove</div></div>');
-                }
-            });
-            $(wrapper).on("click",".remove_field", function(e){
-                e.preventDefault(); $(this).parent('div').remove(); x--;
-            })
-        });
+        var j = 0;
+
+        function add_country() {
+            j++;
+            var select = document.getElementById("SELECT_country");
+            var clone = select.cloneNode(true);
+            clone.setAttribute("id", "SELECT_country" + j);
+            clone.textContent = "SELECT_country" + j;
+            clone.setAttribute("name", "country" + j);
+            document.getElementById("DIV_country").appendChild(clone);
+        }
+
+        function remove_country() {
+            var select = document.getElementById('DIV_country');
+            select.removeChild(select.lastChild);
+        }
+
+        document.getElementById('add').addEventListener('click', add_country, false);
+        document.getElementById('remove').addEventListener('click', remove_country, false);
     </script>
 @endsection
 
@@ -81,3 +89,5 @@
     {!!Html::script("js/table/jquery.dataTables.js" )!!}
     {!!Html::script("js/table/firmsImportersTable.js" )!!}
 @endsection
+
+

@@ -170,145 +170,139 @@ if (isset($last_number[0]['number'])){
             </span>
         </p>
     </div>
-    <div class="container-fluid" >
-        <div class="row">
-            <div class="col-md-12" >
-                <fieldset class="small_field"><legend class="small_legend">Данни на стоките</legend>
-                    <div class="col-md-4 col-md-6_my" >
-                        <fieldset class="small_field_in">
-                            <p class="description">Поле 8. Опаковки (брой и вид)</p><hr class="hr_in"/>
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <label for="type_packages">Вид:</label>
-                                    <select onchange="run()" name="type_packages['type']" class="type_pack localsID form-control" style="width: 100%">
-                                        <option value="0">Избери вида опаковка</option>
-                                        <option value="Каси/Pl.cases">КАСИ</option>
-                                        <option value="Палети/Cages">ПАЛЕТИ</option>
-                                        <option value="Бокс/Box">БОКС</option>
-                                        <option value="2">НАСИПНО</option>
-                                        <option value="1">Друго</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-5">
-                                    {!! Form::label('type_packages', 'Брой опаковки:', ['class'=>'my_labels']) !!}
-                                    <input type="number" name="type_packages['number']" class="form-control form-control-my" size="5"
-                                           maxlength="10" style="width: 100px">
-                                    {{--{!! Form::number('packages_qu[]', null, ['class'=>'form-control form-control-my', 'size'=>5,--}}
-                                        {{--'maxlength'=>10, 'style'=> 'width: 100px']) !!}--}}
-                                </div>
-                            </div>
-                            <div class="row different_row hidden" >
-                                <div class="col-md-7">
-                                    <input type="text" name="type_packages['different']" class="form-control" style="width: 100%; margin-top: 10px"
-                                    placeholder="Опаковката я няма в списъка" maxlength="100">
-                                    {{--{!! Form::text('different_package', null, ['class'=>'form-control', 'style'=>'width: 90%; margin-top: 10px',--}}
-                                    {{--'maxlength'=>100, 'placeholder'=>'Опаковка която я няма в списъка']) !!}--}}
-                                </div>
-                                <div class="col-md-5">
-                                    <input type="number" name="type_packages['dif_number']" class="form-control form-control-my" size="5"
-                                           maxlength="10" style="width: 100px;  margin-top: 10px">
-                                    {{--{!! Form::text('different_package', null, ['class'=>'form-control', 'style'=>'width: 90%; margin-top: 10px',--}}
-                                    {{--'maxlength'=>100, 'placeholder'=>'Опаковка която я няма в списъка']) !!}--}}
-                                </div>
-                            </div>
-
-                        </fieldset>
-                    </div>
-                    <div class="col-md-4 col-md-6_my" >
-                        <fieldset class="small_field_in">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p class="description">Поле 9. Тип продукт (сорт, </p><hr class="hr_in"/>
-                                    <label for="crops">Избери култура:</label>
-                                    <select onchange="runCrop()" name="crops" id="crops" class="localsID form-control">
-                                        <option value="0">-- Избери --</option>
-                                        <option value="1">НЯМА Я В СПИСЪКА</option>
-                                        @foreach($crops as $crop)
-                                            {{--<option value="{{$crop['id']}}"--}}
-                                                    {{--name_crop="{{$crop['name']}}"--}}
-                                                    {{--name_en_crop="{{$crop['name_en']}}">{{ mb_strtoupper($crop['name'], 'utf-8') }}</option>--}}
-                                            <option value="{{$crop['id']}}|{{$crop['name']}}|{{$crop['name_en']}}" >{{ mb_strtoupper($crop['name'], 'utf-8') }}</option>
-                                    @endforeach
-                                    </select>
-                                    {{--<input type=hidden name="name_crop" id="name_crop" />--}}
-                                    {{--<input type=hidden name="name_crop" id="name_crop" />--}}
-                                    {{--<input type=hidden name="vin_hidden" id="vin_hidden" />--}}
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-12">
-                                        <p class="description">Сорт, ако..</p><hr class="hr_in"/>
-                                        <label for="crops">Сорт:</label>
-                                        {!! Form::text('variety', null, ['class'=>'form-control', 'style'=>'width: 100%',
-                                        'maxlength'=>100, 'placeholder'=>'Сорт ако е необходимо']) !!}
+    
+    <input type="hidden" value="" name="hidden" id="hidden_value">
+    @foreach($array as $k => $v)
+        <?php
+            if($v == 1) {
+                $display = "block";
+                $minus_btn = "none";
+            }
+            else {
+                $display = "none";
+                $minus_btn = "block";
+            }
+        ?>
+        <div class="container-fluid" style="display: {{$display}}" id="container{{$v}}" >
+            <div class="row">
+                <div class="col-md-12" >
+                    <fieldset class="small_field"><legend class="small_legend">Данни на стоките - {{$v}}</legend>
+                        <div class="col-md-4 col-md-6_my" >
+                            <fieldset class="small_field_in">
+                                <p class="description">Поле 8. Опаковки (брой и вид)</p><hr class="hr_in"/>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <label for="products">Вид:</label>
+                                        <select onchange="run{{$v}}()" name="products[{{$v}}][type]" class="type_pack{{$v}} localsID form-control" style="width: 100%">
+                                            <option value="0">Избери вида опаковка</option>
+                                            <option value="5">КАСИ</option>
+                                            <option value="4">ПАЛЕТИ</option>
+                                            <option value="3">БОКС</option>
+                                            <option value="2">НАСИПНО</option>
+                                            <option value="1">Друго</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        {!! Form::label('products', 'Брой опаковки:', ['class'=>'my_labels']) !!}
+                                        <input type="number" name="products[{{$v}}][number]" class="hide_number{{$v}} form-control form-control-my"
+                                               size="5" maxlength="10" style="width: 100px">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row different_crops hidden" >
-                                <div class="col-md-12">
-                                    {!! Form::text('crops_other', null, ['class'=>'form-control', 'style'=>'width: 96%; margin-top: 10px',
-                                    'maxlength'=>100, 'placeholder'=>'Култура която я няма в списъка']) !!}
+                                <div class="row different_row{{$v}} hidden" >
+                                    <div class="col-md-7">
+                                        <input type="text" name="products[{{$v}}][different]" class="form-control" style="width: 100%; margin-top: 10px"
+                                               placeholder="Опаковката я няма в списъка" maxlength="100">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="number" name="products[{{$v}}][dif_number]" class="form-control form-control-my" size="5"
+                                               maxlength="10" style="width: 100px;  margin-top: 10px">
+                                    </div>
                                 </div>
-                            </div>
 
-                        </fieldset>
-                    </div>
-
-                    <div class="col-md-2"  style="padding: 0">
-                        <fieldset class="small_field_in">
-                            <p class="description">Поле 10</p><hr class="hr_in"/>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="quality_class">Качество:</label>
-                                    <select name="quality_class" id="quality_class" class="localsID form-control" style="width: 95%">
-                                        <option value="0">Избери</option>
-                                        <option value="ПЪРВО/FIRSTs">ПЪРВО/FIRST</option>
-                                        <option value="НЕ ЗНАМ СИ КВО">НЕ ЗНАМ СИ КВО</option>
-                                        <option value="OПС/GPS">OПС/GPS</option>
-                                    </select>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-4 col-md-6_my" >
+                            <fieldset class="small_field_in">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="description">Поле 9. Тип продукт (сорт, </p><hr class="hr_in"/>
+                                        <label for="products">Избери култура:</label>
+                                        <select name="products[{{$v}}][crops]" id="crops" class="localsID form-control">
+                                            <option value="0">-- Избери --</option>
+                                            @foreach($crops as $crop)
+                                                <option value="{{$crop['id']}}" >{{ mb_strtoupper($crop['name'], 'utf-8') }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <p class="description">Сорт, ако..</p><hr class="hr_in"/>
+                                            <label for="products">Сорт:</label>
+                                            <input type="text" name="products[{{$v}}][variety]" class="form-control"
+                                                   maxlength="100" style="width: 100px;" placeholder="Сорт ако е необходимо">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
-                    </div>
-
-
-
-                    <div class="col-md-2" style="padding: 0" >
-                        <fieldset class="small_field_in">
-                            {{--<p class="description">Поле 10 и 11</p><hr class="hr_in"/>--}}
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="description">Поле 11</p><hr class="hr_in"/>
-                                    <label class="labels_limit"><span>Kg</span>
-                                        {!! Form::radio('weight_kg', 1) !!}
-                                    </label>&nbsp;&nbsp;|
-                                    <label class="labels_limit"><span>&nbsp;&nbsp;Тон</span>
-                                        {!! Form::radio('weight_kg', 2) !!}
-                                    </label>
-                                    <br>
-                                    {{--<hr class="hr_in"/>--}}
-{{--                                    {!! Form::label('weight', 'Количество:', ['class'=>'my_labels']) !!}<br>--}}
-                                    {!! Form::text('weight', null, ['class'=>'form-control form-control-my', 'size'=>5,
-                                    'maxlength'=>50, 'style'=>"width: 75%"]) !!}
-                                    <span class="bold">К-во</span>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-2"  style="padding: 0">
+                            <fieldset class="small_field_in">
+                                <p class="description">Поле 10</p><hr class="hr_in"/>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="products">Качество:</label>
+                                        <select name="products[{{$v}}][quality_class]" id="quality_class" class="localsID form-control" style="width: 95%">
+                                            <option value="0">Избери</option>
+                                            <option value="1">ПЪРВО/FIRST</option>
+                                            <option value="2">НЕ ЗНАМ СИ КВО</option>
+                                            <option value="3">OПС/GPS</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            {{--{!! Form::label('from_institute', 'От къде е издадена дипломата:', ['class'=>'my_labels']) !!}--}}
-                            {{--{!! Form::text('from_institute', null, ['class'=>'form-control form-control-my', 'size'=>45, 'maxlength'=>250 ]) !!}--}}
-                        </fieldset>
-                    </div>
-                    {{--<div class="col-md-6 col-md-6_my institute_margin" >--}}
-                        {{--<fieldset class="small_field_in">--}}
-                            {{--<p class="description">Въведете специалността или програмата!</p><hr class="hr_in"/>--}}
-                            {{--{!! Form::label('specialty', 'Специалност', ['class'=>'my_labels']) !!}--}}
-                            {{--{!! Form::text('specialty', null, ['class'=>'form-control form-control-my', 'size'=>50, 'maxlength'=>150 ]) !!}--}}
-                        {{--</fieldset>--}}
-                    {{--</div>--}}
-                </fieldset>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-2" style="padding: 0" >
+                            <fieldset class="small_field_in">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="description">Поле 11</p><hr class="hr_in"/>
+                                        <label class="products"><span>Kg</span>
+                                            <input type="radio" name="products[{{$v}}][weight_kg]" value="1">
+                                        </label>&nbsp;&nbsp;|
+                                        <label class="products"><span>&nbsp;&nbsp;Тон</span>
+                                            <input type="radio" name="products[{{$v}}][weight_kg]" value="2">
+                                        </label>
+                                        <br>
+                                        <input type="number" name="products[{{$v}}][weight]" class="form-control form-control-my" size="5"
+                                               maxlength="100" style="width: 100px;" >
+                                        <span class="bold">К-во</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </fieldset>
+                </div>
+                <button style="background-color:green;" class="add_btn btn btn-info " onclick="showDiv{{$v}}(); test({{$v}})" name="add"  type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                <button style="background-color:red; float: right;
+                        display: {{$minus_btn}}"
+                        id="fa-minus_{{$v}}"
+                        class=" btn btn-info ">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+                <input type="hidden" value="{{$v}}" name="products[{{$v}}][hidden_in]">
             </div>
         </div>
-    </div>
 
-    <hr class="my_hr_in"/>
+        <hr id="hr{{$v}}" class="my_hr_in" style="display: {{$display}}"/>
+
+    @endforeach
+
+
+
+
+
 
     {{--Място и дата на провеката--}}
     <div class="container-fluid" >
