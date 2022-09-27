@@ -39,8 +39,8 @@
             <div class="col-md-6 " >
                 <a href="{{ '/контрол/сертификати' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
             </div>
-            <div class="col-md-6" id="add_certificate">
-                {!! Form::submit('Добави НОВ Сертификат!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
+            <div class="col-md-6" id="add_certificate" >
+                {!! Form::submit('Добави и продължи!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
             </div>
             <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
         {!! Form::close() !!}
@@ -51,13 +51,12 @@
 
 @section('scripts')
     {!!Html::script("js/build/jquery.datetimepicker.full.min.js" )!!}
-    {!!Html::script("js/date/in_date.js" )!!}
-    {!!Html::script("js/quality/showHideDiff.js" )!!}
-    {!!Html::script("js/quality/addRemoveDiv.js" )!!}
-    {{--{!!Html::script("js/confirm/prevent.js" )!!}--}}
+{{--    {!!Html::script("js/confirm/prevent.js" )!!}--}}
+    {!!Html::script("js/quality/date_issue.js" )!!}
     <script>
-        $('input[name="what_7"]').on('click', function(){
 
+//        НЕ ИЗТРИВАЙ
+//        $('input[name="what_7"]').on('click', function(){
             if($('input[name=what_7]:checked').val() == 0){
                 $( "#show_type" ).addClass( "hidden" );
                 $( "#p_internal_yes" ).addClass( "hidden" );
@@ -97,64 +96,7 @@
             else{
                 $( "#show_type" ).addClass( "hidden" );
             }
-        });
-
-        $('input[name="type_crops"]').on('click', function(){
-
-            if($('input[name=type_crops]:checked').val() == 0){
-                $( "#field_wrapper" ).addClass( "hidden" );
-                $( "#add_certificate" ).addClass( "hidden" );
-            }
-            else if($('input[name=type_crops]:checked').val() != 0){
-                $( "#field_wrapper" ).removeClass( "hidden" );
-                $( "#add_certificate" ).removeClass( "hidden" );
-            }
-            else{
-                $( "#field_wrapper" ).addClass( "hidden" );
-                $( "#add_certificate" ).addClass( "hidden" );
-            }
-        });
-
-//        function run1() {
-//            var different = document.getElementsByClassName('type_pack1')[0].value;
-//            if (different == 1) {
-//                $( ".different_row1" ).removeClass( "hidden" );
-//                $( ".hide_number1" ).addClass( "hidden" );
-//            }
-//            else {
-//                $( ".different_row1" ).addClass( "hidden" );
-//                $( ".hide_number1" ).removeClass( "hidden" );
-//            }
-//        }
-//        function runCrop() {
-//            var different = document.getElementById("crops").value;
-//            if (different == 1) {
-//                $( ".different_crops" ).removeClass( "hidden" );
-//            }
-//            else {
-//                $( ".different_crops" ).addClass( "hidden" );
-//            }
-//        }
-
-//        if ($("input[name='limit_certificate']").is(':checked')){
-//            if($('input[name=limit_certificate]:checked').val() == 1){
-//                $( "#date_end" ).addClass( "hidden" );
-//                $( "#date_end_label" ).addClass( "hidden" );
-//            }
-//            else if($('input[name=limit_certificate]:checked').val() >= 2){
-//                $( "#date_end" ).removeClass( "hidden" );
-//                $( "#date_end_label" ).removeClass( "hidden" );
-//
-//            }
-//            else{
-//                $( "#date_end" ).addClass( "hidden" );
-//                $( "#date_end_label" ).addClass( "hidden" );
-//            }
-//        }
-//        else{
-//            $( "#date_end" ).addClass( "hidden" );
-//            $( "#date_end_label" ).addClass( "hidden" );
-//        }
+//        });
 
         $('#importer_data').change(function () {
             var en_name=$(this).find('option:selected').attr('name_en');
@@ -164,6 +106,27 @@
             $('#en_address').val(en_address);
             $('#vin_hidden').val(vin_hidden);
         });
+
+
+//        if($('input[name=type_crops]:checked').val() == 0){
+//            $( "#field_wrapper" ).addClass( "hidden" );
+//            $( "#add_certificate" ).addClass( "hidden" );
+//        }
+//        else if($('input[name=type_crops]:checked').val() != 0){
+//            $( "#field_wrapper" ).removeClass( "hidden" );
+//            $( "#add_certificate" ).removeClass( "hidden" );
+//        }
+//        else{
+//            $( "#field_wrapper" ).addClass( "hidden" );
+//            $( "#add_certificate" ).addClass( "hidden" );
+//        }
+//        $('input[name="type_crops"]').on('click', function(){
+//
+//
+//        });
+
+
+
 
 
 

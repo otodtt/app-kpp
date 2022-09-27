@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 
 use odbh\Crop;
 use odbh\Http\Requests;
-use odbh\Http\Controllers\Controller;
+//use odbh\Http\Controllers\Controller;
 use odbh\Importer;
 use odbh\QCertificate;
 use odbh\Set;
 use odbh\Country;
+use odbh\User;
+use Auth;
+use odbh\Http\Requests\QCertificatesRequest;
 
 class QCertificatesController extends Controller
 {
@@ -21,7 +24,7 @@ class QCertificatesController extends Controller
         parent::__construct();
         $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'destroy']]);
 
-        $this->index = Set::select('area_id', 'q_index', 'authority_bg', 'authority_en')->get()->toArray();
+        $this->index = Set::select('q_index', 'authority_bg', 'authority_en')->get()->toArray();
     }
     /**
      * Display a listing of the resource.
@@ -48,11 +51,10 @@ class QCertificatesController extends Controller
     {
         $index = $this->index;
 
-        $last_number = QCertificate::select('number_certificate')
-            ->orderBy('number_certificate', 'desc')
-            ->limit(1)->get()->toArray();
+//        $last_number = QCertificate::select('number_certificate')
+//            ->orderBy('number_certificate', 'desc')
+//            ->limit(1)->get()->toArray();
 
-        // $importers = Importer::get()->toArray();
         $importers = Importer::all(['id', 'name_bg', 'name_en', 'address_en', 'vin'])->toArray();
 
         $countries= Country::select('id', 'name', 'name_en', 'EC')
@@ -71,16 +73,12 @@ class QCertificatesController extends Controller
             ->orWhere('group_id', '=', 15)
             ->orWhere('group_id', '=', 16)
             ->orderBy('group_id', 'asc')->get()->toArray();
-        // $importers_list[0] = 'Избери фирма';
-        // $importers_list = array_sort_recursive($importers_list);
 
-        $array = ["1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5", "6" => "6", "7" => "7", "8" => "8", "9" => "9", "10" => "10",
-                    "11" => "11", "12" => "12", "13" => "13", "14" => "14", "15" => "15"
-        ];
+        $id = Auth::user()->id;
+        $user = User::select('id', 'all_name', 'short_name', 'stamp_number')->where('id', '=', $id)->get()->toArray();
 
-//        dd($array);
-
-        return view('quality.certificates.create_certificate', compact('index', 'last_number', 'importers', 'countries', 'crops', 'array'));
+        return view('quality.certificates.create_certificate', compact('index', 'importers', 'countries',
+                    'crops', 'user'));
     }
 
     /**
@@ -89,7 +87,7 @@ class QCertificatesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QCertificatesRequest $request)
     {
         dd($request->all());
     }

@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="alert alert-success alert-dismissible" role="alert" >
-        <p class="bold">ВСИЧКИ ДЪРЖАВИ В ЕВРОПА</span></p>
+        <p class="bold">ВСИЧКИ ДЪРЖАВИ В ЕВРОПА</p>
     </div>
 
     <table id="example" class="display my_table table-striped " cellspacing="0" width="100%" border="1px">
