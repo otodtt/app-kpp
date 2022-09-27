@@ -34,7 +34,7 @@
                 </ul>
             </div>
         @endif
-        {!! Form::open(['url'=>'контрол/сертификати/store' , 'method'=>'POST', 'id'=>'form', 'files'=>true, 'autocomplete'=>'off']) !!}
+        {!! Form::open(['url'=>'контрол/сертификати/store' , 'method'=>'POST', 'id'=>'form', 'files'=>true, 'autocomplete'=>'on']) !!}
             @include('quality.certificates.forms.form_create_certificate')
             <div class="col-md-6 " >
                 <a href="{{ '/контрол/сертификати' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
@@ -105,6 +105,13 @@
             $('#en_name').val(en_name);
             $('#en_address').val(en_address);
             $('#vin_hidden').val(vin_hidden);
+        });
+
+        $('#id_country').change(function () {
+            var for_country_bg=$(this).find('option:selected').attr('for_country_bg');
+            var for_country_en=$(this).find('option:selected').attr('for_country_en');
+            $('#for_country_bg').val(for_country_bg);
+            $('#for_country_en').val(for_country_en);
         });
 
 

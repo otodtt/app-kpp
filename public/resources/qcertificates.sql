@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Време на генериране: 27 септ 2022 в 14:16
+-- Време на генериране: 27 септ 2022 в 21:51
 -- Версия на сървъра: 5.7.36
 -- Версия на PHP: 7.4.26
 
@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
   `authority_bg` varchar(50) NOT NULL,
   `authority_en` varchar(50) NOT NULL,
   `id_country` tinyint(1) NOT NULL,
-  `for_country` varchar(300) NOT NULL,
+  `for_country_bg` varchar(300) NOT NULL,
+  `for_country_en` varchar(300) NOT NULL,
   `for_country_more` varchar(300) NOT NULL,
   `transport` varchar(100) NOT NULL,
   `from_country` varchar(300) NOT NULL,

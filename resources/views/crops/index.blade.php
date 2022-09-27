@@ -21,12 +21,20 @@
         <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
         <a href="{!! URL::to('/контрол/вносители')!!}" class="fa fa-truck btn btn-info my_btn"> Всички вносители</a>
         <span class="fa fa-leaf btn btn-default my_btn"> Всички култури</span>
-        {{--<a href="{!! URL::to('/складове')!!}" class="fa fa-shield btn btn-info my_btn"> Всички складове</a>--}}
-        {{--<a href="{!!URL::to('/изтекъл-срок')!!}" class="fa fa-times btn btn-info my_btn"> С изтекъл или прекратен срок</a>--}}
     </div>
     <div class="btn_add_firm">
         <a href="{!!URL::to('/контрол/култури/create')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави култура</a>
     </div>
+    <hr/>
+    <fieldset class="form-group">
+        <div class="wrap_sort">
+            <div id="wr_choiz_all">
+                <div  id="sort_miar_wrap"  style="justify-content: center">
+                    <h3>Всички култури</h3>
+                </div>
+            </div>
+        </div>
+    </fieldset>
     <hr/>
     <div class="container">
         <div class="row">

@@ -87,9 +87,9 @@ if (isset($last_number[0]['number'])){
                                         vin="{{$importer['vin']}}" >{{$importer['id']}} - {{ strtoupper($importer['name_en']) }}</option>
                             @endforeach
                         </select>
-                        <input type=hidden name="en_name" id="en_name" />
-                        <input type=hidden name="en_address" id="en_address" />
-                        <input type=hidden name="vin_hidden" id="vin_hidden" />
+                        {!! Form::hidden('en_name', old('en_name'), ['id'=>'en_name']) !!}
+                        {!! Form::hidden('en_address', old('en_address'), ['id'=>'en_address']) !!}
+                        {!! Form::hidden('vin_hidden', old('vin_hidden'), ['id'=>'vin_hidden']) !!}
                     </div>
                     <div  class="col-md-5">
                         <p class="description">
@@ -131,7 +131,7 @@ if (isset($last_number[0]['number'])){
                         {!! Form::text('packer_name', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Име на Опаковчик']) !!}
                         <br>
                         <label for="packer_address">Адрес:</label>
-                        {!! Form::text('packer_address', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Адрес на Опаковчик', 'autocomplete'=> 'packer_address']) !!}
+                        {!! Form::text('packer_address', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=>'Адрес на Опаковчик', 'autocomplete'=>'packer_address']) !!}
                     </div>
                 </fieldset>
             </div>
@@ -154,11 +154,10 @@ if (isset($last_number[0]['number'])){
                     <div class="col-md-12 col-md-6_my" >
                         <p class="description">
                             Поле № 4. Място на инспекцията/страна на произход
-
                         </p>
                         <br>
                         <label for="from_country">Страна:</label>
-                        {!! Form::text('from_country', null, ['class'=>'form-control', 'style'=>'width: 97%', 'autocomplete'=> 'from_country', 'placeholder'=> 'Турция/ Turkey' ]) !!}
+                        {!! Form::text('from_country', null, ['class'=>'form-control', 'style'=>'width: 97%', 'autocomplete'=>'on', 'placeholder'=> 'Турция/ Turkey' ]) !!}
                         <br>
                         <br>
                     </div>
@@ -171,17 +170,24 @@ if (isset($last_number[0]['number'])){
                             Поле № 5. Регион или страна на .. /Region
                         </p>
                         <label for="country">Избери страна:</label>
-                        <select name="country" id="country" class="localsID form-control" style="width: 97%">
+                        <select name="id_country" id="id_country" class="localsID form-control" style="width: 97%">
                             <option value="">-- Избери --</option>
                             @foreach($countries as $country)
-                                <option value="{{$country['id']}}|{{ $country['name_en'] }}" >{{ mb_strtoupper($country['name'], 'utf-8' )  }}</option>
+                                <option value="{{$country['id']}}" 
+                                        {{(old('id_country') == $country['id'])? 'selected':''}}
+                                        for_country_bg="{{$country['name']}}" 
+                                        for_country_en="{{$country['name_en']}}"
+                                        >{{ mb_strtoupper($country['name'], 'utf-8' )  }}
+                                </option>
                             @endforeach
                         </select>
+                        {!! Form::hidden('for_country_bg', old('for_country_bg'), ['id'=>'for_country_bg']) !!}
+                        {!! Form::hidden('for_country_en', old('for_country_en'), ['id'=>'for_country_en']) !!}
                         <p class="description">
                             Региона ако се изисква
                         </p>
-                        <label for="for_country_more">Регион/страна:</label>
-                        {!! Form::text('for_country_more', null, ['class'=>'form-control', 'style'=>'width: 97%', 'autocomplete'=> 'for_country_more']) !!}
+                        <label for="for_country_more">Регион:</label>
+                        {!! Form::text('for_country_more', null, ['class'=>'form-control', 'style'=>'width: 97%', 'autocomplete'=>'for_country_more']) !!}
                     </div>
                 </fieldset>
             </div>
@@ -194,7 +200,7 @@ if (isset($last_number[0]['number'])){
     <div class="container-fluid" >
         <div class="row">
             <div class="col-md-6" >
-                <fieldset class="small_field"><legend class="small_legend">Идентификация на тр. средства/ За какво е сертификата</legend>
+                <fieldset class="small_field"><legend class="small_legend">Идентификация на транспортни средства</legend>
 
                     <div class="col-md-12" >
                         <p class="description">
@@ -266,8 +272,8 @@ if (isset($last_number[0]['number'])){
                                 <br>
                                 <div class="col-md-12 col-md-6_my" >
                                     {!! Form::label('date_issue', 'Дата:', ['class'=>'my_labels']) !!}
-                                    {!! Form::text('date_issue', null, ['class'=>'form-control form-control-my date_certificate',
-                                    'id'=>'date_issue', 'size'=>12, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг' ]) !!}
+                                    {!! Form::text('date_issue', null, ['class'=>'form-control form-control-my',
+                                    'id'=>'date_issue', 'size'=>12, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
                                 </div>
                             </fieldset>
                         </div>
@@ -302,8 +308,8 @@ if (isset($last_number[0]['number'])){
                         </div>
                         <div class="col-md-6 " >
                             {!! Form::label('date_invoice', 'Дата Фактура:', ['class'=>'my_labels']) !!}
-                            {!! Form::text('date_invoice', null, ['class'=>'form-control form-control-my date_certificate',
-                            'id'=>'date_invoice', 'size'=>13, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг' ]) !!}
+                            {!! Form::text('date_invoice', null, ['class'=>'form-control form-control-my',
+                            'id'=>'date_invoice', 'size'=>13, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
                         </div>
                     </fieldset>
 

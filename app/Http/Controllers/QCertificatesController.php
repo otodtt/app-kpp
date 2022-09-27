@@ -77,8 +77,12 @@ class QCertificatesController extends Controller
         $id = Auth::user()->id;
         $user = User::select('id', 'all_name', 'short_name', 'stamp_number')->where('id', '=', $id)->get()->toArray();
 
-        return view('quality.certificates.create_certificate', compact('index', 'importers', 'countries',
-                    'crops', 'user'));
+        $name_text = $user[0]['all_name'];;
+        $count = str_word_count($name_text, 0, 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя');
+       
+        
+
+        return view('quality.certificates.create_certificate', compact('index', 'importers', 'countries', 'crops', 'user'));
     }
 
     /**
