@@ -22,7 +22,7 @@ if (isset($last_number[0]['number'])){
                             {!! Form::radio('what_7', 1) !!}
                         </label>&nbsp;&nbsp;|
                         <label class="labels_limit"><span>&nbsp;&nbsp;Внос/Import</span>
-                            {!! Form::radio('what_7', 2, true) !!}
+                            {!! Form::radio('what_7', 2) !!}
                         </label>
                         &nbsp; | &nbsp;
                         <label class="labels_limit"><span>&nbsp;&nbsp;Износ/Export</span>
@@ -263,6 +263,7 @@ if (isset($last_number[0]['number'])){
                                     {!! Form::label('place_en', 'Място на латиница:', ['class'=>'my_labels']) !!}&nbsp;&nbsp;
                                     {!! Form::text('place_en', null, ['class'=>'form-control form-control-my', 'size'=>30, 'maxlength'=>250,
                                     'placeholder'=> 'Svilengrad' ]) !!}
+                                    <input type="hidden" name="hidden_date" value="{{date('d.m.Y', time())}}">
                                 </div>
                             </fieldset>
                         </div>
@@ -271,8 +272,8 @@ if (isset($last_number[0]['number'])){
                                 <p class="description">Поле 12. Валиден до </p><hr class="hr_in"/>
                                 <br>
                                 <div class="col-md-12 col-md-6_my" >
-                                    {!! Form::label('date_issue', 'Дата:', ['class'=>'my_labels']) !!}
-                                    {!! Form::text('date_issue', null, ['class'=>'form-control form-control-my',
+                                    {!! Form::label('valid_until', 'Дата:', ['class'=>'my_labels']) !!}
+                                    {!! Form::text('valid_until', null, ['class'=>'form-control form-control-my',
                                     'id'=>'date_issue', 'size'=>12, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
                                 </div>
                             </fieldset>
@@ -304,7 +305,7 @@ if (isset($last_number[0]['number'])){
                         <div class="col-md-6 col-md-6_my" >
                             {!! Form::label('invoice', 'Фактура №', ['class'=>'my_labels']) !!}
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            {!! Form::text('invoice', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>10 ]) !!}
+                            {!! Form::text('invoice', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>20 ]) !!}
                         </div>
                         <div class="col-md-6 " >
                             {!! Form::label('date_invoice', 'Дата Фактура:', ['class'=>'my_labels']) !!}

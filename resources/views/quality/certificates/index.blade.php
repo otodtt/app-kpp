@@ -38,11 +38,11 @@
         </div>
     </fieldset>
     <hr/>
-    {{--@include('quality.importers.table')--}}
+    @include('quality.certificates.includes.table')
 @endsection
 
 @section('scripts')
     {!!Html::script("js/table/jquery-1.11.3.min.js" )!!}
     {!!Html::script("js/table/jquery.dataTables.js" )!!}
-    {!!Html::script("js/table/firmsImportersTable.js" )!!}
+    {!!Html::script("js/quality/certificatesTable.js" )!!}
 @endsection

@@ -23,18 +23,6 @@ class QCertificatesRequest extends Request
      */
     public function rules()
     {
-//        $id = $this->segment(3);
-
-        $request = Request::all();
-//        dd($request);
-
-//        if ($request['is_bulgarian'] == 0) {
-//            $is_valid = 'required|max:9|is_valid';
-//            $required = '|required';
-//        } else {
-//            $is_valid = '';
-//            $required = '';
-//        }
 
         return [
             'what_7'=>'required',
@@ -43,14 +31,16 @@ class QCertificatesRequest extends Request
             'packer_name'=>'required|latin|min:3|max:500',
             'packer_address'=>'required|latin|min:5|max:500',
             'from_country'=>'required|min:5|max:300',
-
-
-
-//            'name_bg'=>'cyrillic_with|min:3|max:300'.$required,
-//            'address_bg'=>'cyrillic_with|min:5|max:500'.$required,
-//            'name_en'=>'required|latin|min:3|max:300',
-//            'address_en'=>'required|latin|min:5|max:500',
-//            'vin'=> $is_valid.'|unique:importers,vin,'.$id,
+            'id_country'=>'required',
+            'for_country_more'=>'min:2|max:300',
+            'transport'=>'required|latin|min:3|max:300',
+            'customs_bg'=>'required|cyrillic_with|min:3|max:300',
+            'customs_en'=>'required|latin|min:3|max:300',
+            'place_bg'=>'required|cyrillic_with|min:3|max:300',
+            'place_en'=>'required|latin|min:3|max:300',
+            'valid_until'=>'required|date_format:d.m.Y|after:hidden_date',
+            'invoice'=> 'required|numeric|min:1',
+            'date_invoice'=> 'required|date_format:d.m.Y',
         ];
     }
 
@@ -79,31 +69,46 @@ class QCertificatesRequest extends Request
             'from_country.min' => 'Поле № 4. Място на инспекцията се изписва с минимум 5 символа!',
             'from_country.max' => 'Поле № 4. Място на инспекцията се изписва с максимум 300 символа!',
 
+            'id_country.required' => 'Избери в Поле № 5. Регион или страна!',
 
+            'for_country_more.min' => 'Поле № 5. Региона се изписва с минимум 2 символа!',
+            'for_country_more.max' => 'Поле № 5. Региона се изписва с максимум 300 символа!',
 
-//            'is_bulgarian.required' => 'Избери дали фирмата е българска или не!',
+            'transport.required' => 'Поле № 6 Идентификация на транспортните средства е задължително!',
+            'transport.min' => 'Поле № 6. Идентификация се изписва с минимум 3 символа!',
+            'transport.max' => 'Поле № 6. Идентификация се изписва с максимум 300 символа!',
+            'transport.latin' => 'Поле № 6 За Идентификация използвай латиница!',
 
-//            'name_bg.cyrillic_with' => 'Използвай кирилица!',
-//            'name_bg.min' => 'Името се изписва с минимум 3 символа!',
-//            'name_bg.max' => 'Името се изписва с максимум 300 символа!',
-//            'name_bg.required' => 'Напиши името на фирмата на български!',
-//
-//            'address_bg.cyrillic_with' => 'Използвай кирилица!',
-//            'address_bg.min' => 'Адреса се изписва с минимум 5 символа!',
-//            'address_bg.max' => 'Адреса се изписва с максимум 500 символа!',
-//            'address_bg.required' => 'Напиши адреса на фирмата на български!',
-//
+            'customs_bg.required' => 'Поле № 12. Митница на български е задължително!',
+            'customs_bg.cyrillic_with' => 'Поле № 12. За Митница на български използвай кирилица!',
+            'customs_bg.min' => 'Поле № 12. Митница на български се изписва с минимум 5 символа!',
+            'customs_bg.max' => 'Поле № 12. Митница на български се изписва с максимум 300 символа!',
 
-//
-//            'address_en.required' => 'Напиши адреса на фирмата на английски!',
-//            'address_en.latin' => 'Използвай латиница!',
-//            'address_en.min' => 'Адреса се изписва с минимум 5 символа!',
-//            'address_en.max' => 'Адреса се изписва с максимум 500 символа!',
-//
-//            'vin.required' => 'Попълни ЕИК/Булстат!',
-//            'vin.max' => 'Максимален брой символи за ЕИК/Булстат - 9! Провери дали няма прзен символ преди или след номера!',
-//            'vin.is_valid' => 'Невалиден ЕИК/Булстат!',
-//            'vin.unique' => 'ЕИК/Булстат е уникален! Виж дали няма вече добавена фирма с този ЕИК/Булстат!',
+            'customs_en.required' => 'Поле № 12. Митница на латиница е задължително!',
+            'customs_en.latin' => 'Поле № 12. За Митница на латиница използвай латиница!',
+            'customs_en.min' => 'Поле № 12. Митница на латиница се изписва с минимум 5 символа!',
+            'customs_en.max' => 'Поле № 12. Митница на латиница се изписва с максимум 300 символа!',
+
+            'place_bg.required' => 'Поле № 12. Място на български е задължително!',
+            'place_bg.cyrillic_with' => 'Поле № 12. За Място на български използвай кирилица!',
+            'place_bg.min' => 'Поле № 12. Място на български се изписва с минимум 5 символа!',
+            'place_bg.max' => 'Поле № 12. Място на български се изписва с максимум 300 символа!',
+
+            'place_en.required' => 'Поле № 12. Място на латиница е задължително!',
+            'place_en.latin' => 'Поле № 12. За Място на латиница използвай латиница!',
+            'place_en.min' => 'Поле № 12. Място на латиница се изписва с минимум 5 символа!',
+            'place_en.max' => 'Поле № 12. Място на латиница се изписва с максимум 300 символа!',
+
+            'valid_until.required' => 'Поле № 12. Валиден до .. е задължително! Избери дата!',
+            'valid_until.date_format' => 'Поле № 12. Валиден до .. е в Непозволен формат за дата!',
+            'valid_until.after' => 'Поле № 12. Валиден до .. трябва да е поне 1 ден след днешната дата!',
+
+            'invoice.required' => 'Номера на Фактурата е здължителен!',
+            'invoice.numeric' => 'За номер на Фактура използвай само цифри!',
+            'invoice.min' => 'Номера на Фактурата не може да е нула - 0 или отрицателно число!',
+
+            'date_invoice.required' => 'Дата на Фактурата е здължителна!',
+            'date_invoice.date_format' => 'Непозволен формат за Дата на Фактура!',
         ];
     }
 }

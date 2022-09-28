@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use odbh\Crop;
 use odbh\Http\Requests;
-//use odbh\Http\Controllers\Controller;
+use odbh\Http\Controllers\Controller;
 use odbh\Importer;
 use odbh\QCertificate;
 use odbh\Set;
@@ -14,6 +14,8 @@ use odbh\Country;
 use odbh\User;
 use Auth;
 use odbh\Http\Requests\QCertificatesRequest;
+use Redirect;
+use Session;
 
 class QCertificatesController extends Controller
 {
@@ -36,10 +38,10 @@ class QCertificatesController extends Controller
 //        $districts_list = $this->districts_list;
 //        $districts_list[0] = 'Друга област';
 
-//        $certificates = QCertificate::get();
+        $certificates = QCertificate::get();
 
 //        return view('quality.certificates.index', compact( 'certificates' ));
-        return view('quality.certificates.index');
+        return view('quality.certificates.index', compact('certificates'));
     }
 
     /**
@@ -50,10 +52,6 @@ class QCertificatesController extends Controller
     public function create()
     {
         $index = $this->index;
-
-//        $last_number = QCertificate::select('number_certificate')
-//            ->orderBy('number_certificate', 'desc')
-//            ->limit(1)->get()->toArray();
 
         $importers = Importer::all(['id', 'name_bg', 'name_en', 'address_en', 'vin'])->toArray();
 
@@ -77,11 +75,6 @@ class QCertificatesController extends Controller
         $id = Auth::user()->id;
         $user = User::select('id', 'all_name', 'short_name', 'stamp_number')->where('id', '=', $id)->get()->toArray();
 
-        $name_text = $user[0]['all_name'];;
-        $count = str_word_count($name_text, 0, 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя');
-       
-        
-
         return view('quality.certificates.create_certificate', compact('index', 'importers', 'countries', 'crops', 'user'));
     }
 
@@ -93,7 +86,82 @@ class QCertificatesController extends Controller
      */
     public function store(QCertificatesRequest $request)
     {
-        dd($request->all());
+        $index = $this->index;
+        $user = User::select('id', 'all_name', 'short_name', 'stamp_number')->where('id', '=', Auth::user()->id)->get()->toArray();
+
+        $last_internal = QCertificate::select('internal')->orderBy('internal', 'desc')->limit(1)->get()->toArray();
+        $last_import = QCertificate::select('import')->orderBy('import', 'desc')->limit(1)->get()->toArray();
+        $last_export = QCertificate::select('export')->orderBy('export', 'desc')->limit(1)->get()->toArray();
+
+        if( $request->what_7 == 1) {
+            if ( $last_internal[0]['internal'] == null) {
+                $internal = 1001;
+            } else {
+                $internal = $last_internal[0]['internal']+ 1;
+            }
+        } else {
+            $internal = '';
+        }
+        if( $request->what_7 == 2) {
+            if ( $last_import[0]['import'] == null) {
+                $import = 2001;
+            } else {
+                $import = $last_import[0]['import'] + 1;
+            }
+        } else {
+            $import = '';
+        }
+
+        if( $request->what_7 == 3) {
+            if ( $last_export[0]['export'] == null) {
+                $export = 3001;
+            } else {
+                $export = $last_export[0]['export'] + 1;
+            }
+        } else {
+            $export = '';
+        }
+//        dd($import );
+        $data = [
+            'internal' => $internal,
+            'import' => $import,
+            'export' => $export,
+            'what_7' => $request->what_7,
+            'type_crops' => $request->type_crops,
+            'importer_id' => $request->importer_data,
+            'importer_name' => $request->en_name,
+            'importer_address' => $request->en_address,
+            'importer_vin' => $request->vin_hidden,
+            'packer_name' => $request->packer_name,
+            'packer_address' => $request->packer_address,
+            'from_country' => $request->from_country,
+            'id_country' => $request->id_country,
+            'for_country_bg' => $request->for_country_bg,
+            'for_country_en' => $request->for_country_en,
+            'for_country_more' => $request->for_country_more,
+            'transport' => $request->transport,
+            'customs_bg' => $request->customs_bg,
+            'customs_en' => $request->customs_en,
+            'place_bg' => $request->place_bg,
+            'place_en' => $request->place_en,
+            'date_issue' => date('d.m.Y', time()),
+            'valid_until' => $request->valid_until,
+            'invoice' => $request->invoice,
+            'date_invoice' => $request->date_invoice,
+            'inspector_bg' => $user[0]['all_name'],
+            'inspector_en' => $user[0]['all_name'].'-en',
+            'stamp_number' => $index[0]['q_index'].'-'.$user[0]['stamp_number'],
+            'authority_bg' => $index[0]['authority_bg'],
+            'authority_en' => $index[0]['authority_en'],
+            'date_add' => date('d.m.Y', time()),
+            'added_by' => Auth::user()->id,
+        ];
+//        dd($data);
+        QCertificate::create($data);
+        Session::flash('message', 'Записа е успешен!');
+        return Redirect::to('/контрол/сертификати');
+
+
     }
 
     /**
