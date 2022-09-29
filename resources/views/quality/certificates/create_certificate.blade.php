@@ -72,6 +72,10 @@
                 $( "#p_import_no" ).removeClass( "hidden" );
                 $( "#p_export_yes" ).addClass( "hidden" );
                 $( "#p_export_no" ).removeClass( "hidden" );
+
+                $( "#number_internal" ).removeClass( "hidden" );
+                $( "#number_import" ).addClass( "hidden" );
+                $( "#number_export" ).addClass( "hidden" );
             }
             else if($('input[name=what_7]:checked').val() == 2){
                 $( "#show_type" ).removeClass( "hidden" );
@@ -82,6 +86,10 @@
                 $( "#p_internal_no" ).removeClass( "hidden" );
                 $( "#p_export_yes" ).addClass( "hidden" );
                 $( "#p_export_no" ).removeClass( "hidden" );
+
+                $( "#number_internal" ).addClass( "hidden" );
+                $( "#number_import" ).removeClass( "hidden" );
+                $( "#number_export" ).addClass( "hidden" );
             }
             else if($('input[name=what_7]:checked').val() == 3){
                 $( "#show_type" ).removeClass( "hidden" );
@@ -92,6 +100,10 @@
                 $( "#p_internal_no" ).removeClass( "hidden" );
                 $( "#p_import_yes" ).addClass( "hidden" );
                 $( "#p_import_no" ).removeClass( "hidden" );
+
+                $( "#number_internal" ).addClass( "hidden" );
+                $( "#number_import" ).addClass( "hidden" );
+                $( "#number_export" ).removeClass( "hidden" );
             }
             else{
                 $( "#show_type" ).addClass( "hidden" );

@@ -70,11 +70,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('password/change/{id}', 'PersonalDataController@update');
 
     /////////////////////////////
-    //ФИРМИ ВНОСИТЕЛИ
-    Route::resource('контрол/вносители', 'ImportersController');
-    Route::get('/контрол/вносители/добави', 'ImportersController@create');
-    Route::get('/контрол/вносители/{id}/edit', 'ImportersController@edit');
-    Route::post('/контрол/вносители/{id}/update', 'ImportersController@update');
+    //ФИРМИ търговци
+    Route::resource('контрол/търговци', 'ImportersController');
+    Route::get('/контрол/търговци/добави', 'ImportersController@create');
+    Route::get('/контрол/търговци/{id}/edit', 'ImportersController@edit');
+    Route::post('/контрол/търговци/{id}/update', 'ImportersController@update');
+    Route::post('/контрол/търговци/сортирай/{type?}/{sort?}', 'ImportersController@sort');
 
 
     /////////////////////////////

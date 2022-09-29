@@ -12,6 +12,7 @@ use odbh\Http\Requests\ImportersRequest;
 use odbh\Importer;
 use Auth;
 use Session;
+use Input;
 
 class ImportersController extends Controller
 {
@@ -23,10 +24,12 @@ class ImportersController extends Controller
         parent::__construct();
         $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'destroy']]);
     }
+
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
+     * @internal param null $type
+     * @internal param null $sort
      */
     public function index()
     {
@@ -37,6 +40,65 @@ class ImportersController extends Controller
 
         return view('quality.importers.index', compact( 'importers', 'districts_list'));
     }
+
+    /**
+     * Sort firms by different types.
+     *
+     * @param null $type
+     * @param null $sort
+     * @return \Illuminate\Http\Response
+     */
+    public function sort($type = null, $sort = null) {
+        $input_sort = Input::get('sort');
+        $input_type = Input::get('type');
+//        dd($input_sort.'-----'.$input_type);
+        //////// При Избиране
+        if($input_sort !== null && $input_type == null){
+            if($input_sort == 999){
+                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
+            }
+            else{
+                $importers = Importer::select()
+                            ->where('is_active', '=', '1')
+                            ->where('is_bulgarian', '=', $input_sort)->get();
+            }
+        }
+        if($input_sort === null && $input_type !== null){
+            if($input_type == 999){
+                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
+            }
+            else{
+                $importers = Importer::select()
+                    ->where('is_active', '=', '1')
+                    ->where('trade', '=', $input_type)->get();
+            }
+        }
+        if($input_sort !== null && $input_type !== null) {
+            if($input_sort == 999 || $input_type == 999){
+                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
+            }
+            elseif ($input_sort !== 999 || $input_type == 999) {
+                $importers = Importer::select()
+                    ->where('is_active', '=', '1')
+                    ->where('is_bulgarian', '=', $input_sort)->get();
+            }
+            elseif ($input_sort == 999 || $input_type != 999) {
+                $importers = Importer::select()
+                    ->where('is_active', '=', '1')
+                    ->where('trade', '=', $input_type)->get();
+            }
+            else{
+                $importers = Importer::select()
+                    ->where('is_active', '=', '1')
+                    ->where('is_bulgarian', '=', $input_sort)
+                    ->where('trade', '=', $input_type)->get();
+            }
+        }
+
+//        dd($importers);
+        return view('quality.importers.index', compact( 'importers', 'input_sort', 'input_type' ));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,7 +113,7 @@ class ImportersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request|ImportersRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ImportersRequest $request)
@@ -59,6 +121,7 @@ class ImportersController extends Controller
         Importer::create ([
             'is_active'=> 1,
             'is_bulgarian'=> $request['is_bulgarian'],
+            'trade'=> $request['trade'],
             'name_bg'=> mb_convert_case  ($request['name_bg'], MB_CASE_TITLE, "UTF-8"),
             'address_bg'=> $request['address_bg'],
             'name_en'=> mb_convert_case  ($request['name_en'], MB_CASE_TITLE),
@@ -69,7 +132,7 @@ class ImportersController extends Controller
         ]);
     
         Session::flash('message', 'Записа е успешен!');
-        return Redirect::to('/контрол/вносители');
+        return Redirect::to('/контрол/търговци');
     }
 
     /**
@@ -98,8 +161,8 @@ class ImportersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request|ImportersRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ImportersRequest $request, $id)
@@ -108,6 +171,7 @@ class ImportersController extends Controller
         $data =([
             'is_active'=> $request['is_active'],
             'is_bulgarian'=> $request['is_bulgarian'],
+            'trade'=> $request['trade'],
             'name_bg'=> mb_convert_case  ($request['name_bg'], MB_CASE_TITLE, "UTF-8"),
             'address_bg'=> $request['address_bg'],
             'name_en'=> mb_convert_case  ($request['name_en'], MB_CASE_TITLE),
@@ -122,7 +186,7 @@ class ImportersController extends Controller
         $importers->save();
 
         Session::flash('message', 'Фирмата е редактирана успешно!');
-        return Redirect::to('/контрол/вносители');
+        return Redirect::to('/контрол/търговци');
     }
 
     /**

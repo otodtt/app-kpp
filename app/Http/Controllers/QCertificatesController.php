@@ -53,11 +53,14 @@ class QCertificatesController extends Controller
     {
         $index = $this->index;
 
-        $importers = Importer::all(['id', 'name_bg', 'name_en', 'address_en', 'vin'])->toArray();
+//        $importers = Importer::all(['id', 'name_bg', 'name_en', 'address_en', 'vin'])->toArray();
+        $importers = Importer::select(['id', 'name_bg', 'name_en', 'address_en', 'vin', 'trade'])
+                                    ->where('is_active', '=', 1)
+                                    ->where('trade', '=', 0)
+                                    ->orWhere('trade', '=', 2)
+                                    ->get()->toArray();
 
-        $countries= Country::select('id', 'name', 'name_en', 'EC')
-            ->where('EC', '=', 1)
-            ->orderBy('name', 'asc')->get()->toArray();
+        $countries= Country::select('id', 'name', 'name_en', 'EC')->where('EC', '=', 1)->orderBy('name', 'asc')->get()->toArray();
 
         $crops= Crop::select('id', 'name', 'name_en', 'group_id')
             ->where('group_id', '=', 4)
@@ -72,10 +75,15 @@ class QCertificatesController extends Controller
             ->orWhere('group_id', '=', 16)
             ->orderBy('group_id', 'asc')->get()->toArray();
 
+        $last_internal = QCertificate::select('internal')->orderBy('internal', 'desc')->limit(1)->get()->toArray();
+        $last_import = QCertificate::select('import')->orderBy('import', 'desc')->limit(1)->get()->toArray();
+        $last_export = QCertificate::select('export')->orderBy('export', 'desc')->limit(1)->get()->toArray();
+
         $id = Auth::user()->id;
         $user = User::select('id', 'all_name', 'short_name', 'stamp_number')->where('id', '=', $id)->get()->toArray();
 
-        return view('quality.certificates.create_certificate', compact('index', 'importers', 'countries', 'crops', 'user'));
+        return view('quality.certificates.create_certificate', compact('index', 'importers', 'countries', 'crops', 'user',
+                    'last_internal', 'last_import', 'last_export'));
     }
 
     /**
@@ -121,7 +129,7 @@ class QCertificatesController extends Controller
         } else {
             $export = '';
         }
-//        dd($import );
+
         $data = [
             'internal' => $internal,
             'import' => $import,
@@ -156,7 +164,7 @@ class QCertificatesController extends Controller
             'date_add' => date('d.m.Y', time()),
             'added_by' => Auth::user()->id,
         ];
-//        dd($data);
+
         QCertificate::create($data);
         Session::flash('message', 'Записа е успешен!');
         return Redirect::to('/контрол/сертификати');

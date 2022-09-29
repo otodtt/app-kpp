@@ -1,12 +1,22 @@
 <?php
-if (isset($last_number[0]['number'])){
-    $last = $last_number[0]['number'];
-    $last_plus = $last_number[0]['number']+1;
-}  else {
-    $last = '- няма такъв';
-    $last_plus = 1;
-}
-
+    if (isset($last_internal[0]['internal']) || $last_internal[0]['internal'] == 1) {
+        $number_internal = $last_internal[0]['internal'];
+    }
+    else {
+        $number_internal = '';
+    }
+    if (isset($last_import[0]['import']) || $last_import[0]['import'] == 2) {
+        $number_import = $last_import[0]['import'];
+    }
+    else {
+        $number_import = '';
+    }
+    if (isset($last_export[0]['export']) || $last_export[0]['export'] == 2) {
+        $number_export = $last_export[0]['export'];
+    }
+    else {
+        $number_export = '';
+    }
 ?>
 <div class="container-fluid" >
     <div class="row">
@@ -22,7 +32,7 @@ if (isset($last_number[0]['number'])){
                             {!! Form::radio('what_7', 1) !!}
                         </label>&nbsp;&nbsp;|
                         <label class="labels_limit"><span>&nbsp;&nbsp;Внос/Import</span>
-                            {!! Form::radio('what_7', 2) !!}
+                            {!! Form::radio('what_7', 2, true) !!}
                         </label>
                         &nbsp; | &nbsp;
                         <label class="labels_limit"><span>&nbsp;&nbsp;Износ/Export</span>
@@ -84,7 +94,7 @@ if (isset($last_number[0]['number'])){
                                         {{(old('importer_data') == $importer['id'])? 'selected':''}}
                                         name_en="{{$importer['name_en']}}" 
                                         address_en="{{$importer['address_en']}}"
-                                        vin="{{$importer['vin']}}" >{{$importer['id']}} - {{ strtoupper($importer['name_en']) }}</option>
+                                        vin="{{$importer['vin']}}" >{{ strtoupper($importer['name_en']) }}</option>
                             @endforeach
                         </select>
                         {!! Form::hidden('en_name', old('en_name'), ['id'=>'en_name']) !!}
@@ -94,7 +104,7 @@ if (isset($last_number[0]['number'])){
                     <div  class="col-md-5">
                         <p class="description">
                             <span class="red">ВАЖНО!!!</span> Ако фирмата я няма в падащото меню, иди на страница
-                            „ВСИЧКИ ВНОСИТЕЛИ“ и добави фирмата!
+                            „ВСИЧКИ ФИРМИ“ и добави фирмата!
                         </p>
                     </div>
                 </fieldset>
@@ -106,7 +116,12 @@ if (isset($last_number[0]['number'])){
                             Сертификат за съответствие с пазарните стандарти на Европейския съюз,
                         </p>
                         <br>
-                        <p class="bold">№/No {{ $index[0]['q_index'] }}-{{$user[0]['stamp_number']}}/1001</p>
+                        <p class="bold">
+                            №/No {{ $index[0]['q_index'] }}-{{$user[0]['stamp_number']}}/
+                            <span class="number_internal hidden" id="number_internal">{{$number_internal}}</span>
+                            <span class="number_import hidden" id="number_import">{{$number_import}}</span>
+                            <span class="number_export hidden" id="number_export">{{$number_export}}</span>
+                        </p>
                         <p class="description red">
                             Провери дали данните са верни!
                         </p>

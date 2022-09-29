@@ -101,7 +101,7 @@
                 &nbsp;КППЗ &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </a>
             <ul class="dropdown-menu" >
-                <li ><a href="{!! URL::to( '/контрол/вносители') !!}" class="my_a back_link"> <i class="fa fa-bank fa-fw blue_color "></i> Всички фирми вносители</a></li>
+                <li ><a href="{!! URL::to( '/контрол/търговци') !!}" class="my_a back_link"> <i class="fa fa-bank fa-fw blue_color "></i> Всички фирми търговци</a></li>
                 <li><a href="{!! URL::to('/аптеки')!!}" class="my_a back_link"> <i class="fa fa-plus-square fa-fw blue_color"></i> Всички аптеки</a></li>
                 <li><a href="{!! URL::to('/складове')!!}" class="my_a back_link"> <i class="fa fa-shield fa-fw blue_color"></i> Всички складове </a></li>
                 <li><a href="{!! URL::to('/цехове')!!}" class="my_a back_link"> <i class="fa fa-cubes fa-fw blue_color"></i> Всички цехове</a></li>

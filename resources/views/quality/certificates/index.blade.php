@@ -1,6 +1,6 @@
 @extends('layouts.quality')
 @section('title')
-    {{ 'Всички Фирми' }}
+    {{ 'Всички Сертификати' }}
 @endsection
 
 @section('css')
@@ -21,7 +21,7 @@
     <div class="btn-group" >
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
         <span class="fa  btn btn-default my_btn"><i class="fa fa-certificate yellow" aria-hidden="true" ></i>  Сертификати</span>
-        <a href="{!! URL::to('/контрол/вносители')!!}" class="fa fa-truck btn btn-info my_btn"> Всички вносители</a>
+        <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-truck btn btn-info my_btn"> Всички търговци</a>
         <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Всички култури</a>
     </div>
     <div class="btn_add_firm">

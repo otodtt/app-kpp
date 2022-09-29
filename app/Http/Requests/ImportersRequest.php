@@ -24,7 +24,7 @@ class ImportersRequest extends Request
     public function rules()
     {
         $id = $this->segment(3);
-        // dd($id);
+
         $request = Request::all();
         
         if ($request['is_bulgarian'] == 0) {
@@ -34,9 +34,10 @@ class ImportersRequest extends Request
             $is_valid = '';
             $required = '';
         }
-        
+
         return [
             'is_bulgarian'=>'required',
+            'trade'=>'required',
             'name_bg'=>'cyrillic_with|min:3|max:300'.$required,
             'address_bg'=>'cyrillic_with|min:5|max:500'.$required,
             'name_en'=>'required|latin|min:3|max:300',
@@ -53,7 +54,8 @@ class ImportersRequest extends Request
     {
         return [
             'is_bulgarian.required' => 'Избери дали фирмата е българска или не!',
-            
+            'trade.required' => 'Задължително маркирай дейността на фирмата!',
+
             'name_bg.cyrillic_with' => 'Използвай кирилица!',
             'name_bg.min' => 'Името се изписва с минимум 3 символа!',
             'name_bg.max' => 'Името се изписва с максимум 300 символа!',

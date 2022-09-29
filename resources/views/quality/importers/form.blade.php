@@ -1,20 +1,32 @@
 <div class="row" style="margin: 20px 0 10px 0">
-    <div class="col-md-8" >
-        <p class="description">Задължително маркирай дали фирмата е българска или не!</p>
-        <p class="description">Ако фирмата не е българска не е задължително да се попълват полетата име и адрес на бългаски!</p>
-        {!! Form::label('is_bulgarian', ' Фирмата е българска:', ['class'=>'labels']) !!}
-        &nbsp;<label >ДА
-            {!! Form::radio('is_bulgarian', 0, null,['required']) !!}
-        </label>&nbsp; | &nbsp;
+    <div>
+        <div class="col-md-6" >
+            <p class="description">Задължително маркирай дали фирмата е българска или не!</p>
+            <p class="description">Ако фирмата не е българска не е задължително да се попълват полетата име и адрес на бългаски!</p>
+            {!! Form::label('is_bulgarian', ' Фирмата е българска:', ['class'=>'labels']) !!}
+            &nbsp;<label >ДА
+                {!! Form::radio('is_bulgarian', 0, null,['required']) !!}
+            </label>&nbsp; | &nbsp;
 
-        &nbsp;<label >НЕ
-            {!! Form::radio('is_bulgarian', 1, false) !!}
-        </label>&nbsp; | &nbsp;
-    </div>
-    <div class="col-md-4 ">
-        <span class="errors">
-            {{ $errors->first('is_bulgarian') }}
-        </span>
+            &nbsp;<label >НЕ
+                {!! Form::radio('is_bulgarian', 1, false) !!}
+            </label>
+        </div>
+        <div class="col-md-6 ">
+            <p class="description">Задължително маркирай дейността на фирмата!</p>
+            <p class="description">В зависимост от това ще се появи в различните падащи менюта!</p>
+            &nbsp;<label >Внос
+                {!! Form::radio('trade', 0, null,['required']) !!}
+            </label>&nbsp; | &nbsp;
+
+            &nbsp;<label >Износ
+                {!! Form::radio('trade', 1, false) !!}
+            </label>&nbsp; | &nbsp;
+
+            &nbsp;<label >Всичко
+                {!! Form::radio('trade', 2, false) !!}
+            </label>
+        </div>
     </div>
 </div>
 <hr class="my_hr_in"/>

@@ -33,7 +33,7 @@
                 {{--<li><a href="{!! URL::to('/цехове')!!}" class="my_a back_link"> <i class="fa fa-cubes fa-fw blue_color"></i> Всички цехове</a></li>--}}
                 {{--<li><a href="{!!URL::to('/изтекъл-срок')!!}" class="my_a back_link"> <i class="fa fa-times fa-fw blue_color"></i> С изтекъл или прекратен срок</a></li>--}}
                 <li role="separator" class="divider"></li>
-                <li ><a href="{!! URL::to( '/контрол/вносители') !!}" class="my_a back_link"> <i class="fa fa-truck fa-fw dark_color "></i> Всички фирми вносители</a></li>
+                <li ><a href="{!! URL::to( '/контрол/търговци') !!}" class="my_a back_link"> <i class="fa fa-truck fa-fw dark_color "></i> Всички фирми търговци</a></li>
                 <li><a href="{!! URL::to('/контрол/култури')!!}" class="my_a back_link"> <i class="fa fa-leaf fa-fw green_color"></i> Всички култури</a></li>
 
 

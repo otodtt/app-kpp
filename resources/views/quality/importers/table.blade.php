@@ -14,11 +14,13 @@
         <tr>
             <td class="center"><?= $n++ ?></td>
             <td>
-                {{mb_strtoupper($importer->name_en, 'UTF-8')}}<br>
-                {{$importer->name_bg}}
+                {{mb_strtoupper($importer->name_en, 'UTF-8')}}
+                <br>
+                {{mb_strtoupper($importer->name_bg), 'UTF-8'}}
             </td>
             <td class="">
-                {{mb_strtoupper($importer->address_en, 'UTF-8')}}<br>
+                {{mb_strtoupper($importer->address_en, 'UTF-8')}}
+                <br>
                 {{$importer->address_bg}}
             </td>
             <td>
@@ -27,11 +29,10 @@
                 @else
                     <span ></span>
                 @endif
-                {{-- <span>{{$bg}}</span> --}}
                 {{$importer->vin}}
             </td>
             <td class="center last-column">
-                <a href="{!!URL::to('/контрол/вносители/'.$importer->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>
+                <a href="{!!URL::to('/контрол/търговци/'.$importer->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>
             </td> 
         </tr>
     @endforeach

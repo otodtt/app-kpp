@@ -26,7 +26,7 @@
                             <div class="col-lg-6">
                                 <fieldset class=""><legend class="">Сертификати</legend>
                                     <a class="my_a back_link" href="{!! URL::to( 'контрол/сертификати') !!}"> <i class="fa fa-certificate fa-fw yellow"></i> Издадени сертификати</a><br/>
-                                    {{-- <a class="my_a back_link" href="{!! URL::to( '/контрол/вносители') !!}"><i class="fa fa-truck fa-fw dark_color "></i> Всички фирми вносители</a><br/>
+                                    {{-- <a class="my_a back_link" href="{!! URL::to( '/контрол/търговци') !!}"><i class="fa fa-truck fa-fw dark_color "></i> Всички фирми търговци</a><br/>
                                     <a class="my_a back_link" href="{!! URL::to( '/контрол/култури') !!}"><i class="fa fa-leaf fa-fw green_color"></i> Всички култури</a><br/> --}}
                                     <a class="my_a back_link" href="{!! URL::to( '/test') !!}"><i class="fa fa-cubes fa-fw green_color"></i> ТЕСТ</a><br/>
                                     <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-times fa-fw green_color"></i> Други</a>
@@ -37,7 +37,7 @@
                                     <div class="row">
 
                                         <div class="col-lg-12  ">
-                                            <a class="my_a back_link" href="{!! URL::to( '/контрол/вносители') !!}"><i class="fa fa-truck fa-fw dark_color "></i> Всички фирми вносители</a><br/>
+                                            <a class="my_a back_link" href="{!! URL::to( '/контрол/търговци') !!}"><i class="fa fa-truck fa-fw dark_color "></i> Всички фирми търговци</a><br/>
                                             <a class="my_a back_link" href="{!! URL::to( '/контрол/култури') !!}"><i class="fa fa-leaf fa-fw green_color"></i> Всички култури</a><br/>
                                             {{-- <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-file-powerpoint-o fa-fw control_color"></i> Протоколи Контрол на Пазара</a><br/>
                                             <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-object-ungroup fa-fw control_color"></i> Протоколи Нерегламентирани Обекти</a><br/>

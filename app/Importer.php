@@ -19,6 +19,6 @@ class Importer extends Model
      * @var array
      */
     protected $fillable = ['name_bg', 'address_bg', 'name_en', 'address_en', 'vin', 'is_active', 'is_bulgarian', 
-                            'created_by', 'updated_by', 'date_create', 'date_update'];
+                            'trade', 'created_by', 'updated_by', 'date_create', 'date_update'];
 
 }
