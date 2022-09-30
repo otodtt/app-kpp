@@ -23,7 +23,7 @@
                 {!! Form::radio('trade', 1, false) !!}
             </label>&nbsp; | &nbsp;
 
-            &nbsp;<label >Всичко
+            &nbsp;<label >Внос/Износ
                 {!! Form::radio('trade', 2, false) !!}
             </label>
         </div>

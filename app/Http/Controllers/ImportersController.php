@@ -48,55 +48,21 @@ class ImportersController extends Controller
      * @param null $sort
      * @return \Illuminate\Http\Response
      */
-    public function sort($type = null, $sort = null) {
+    public function sort($sort = null) {
         $input_sort = Input::get('sort');
-        $input_type = Input::get('type');
-//        dd($input_sort.'-----'.$input_type);
+
         //////// При Избиране
-        if($input_sort !== null && $input_type == null){
-            if($input_sort == 999){
-                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
-            }
-            else{
-                $importers = Importer::select()
-                            ->where('is_active', '=', '1')
-                            ->where('is_bulgarian', '=', $input_sort)->get();
-            }
-        }
-        if($input_sort === null && $input_type !== null){
-            if($input_type == 999){
-                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
-            }
-            else{
-                $importers = Importer::select()
-                    ->where('is_active', '=', '1')
-                    ->where('trade', '=', $input_type)->get();
-            }
-        }
-        if($input_sort !== null && $input_type !== null) {
-            if($input_sort == 999 || $input_type == 999){
-                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
-            }
-            elseif ($input_sort !== 999 || $input_type == 999) {
+        if($input_sort !== null){
+            if($input_sort >= 0){
                 $importers = Importer::select()
                     ->where('is_active', '=', '1')
                     ->where('is_bulgarian', '=', $input_sort)->get();
             }
-            elseif ($input_sort == 999 || $input_type != 999) {
-                $importers = Importer::select()
-                    ->where('is_active', '=', '1')
-                    ->where('trade', '=', $input_type)->get();
-            }
             else{
-                $importers = Importer::select()
-                    ->where('is_active', '=', '1')
-                    ->where('is_bulgarian', '=', $input_sort)
-                    ->where('trade', '=', $input_type)->get();
+                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
             }
         }
-
-//        dd($importers);
-        return view('quality.importers.index', compact( 'importers', 'input_sort', 'input_type' ));
+        return view('quality.importers.index', compact( 'importers', 'input_sort' ));
     }
 
 

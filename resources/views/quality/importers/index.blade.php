@@ -35,7 +35,7 @@
                     {!! Form::open(['url'=>'/контрол/търговци/сортирай', 'method'=>'POST']) !!}
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <?php
                                 if (isset($input_sort) ) {
                                     if ($input_sort == 0) {
@@ -47,11 +47,6 @@
                                         $cs0 =false;
                                         $cs1 =true;
                                         $cs999 =false;
-                                    }
-                                    elseif ($input_sort == 999) {
-                                        $cs0 =false;
-                                        $cs1 =false;
-                                        $cs999 =true;
                                     }
                                     else {
                                         $cs0 =false;
@@ -69,63 +64,7 @@
                                 {!! Form::radio('sort', 0, $cs0 ) !!}&nbsp;&nbsp;|
                             </label>
                             <label><span>&nbsp;&nbsp;Чужди: </span>
-                                {!! Form::radio('sort', 1, $cs1 ) !!}&nbsp;&nbsp;|
-                            </label>
-                            <label><span>&nbsp;&nbsp;Всички: </span>
-                                {!! Form::radio('sort', 999, $cs999 ) !!}
-                            </label>
-                        </div>
-                        <div class="col-md-5">
-                            <?php
-                                if (isset($input_type) ) {
-                                    if ($input_type == 0) {
-                                        $check0 =true;
-                                        $check1 =false;
-                                        $check2 =false;
-                                        $check999 =false;
-                                    }
-                                    elseif ($input_type == 1) {
-                                        $check0 =false;
-                                        $check1 =true;
-                                        $check2 =false;
-                                        $check999 =false;
-                                    }
-                                    elseif ($input_type == 2) {
-                                        $check0 =false;
-                                        $check1 =false;
-                                        $check2 =true;
-                                        $check999 =false;
-                                    }
-                                    elseif ($input_type == 999) {
-                                        $check0 =false;
-                                        $check1 =false;
-                                        $check2 =false;
-                                        $check999 =true;
-                                    }
-                                    else {
-                                        $check0 =false;
-                                        $check1 =false;
-                                        $check2 =false;
-                                        $check999 =false;
-                                    }
-                                } else {
-                                    $check0 =false;
-                                    $check1 =false;
-                                    $check2 =false;
-                                    $check999 =false;
-                                }
-                            ?>
-                            <label><span>&nbsp;&nbsp;Износители: </span>
-                                {!! Form::radio('type', 1,$check1 ) !!}&nbsp;&nbsp;|
-                            </label>
-                            <label><span>&nbsp;&nbsp;Вносители: </span>
-                                {!! Form::radio('type', 0, $check0 ) !!}&nbsp;&nbsp;|
-                            </label>
-                            <label><span>&nbsp;&nbsp;Износители/Вносители: </span>
-                                {!! Form::radio('type', 2, $check2 ) !!}&nbsp;&nbsp;|
-                            </label>
-                            <label><span>&nbsp;&nbsp;Всички: </span>
-                                {!! Form::radio('type', 999, $check999) !!}
+                                {!! Form::radio('sort', 1, $cs1 ) !!}
                             </label>
                         </div>
                         <div class="col-md-3">

@@ -75,7 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/контрол/търговци/добави', 'ImportersController@create');
     Route::get('/контрол/търговци/{id}/edit', 'ImportersController@edit');
     Route::post('/контрол/търговци/{id}/update', 'ImportersController@update');
-    Route::post('/контрол/търговци/сортирай/{type?}/{sort?}', 'ImportersController@sort');
+    Route::post('/контрол/търговци/сортирай/{sort?}', 'ImportersController@sort');
 
 
     /////////////////////////////
