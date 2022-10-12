@@ -1,29 +1,30 @@
 <?php
-    if (isset($last_internal[0]['internal']) || $last_internal[0]['internal'] == 1) {
-        $number_internal = $last_internal[0]['internal'];
-    }
-    else {
-        $number_internal = '';
-    }
-    if (isset($last_import[0]['import']) || $last_import[0]['import'] == 2) {
-        $number_import = $last_import[0]['import'];
-    }
-    else {
-        $number_import = '';
-    }
-    if (isset($last_export[0]['export']) || $last_export[0]['export'] == 2) {
-        $number_export = $last_export[0]['export'];
-    }
-    else {
-        $number_export = '';
-    }
+    // print_r($last_import);
+    // if (isset($last_internal[0]['internal']) || $last_internal[0]['internal'] == 1) {
+    //     $number_internal = $last_internal[0]['internal'];
+    // }
+    // else {
+    //     $number_internal = '';
+    // }
+    // if (isset($last_import[0]['import']) || $last_import[0]['import'] == 2) {
+    //     $number_import = $last_import[0]['import'];
+    // }
+    // else {
+    //     $number_import = '';
+    // }
+    // if (isset($last_export[0]['export']) || $last_export[0]['export'] == 2) {
+    //     $number_export = $last_export[0]['export'];
+    // }
+    // else {
+    //     $number_export = '';
+    // }
 ?>
 <div class="container-fluid" >
     <div class="row">
         <div class="col-md-12" >
             <fieldset class="small_field" ><legend class="small_legend">Избери преди да попълниш сертификата!</legend>
                 <div class="col-md-6 col-md-6_my in_table" >
-                    <fieldset class="small_field_in" style="display: none">
+                    {{-- <fieldset class="small_field_in" style="display: none">
                         <p class="description">
                             Поле № 7. Избери за какво се издава сертификата.
                         </p>
@@ -38,19 +39,33 @@
                         <label class="labels_limit"><span>&nbsp;&nbsp;Износ/Export</span>
                             {!! Form::radio('what_7', 3) !!}
                         </label>
-                    </fieldset>
+                    </fieldset> --}}
                     <fieldset class="small_field_in" >
                         <p class="description">
                             Поле № 7. За какво се издава сертификата.
                         </p>
                         <hr class="hr_in"/>
                         <label class="labels_limit"><span>Вътрешен/Internal</span>
+                            @if ($type == 0)
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            @else
+                            <i class="fa fa-circle-o" aria-hidden="true"></i>
+                            @endif
                         </label>&nbsp;&nbsp;|
                         <label class="labels_limit"><span>&nbsp;&nbsp;Внос/Import</span>
+                            @if ($type == 1)
                             <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            @else
+                            <i class="fa fa-circle-o" aria-hidden="true"></i>
+                            @endif
                         </label>
                         &nbsp; | &nbsp;
                         <label class="labels_limit"><span>&nbsp;&nbsp;Износ/Export</span>
+                            @if ($type == 2)
+                            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            @else
+                            <i class="fa fa-circle-o" aria-hidden="true"></i>
+                            @endif
                         </label>
                     </fieldset>
                 </div>
@@ -94,7 +109,8 @@
                                         {{(old('importer_data') == $importer['id'])? 'selected':''}}
                                         name_en="{{$importer['name_en']}}" 
                                         address_en="{{$importer['address_en']}}"
-                                        vin="{{$importer['vin']}}" >{{ strtoupper($importer['name_en']) }}</option>
+                                        vin="{{$importer['vin']}}" >{{ strtoupper($importer['name_en']) }}
+                                </option>
                             @endforeach
                         </select>
                         {!! Form::hidden('en_name', old('en_name'), ['id'=>'en_name']) !!}
@@ -117,10 +133,8 @@
                         </p>
                         <br>
                         <p class="bold">
-                            №/No {{ $index[0]['q_index'] }}-{{$user[0]['stamp_number']}}/
-                            <span class="number_internal hidden" id="number_internal">{{$number_internal}}</span>
-                            <span class="number_import hidden" id="number_import">{{$number_import}}</span>
-                            <span class="number_export hidden" id="number_export">{{$number_export}}</span>
+                            №/No {{ $index[0]['q_index'] }}-{{$user[0]['stamp_number']}}/ {{$last_number[0]['import'] + 1}}
+                            <span class="number_import hidden" id="number_import">{{$last_number[0]['import']}}</span>
                         </p>
                         <p class="description red">
                             Провери дали данните са верни!
@@ -231,14 +245,23 @@
                     <p class="description">
                         Поле № 7
                     </p>
+                    @if ($type == 0)
+                    <p id="p_internal_yes" class=""><i class="fa fa-check-square-o" aria-hidden="true"></i> <span style="text-decoration: underline">вътрешен/internal</span></p>
+                    @else
                     <p id="p_internal_no"><i class="fa fa-square-o" aria-hidden="true"></i> <span>вътрешен/internal</span></p>
-                    <p id="p_internal_yes" class="hidden"><i class="fa fa-check-square-o" aria-hidden="true"></i> <span style="text-decoration: underline">вътрешен/internal</span></p>
+                    @endif
 
-                    <p id="p_import_no"><i class="fa fa-square-o" aria-hidden="true"></i> <span >внос/import</span></p>
-                    <p id="p_import_yes" class="hidden"><i class="fa fa-check-square-o" aria-hidden="true"></i> <span style="text-decoration: underline">внос/import</span></p>
+                    @if ($type == 1)
+                    <p id="p_import_yes" ><i class="fa fa-check-square-o" aria-hidden="true"></i> <span style="text-decoration: underline">внос/import</span></p>
+                    @else  
+                    <p id="p_import_no" class=""><i class="fa fa-square-o" aria-hidden="true"></i> <span >внос/import</span></p>  
+                    @endif
 
-                    <p id="p_export_no"><i class="fa fa-square-o" aria-hidden="true"></i> <span>износ/export</span></p>
-                    <p id="p_export_yes" class="hidden"><i class="fa fa-check-square-o" aria-hidden="true"></i> <span style="text-decoration: underline">износ/export</span></p>
+                    @if ($type == 2)
+                    <p id="p_export_yes" class=""><i class="fa fa-check-square-o" aria-hidden="true"></i> <span style="text-decoration: underline">износ/export</span></p>
+                    @else   
+                    <p id="p_export_no"><i class="fa fa-square-o" aria-hidden="true"></i> <span>износ/export</span></p> 
+                    @endif
                 </fieldset>
             </div>
         </div>
@@ -312,20 +335,24 @@
                         <p style="margin-top: 15px">
                             <span class="bold">{{ mb_strtoupper($user[0]['all_name']), 'utf-8' }}</span>
                             <span class="bold" style="float: right; margin-right: 20px">{{date('d.m.Y', time())}}</span>
-                        </p>
+                        </p><br>
                     </fieldset>
                     <fieldset class="small_field_in" style="width: 49%; float: right">
                         <p class="description"><span class="fa fa-warning red" aria-hidden="true"> ЗАДЪЛЖИТЕЛНО </span>
                             попълни номера и датата на фактурата!</p><hr class="hr_in"/>
-                        <div class="col-md-6 col-md-6_my" >
-                            {!! Form::label('invoice', 'Фактура №', ['class'=>'my_labels']) !!}
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="col-md-4 col-md-6_my" >
+                            {!! Form::label('invoice', 'Фактура №', ['class'=>'my_labels']) !!}<br>
                             {!! Form::text('invoice', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>20 ]) !!}
                         </div>
-                        <div class="col-md-6 " >
+                        <div class="col-md-4 " >
                             {!! Form::label('date_invoice', 'Дата Фактура:', ['class'=>'my_labels']) !!}
                             {!! Form::text('date_invoice', null, ['class'=>'form-control form-control-my',
                             'id'=>'date_invoice', 'size'=>13, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
+                        </div>
+                        <div class="col-md-4 col-md-6_my" >
+                            {!! Form::label('sum', 'Сума', ['class'=>'my_labels']) !!}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            {!! Form::number('sum', null, ['class'=>'form-control form-control-my', 'size'=>5, 'maxlength'=>10 ]) !!}
                         </div>
                     </fieldset>
 

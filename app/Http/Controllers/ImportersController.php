@@ -48,7 +48,8 @@ class ImportersController extends Controller
      * @param null $sort
      * @return \Illuminate\Http\Response
      */
-    public function sort($sort = null) {
+    public function sort($sort = null) 
+    {
         $input_sort = Input::get('sort');
 
         //////// При Избиране

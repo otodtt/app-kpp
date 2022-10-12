@@ -1,149 +1,61 @@
-@extends('layouts.quality')
-@section('title')
-    {{ 'Всички Фирми' }}
-@endsection
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <title>CSS Table Rowspan Demo</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type='text/css'>
+.tablewrapper {
+  position: relative;
+}
+.table {
+  display: table;
+}
+.row {
+  display: table-row;
+}
+.cell {
+  display: table-cell;
+  border: 1px solid red;
+  padding: 1em;
+}
+.cell.empty
+{
+  border: none;
+  width: 100px;
+}
+.cell.rowspanned {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+}
+</style>
 
-@section('css')
-    {!!Html::style("css/firms_objects/firms_all_css.css" )!!}
-    {!!Html::style("css/table/jquery.dataTables.css" )!!}
-    {!!Html::style("css/table/table_firms.css " )!!}
-@endsection
-
-@section('message')
-    @include('layouts.alerts.success')
-@endsection
-
-@section('content')
-    <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">TEST</h4>
+  </head>
+  <body>
+    <div class="tablewrapper">
+      <div class="table">
+        <div class="row">
+          {{-- <div class="cell">
+            Top left
+          </div> --}}
+          <div class="rowspanned cell">
+            Center
+          </div>
+          <div class="cell">
+            Top right
+          </div>
+        </div>
+        <div class="row">
+          {{-- <div class="cell">
+            Bottom left
+          </div> --}}
+          <div class="empty cell"></div>
+          <div class="cell">
+            Bottom right
+          </div>
+        </div>
+      </div>
     </div>
-
-    <body>
-
-
-
-
-    <div id="SELECT_country">
-    </div>
-
-    <div id="DIV_country">
-    </div>
-
-    <button id="add">
-        add
-    </button>
-
-    <button id="remove">
-        remove
-    </button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </body>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/fields.js"></script>
-    <script>
-        var j = 0;
-
-        function add_country() {
-            j++;
-            var select = document.getElementById("SELECT_country");
-            var clone = select.cloneNode(true);
-            clone.setAttribute("id", "SELECT_country" + j);
-            clone.textContent = "SELECT_country" + j;
-            clone.setAttribute("name", "country" + j);
-            document.getElementById("DIV_country").appendChild(clone);
-        }
-
-        function remove_country() {
-            var select = document.getElementById('DIV_country');
-            select.removeChild(select.lastChild);
-        }
-
-        document.getElementById('add').addEventListener('click', add_country, false);
-        document.getElementById('remove').addEventListener('click', remove_country, false);
-    </script>
-@endsection
-
-@section('scripts')
-    {!!Html::script("js/table/jquery-1.11.3.min.js" )!!}
-    {!!Html::script("js/table/jquery.dataTables.js" )!!}
-    {!!Html::script("js/table/firmsImportersTable.js" )!!}
-@endsection
-
-
-
-{{--   --}}
-<div class="col-md-5">
-    <?php
-    if (isset($input_type) ) {
-        if ($input_type == 0) {
-            $check0 =true;
-            $check1 =false;
-            $check2 =false;
-            $check999 =false;
-        }
-        elseif ($input_type == 1) {
-            $check0 =false;
-            $check1 =true;
-            $check2 =false;
-            $check999 =false;
-        }
-        elseif ($input_type == 2) {
-            $check0 =false;
-            $check1 =false;
-            $check2 =true;
-            $check999 =false;
-        }
-        elseif ($input_type == 999) {
-            $check0 =false;
-            $check1 =false;
-            $check2 =false;
-            $check999 =true;
-        }
-        else {
-            $check0 =false;
-            $check1 =false;
-            $check2 =false;
-            $check999 =false;
-        }
-    } else {
-        $check0 =false;
-        $check1 =false;
-        $check2 =false;
-        $check999 =false;
-    }
-    ?>
-    <label><span>&nbsp;&nbsp;Износители: </span>
-        {!! Form::radio('type', 1,$check1 ) !!}&nbsp;&nbsp;|
-    </label>
-    <label><span>&nbsp;&nbsp;Вносители: </span>
-        {!! Form::radio('type', 0, $check0 ) !!}&nbsp;&nbsp;|
-    </label>
-    <label><span>&nbsp;&nbsp;Износители/Вносители: </span>
-        {!! Form::radio('type', 2, $check2 ) !!}&nbsp;&nbsp;|
-    </label>
-    <label><span>&nbsp;&nbsp;Всички: </span>
-        {!! Form::radio('type', 999, $check999) !!}
-    </label>
-</div>
-
+  </body>
+</html>

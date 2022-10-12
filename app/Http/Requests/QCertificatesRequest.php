@@ -25,7 +25,7 @@ class QCertificatesRequest extends Request
     {
 
         return [
-            'what_7'=>'required',
+            // 'what_7'=>'required',
             'type_crops'=>'required',
             'importer_data'=>'required',
             'packer_name'=>'required|latin|min:3|max:500',
@@ -41,6 +41,7 @@ class QCertificatesRequest extends Request
             'valid_until'=>'required|date_format:d.m.Y|after:hidden_date',
             'invoice'=> 'required|numeric|min:1',
             'date_invoice'=> 'required|date_format:d.m.Y',
+            'sum'=> 'required|numeric|min:1',
         ];
     }
 
@@ -51,7 +52,7 @@ class QCertificatesRequest extends Request
     public function messages()
     {
         return [
-            'what_7.required' => 'Избери Поле № 7. За какво се издава сертификата!',
+            // 'what_7.required' => 'Избери Поле № 7. За какво се издава сертификата!',
             'type_crops.required' => 'Избери дали е за консумация или преработка!',
             'importer_data.required' => 'Избери Поле № 1 Избери фирмата! Търговеца!',
 
@@ -109,6 +110,10 @@ class QCertificatesRequest extends Request
 
             'date_invoice.required' => 'Дата на Фактурата е здължителна!',
             'date_invoice.date_format' => 'Непозволен формат за Дата на Фактура!',
+
+            'sum.required' => 'Сумата е здължителен!',
+            'sum.numeric' => 'За сумата на Фактура използвай само цифри!',
+            'sum.min' => 'Сумата не може да е нула - 0 или отрицателно число!',
         ];
     }
 }

@@ -11,6 +11,10 @@
     {!!Html::style("css/table/crop.css" )!!}
 @endsection
 
+@section('message')
+    @include('layouts.alerts.success')
+@endsection
+
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
         <h4 class="bold layout-title">ВСИЧКИ КУЛТУРИ</h4>

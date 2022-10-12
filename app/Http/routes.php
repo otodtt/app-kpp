@@ -45,7 +45,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     //КРАЙ - За Населените места
 
     //НОВО ЗА ПЕЧАТА И КППЗ /////////////////////////////////////////////////////
-    //НОВО ЗА ПЕЧАТА И КППЗ /////////////////////////////////////////////////////
     Route::get('админ/настройки/сертификат/{id}', 'SettingsController@stamp_index');
     Route::post('admin/settings/add_stamp/{id}', 'SettingsController@add_stamp');
     //НОВО За Държавите
@@ -87,8 +86,43 @@ Route::group(['middleware' => ['auth']], function () {
 
     // /////// Q-СЕРТИФИКАТИ
     Route::resource('контрол/сертификати', 'QCertificatesController');
-    Route::get('/контрол/сертификати/добави', 'QCertificatesController@create');
-    Route::post('/контрол/сертификати/store', 'QCertificatesController@store');
+    Route::get('/контрол/сертификат-избери', 'QCertificatesController@choose');
+
+    ///// Добаи внос
+    Route::get('/контрол/сертификати-внос/добави', 'QCertificatesController@import_create');
+    Route::post('/контрол/сертификати-внос/store', 'QCertificatesController@import_store');
+    Route::get('контрол/сертификат-внос/{id}/завърши', 'QCertificatesController@import_ending');
+    Route::post('/import/add-stock/store', 'QCertificatesController@import_stock');
+    Route::post('/import-finish/store', 'QCertificatesController@import_finish');
+
+
+
+
+     ///// Добаи ИЗНОС
+    //  Route::get('/контрол/сертификати-износ/добави', 'QCertificatesController@export_create');
+    //  Route::post('/контрол/сертификати-износ/store', 'QCertificatesController@export_store');
+    //  Route::get('контрол/сертификат-износ/{id}/завърши', 'QCertificatesController@end_export');
+ 
+
+    Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
+
+
+    // Route::any('/контрол/сертификати/завърши-внос', 'QCertificatesController@store_import');
+    
+    // dd(Route::any('/контрол/сертификати/завърши-внос', 'QCertificatesController@store'));
+
+   
+    
+
+
+
+
+
+    // Route::get('/контрол/сертификати/добави', 'QCertificatesController@create');
+    
+
+
+    // Route::post('/контрол/сертификати/store', 'QCertificatesController@store');
     // Route::post('сертификати', 'CertificatesController@search');
     // Route::get('сертификат/{id}', 'CertificatesController@show');
     // // Сортиране на Сертификати
