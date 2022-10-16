@@ -1,6 +1,3 @@
- {{--Данни на стоките--}}
- {{-- <input type="hidden" value="" name="hidden" id="hidden_value"> --}}
-
 <div class="container-fluid"  id="container" >
     <div class="row">
         <div class="col-md-12" >
@@ -63,10 +60,10 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">
-                                    <p class="description">Сорт, ако..</p><hr class="hr_in"/>
-                                    <label for="variety">Сорт:</label>
+                                    <p class="description">Сорт (произход), ако..</p><hr class="hr_in"/>
+                                    <label for="variety">Сорт/Произход:</label>
                                     <br>
-                                    {!! Form::text('variety', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Сорт ако е необходимо']) !!}
+                                    {!! Form::text('variety', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Сорт/Произход ако е необходимо', 'style' => 'padding-left: 6px']) !!}
                                 </div>
                             </div>
                         </div>

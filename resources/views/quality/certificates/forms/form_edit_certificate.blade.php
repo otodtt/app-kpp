@@ -1,45 +1,9 @@
-<?php
-    // print_r($last_import);
-    // if (isset($last_internal[0]['internal']) || $last_internal[0]['internal'] == 1) {
-    //     $number_internal = $last_internal[0]['internal'];
-    // }
-    // else {
-    //     $number_internal = '';
-    // }
-    // if (isset($last_import[0]['import']) || $last_import[0]['import'] == 2) {
-    //     $number_import = $last_import[0]['import'];
-    // }
-    // else {
-    //     $number_import = '';
-    // }
-    // if (isset($last_export[0]['export']) || $last_export[0]['export'] == 2) {
-    //     $number_export = $last_export[0]['export'];
-    // }
-    // else {
-    //     $number_export = '';
-    // }
-?>
+
 <div class="container-fluid" >
     <div class="row">
         <div class="col-md-12" >
             <fieldset class="small_field" ><legend class="small_legend">Сертификата се издава за ..</legend>
                 <div class="col-md-6 col-md-6_my in_table" >
-                    {{-- <fieldset class="small_field_in" style="display: none">
-                        <p class="description">
-                            Поле № 7. Избери за какво се издава сертификата.
-                        </p>
-                        <hr class="hr_in"/>
-                        <label class="labels_limit"><span>Вътрешен/Internal</span>
-                            {!! Form::radio('what_7', 1) !!}
-                        </label>&nbsp;&nbsp;|
-                        <label class="labels_limit"><span>&nbsp;&nbsp;Внос/Import</span>
-                            {!! Form::radio('what_7', 2, true) !!}
-                        </label>
-                        &nbsp; | &nbsp;
-                        <label class="labels_limit"><span>&nbsp;&nbsp;Износ/Export</span>
-                            {!! Form::radio('what_7', 3) !!}
-                        </label>
-                    </fieldset> --}}
                     <fieldset class="small_field_in" >
                         <p class="description">
                             Поле № 7. За какво се издава сертификата.
@@ -101,21 +65,42 @@
                         <p class="description">
                             Поле № 1 Избери фирмата! Търговец /Trader &nbsp; &nbsp; &nbsp;<br>
                         </p>
-                        <label for="importers_choice">Избери вносител:</label>
+                        <label for="importer_data">Избери вносител:</label>
                         <select name="importer_data" id="importer_data" class="localsID form-control">
                             <option value="">-- Избери --</option>
-                            @foreach($importers as $importer)
+                            @foreach($importers as $key => $importer)
                                 <option value="{{$importer['id']}}"
-                                        {{(old('importer_data') == $importer['id'])? 'selected':''}}
+                                    @if (old('importer_data') == null)
+                                        {{( $certificate->importer_id  == $importer['id']) ? 'selected':''}}
+                                    @else
+                                        {{(old('importer_data') == $importer['id']) ? 'selected':''}}
+                                    @endif
                                         name_en="{{$importer['name_en']}}" 
                                         address_en="{{$importer['address_en']}}"
                                         vin="{{$importer['vin']}}" >{{ strtoupper($importer['name_en']) }}
                                 </option>
                             @endforeach
                         </select>
-                        {!! Form::hidden('en_name', old('en_name'), ['id'=>'en_name']) !!}
-                        {!! Form::hidden('en_address', old('en_address'), ['id'=>'en_address']) !!}
-                        {!! Form::hidden('vin_hidden', old('vin_hidden'), ['id'=>'vin_hidden']) !!}
+                        <?php 
+                            if(old('en_name') == null){
+                                $name = $certificate->importer_name;
+                            }else{
+                                $name = old('en_name');
+                            };
+                            if(old('en_address') == null){
+                                $address = $certificate->importer_address;
+                            }else{
+                                $address = old('en_address');
+                            };
+                            if(old('vin_hidden') == null){
+                                $vin_number = $certificate->importer_vin;
+                            }else{
+                                $vin_number = old('vin_hidden');
+                            }
+                        ?>
+                        <input type="hidden" name="en_name" id="en_name" value="{{$name}}">
+                        <input type="hidden" name="en_address" id="en_address" value="{{$address}}">
+                        <input type="hidden" name="vin_hidden" id="vin_hidden" value="{{$vin_number}}">
                     </div>
                     <div  class="col-md-5">
                         <p class="description">
@@ -133,8 +118,8 @@
                         </p>
                         <br>
                         <p class="bold">
-                            №/No {{ $index[0]['q_index'] }}-{{$user[0]['stamp_number']}}/ {{$last_number[0]['import'] + 1}}
-                            <span class="number_import hidden" id="number_import">{{$last_number[0]['import']}}</span>
+                            №/No  {{ $certificate->stamp_number }}/ {{ $certificate->import }}
+                            <span class="number_import hidden" id="number_import">{{ $certificate->import }}</span>
                         </p>
                         <p class="description red">
                             Провери дали данните са верни!
@@ -150,6 +135,7 @@
     {{--Опаковчик, посочен върху опаковката--}}
     <div class="container-fluid" >
         <div class="row">
+            {{-- 2. Опаковчик --}}
             <div class="col-md-4" >
                 <fieldset class="small_field"><legend class="small_legend">2. Опаковчик, посочен върху опаковката </legend>
                     <div class="col-md-12 col-md-6_my" >
@@ -164,6 +150,7 @@
                     </div>
                 </fieldset>
             </div>
+            {{-- 3. Контролен орган --}}
             <div class="col-md-2">
                 <fieldset class="small_field"><legend class="small_legend">3. Контролен орган</legend>
                     <p class="description">
@@ -177,6 +164,7 @@
                     <br>
                 </fieldset>
             </div>
+            {{-- 4. Произход --}}
             <div class="col-md-3">
                 <fieldset class="small_field"><legend class="small_legend">4. Произход
                     </legend>
@@ -192,6 +180,7 @@
                     </div>
                 </fieldset>
             </div>
+            {{-- 5. Местоназначение --}}
             <div class="col-md-3">
                 <fieldset class="small_field"><legend class="small_legend">5. Местоназначение</legend>
                     <div class="col-md-12 col-md-6_my" >
@@ -204,15 +193,34 @@
                             <option value="">-- Избери --</option>
                             @foreach($countries as $country)
                                 <option value="{{$country['id']}}" 
+                                    @if (old('id_country') == null)
+                                        {{( $certificate->id_country == $country['id'])? 'selected':''}}
+                                    @else
                                         {{(old('id_country') == $country['id'])? 'selected':''}}
+                                    @endif
                                         for_country_bg="{{$country['name']}}" 
                                         for_country_en="{{$country['name_en']}}"
                                         >{{ mb_strtoupper($country['name'], 'utf-8' )  }}
                                 </option>
                             @endforeach
                         </select>
-                        {!! Form::hidden('for_country_bg', old('for_country_bg'), ['id'=>'for_country_bg']) !!}
-                        {!! Form::hidden('for_country_en', old('for_country_en'), ['id'=>'for_country_en']) !!}
+                        <?php 
+                            if(old('for_country_bg') == null){
+                                $country_bg = $certificate->for_country_bg;
+                            }else{
+                                $country_bg = old('for_country_bg');
+                            };
+                            if(old('for_country_en') == null){
+                                $country_en = $certificate->for_country_en;
+                            }else{
+                                $country_en = old('for_country_en');
+                            };
+                            
+                        ?>
+                        <input type="hidden" name="for_country_bg" id="for_country_bg" value="{{$country_bg}}">
+                        <input type="hidden" name="for_country_en" id="for_country_en" value="{{$country_en}}">
+                        {{-- {!! Form::hidden('for_country_bg', old('for_country_bg'), ['id'=>'for_country_bg']) !!}
+                        {!! Form::hidden('for_country_en', old('for_country_en'), ['id'=>'for_country_en']) !!} --}}
                         <br>
                         <br>
                         
@@ -274,6 +282,7 @@
             <div class="col-md-12" >
                 <fieldset class="small_field"><legend class="small_legend">Данни за митническо учреждение и други</legend>
                     <div class="row">
+                        {{-- Митническо учреждение --}}
                         <div class="col-md-4">
                             <fieldset class="small_field_in">
                                 <p class="description">Поле 12. Митническо учреждение </p><hr class="hr_in"/>
@@ -288,7 +297,7 @@
                                 </div>
                             </fieldset>
                         </div>
-                        {{--<hr class="hr_in"/>--}}
+                        {{--  Място на издаване --}}
                         <div class="col-md-4">
                             <fieldset class="small_field_in">
                                 <p class="description">Поле 12. Място на издаване </p><hr class="hr_in"/>
@@ -300,10 +309,11 @@
                                     {!! Form::label('place_en', 'Място на латиница:', ['class'=>'my_labels']) !!}&nbsp;&nbsp;
                                     {!! Form::text('place_en', null, ['class'=>'form-control form-control-my', 'size'=>30, 'maxlength'=>250,
                                     'placeholder'=> 'Svilengrad' ]) !!}
-                                    <input type="hidden" name="hidden_date" value="{{date('d.m.Y', time())}}">
+                                    <input type="hidden" name="hidden_date" value="{{date('d.m.Y', $certificate->date_issue)}}">
                                 </div>
                             </fieldset>
                         </div>
+                        {{--  Валиден до --}}
                         <div class="col-md-2">
                             <fieldset class="small_field_in" >
                                 <p class="description">Поле 12. Валиден до </p><hr class="hr_in"/>
@@ -311,22 +321,23 @@
                                 <div class="col-md-12 col-md-6_my" >
                                     {!! Form::label('valid_until', 'Дата:', ['class'=>'my_labels']) !!}<br>
                                     {!! Form::text('valid_until', null, ['class'=>'form-control form-control-my',
-                                    'id'=>'date_issue', 'size'=>12, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
+                                    'id'=>'date_edit', 'size'=>12, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
                                     <br>
                                     <br>
                                 </div>
                             </fieldset>
                         </div>
+                        {{--  Инспектор --}}
                         <div class="col-md-2">
                             <fieldset class="small_field_in" >
                                 <p class="description">Инспектор</p><hr class="hr_in"/>
                                 <div class="col-md-12 col-md-6_my" >
                                     <p style="margin-top: 15px">
-                                        <span class="bold">{{ mb_strtoupper($user[0]['all_name']), 'utf-8' }}</span>
+                                        <span class="bold">{{ mb_strtoupper($certificate->inspector_bg), 'utf-8' }}</span>
                                     </p>
                                     <hr class="hr_in"/>
                                     <p style="margin-top: 15px">Дата на издаване:
-                                        <span class="bold" style="margin-right: 20px">{{date('d.m.Y', time())}}</span>
+                                        <span class="bold" style="margin-right: 20px">{{date('d.m.Y', $certificate->date_issue)}}</span>
                                     </p>
                                 </div>
                             </fieldset>

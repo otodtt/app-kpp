@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Време на генериране: 28 септ 2022 в 14:19
+-- Време на генериране: 16 окт 2022 в 18:08
 -- Версия на сървъра: 5.7.36
 -- Версия на PHP: 7.4.26
 
@@ -189,7 +189,7 @@ INSERT INTO `crops` (`id`, `group_id`, `name`, `name_en`, `latin`, `latin_name`,
 (15, 3, 'Слънчоглед', 'Sunflower', 'Helianthus annuus', 'helianthus-annuus', 'Продукти (Препарати) за растителна защита при Слънчоглед. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Слънчоглед.', '19.09.2022 16:49:46', '', 2, 0),
 (16, 3, 'Рапица', 'Rapeseed', 'Brassica napus', 'brassica-napus', 'Продукти (Препарати) за растителна защита при Рапица. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Рапица.', '19.09.2022 16:51:07', '', 2, 0),
 (17, 3, 'Фъстъци', 'Peanuts', 'Arachis hypogaea', 'arachis-hypogaea', 'Продукти (Препарати) за растителна защита при Фъстъци. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Фъстъци.', '19.09.2022 16:52:50', '', 2, 0),
-(18, 4, ' Картофи', 'Potato', 'Solanum tuberosum', 'solanum-tuberosum', 'Продукти (Препарати) за растителна защита при Картофи. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Картофи.', '19.09.2022 22:13:34', '', 2, 0),
+(18, 4, 'Картофи', 'Potato', 'Solanum tuberosum', 'solanum-tuberosum', 'Продукти (Препарати) за растителна защита при Картофи. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Картофи.', '19.09.2022 22:13:34', '09.10.2022 22:16:20', 2, 10),
 (19, 4, 'Домати ', 'Tomato', 'Solanum lycopersicum', 'solanum-lycopersicum', 'Продукти (Препарати) за растителна защита при Домати. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Домати .', '19.09.2022 22:15:30', '20.09.2022 10:56:47', 2, 2),
 (20, 4, 'Патладжан', 'Eggplant', 'Solanum melongena', 'solanum-melongena', 'Продукти (Препарати) за растителна защита при Патладжан. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Патладжан.', '19.09.2022 22:17:16', '', 2, 0),
 (21, 4, 'Пипер ', 'Pepper', 'Capsicum annuum', 'capsicum-annuum', 'Продукти (Препарати) за растителна защита при Пипер. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Пипер.', '19.09.2022 22:18:51', '', 2, 0),
@@ -257,28 +257,32 @@ CREATE TABLE IF NOT EXISTS `importers` (
   `address_en` varchar(500) NOT NULL,
   `is_active` tinyint(2) NOT NULL DEFAULT '1',
   `is_bulgarian` tinyint(2) NOT NULL DEFAULT '0',
+  `trade` tinyint(1) NOT NULL DEFAULT '0',
   `created_by` tinyint(2) NOT NULL,
   `updated_by` tinyint(2) NOT NULL,
   `date_create` varchar(20) NOT NULL,
   `date_update` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Схема на данните от таблица `importers`
 --
 
-INSERT INTO `importers` (`id`, `name_bg`, `address_bg`, `vin`, `name_en`, `address_en`, `is_active`, `is_bulgarian`, `created_by`, `updated_by`, `date_create`, `date_update`) VALUES
-(1, 'Еми Фрут Еоод', 'гр. Асеновград, ул. Гоце Делчев 91', '200493997', 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', 1, 0, 2, 0, '18.09.2022 22:07:05', ''),
-(2, 'Форевър 9 Еоод', 'гр. София, р-н Искър, бл. 9, вх. 3, ет. 3', '203020031', 'Forever 9 Eood', 'BULGARIA, SOFIA, DRUJBA BL. 9, VH. J, AP. 11', 1, 0, 2, 0, '18.09.2022 22:07:42', ''),
-(3, '', '', 'EORI:DE2402149 VAT NO:BG 3074097765', 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 1, 1, 2, 8, '18.09.2022 22:08:31', '19.09.2022 00:11:26'),
-(4, 'Фруитлог Еоод', 'БЪЛГАРИЯ, гр. София, р-н Красно село, бл. 5, вх. А, ет. 5', '201946660', 'Fruitlog Ltd', 'BOROVO APT.5, ENTR. A, 5TH FLOOR APT 15 DISTRICT KRASNO SELO, STOLICHNA ', 1, 0, 2, 0, '20.09.2022 12:28:19', ''),
-(5, 'Голдън Фрутс - 2016 Еоод', 'БЪЛГАРИЯ, гр. Сливен, ул. Феликс Каниц, 7А', '203883835', 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', 1, 0, 2, 0, '20.09.2022 12:37:18', ''),
-(6, '', '', '', 'Lehmann & Troost B.v.', 'Transportweg 33 (DOELWIJK), 2742 RH Waddinxveen, Netherlands', 1, 1, 2, 0, '20.09.2022 12:43:38', ''),
-(7, '', '', 'ATU57056358', 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 1, 1, 2, 0, '20.09.2022 12:59:00', ''),
-(8, 'Родопи Лес 65 Еоод', 'гр. Хасково, ул. \"Полковник Веселин Вълков\", 235', '204875574', 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', 1, 0, 2, 0, '20.09.2022 13:02:01', ''),
-(9, 'Родопи Агро Еоод ', 'БЪЛГАРИЯ, гр. Хасково, бул. \"Илинден\", 47А', '203227133', 'Rodopi Agro Ltd', 'BUL. ILINDEN 47A, 6300, HASKOVO, BULGARIA ', 1, 0, 2, 0, '20.09.2022 13:05:35', ''),
-(10, 'Лина-07 - Владимир Иванов Ет', 'с. Кирково, Д. БЛАГОЕВ, 23', '108015507', 'Et Lina 07- Vladimir Ivanov', 'STR DIMITAR BLAGOEV NO: 23, KIRKOVO', 1, 0, 2, 0, '20.09.2022 13:11:35', '');
+INSERT INTO `importers` (`id`, `name_bg`, `address_bg`, `vin`, `name_en`, `address_en`, `is_active`, `is_bulgarian`, `trade`, `created_by`, `updated_by`, `date_create`, `date_update`) VALUES
+(1, 'Еми Фрут Еоод', 'гр. Асеновград, ул. Гоце Делчев 91', '200493997', 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', 1, 0, 0, 2, 0, '18.09.2022 22:07:05', ''),
+(2, 'Форевър 9 Еоод', 'гр. София, р-н Искър, бл. 9, вх. 3, ет. 3', '203020031', 'Forever 9 Eood', 'BULGARIA, SOFIA, DRUJBA BL. 9, VH. J, AP. 11', 1, 0, 0, 2, 0, '18.09.2022 22:07:42', ''),
+(3, '', '', 'EORI:DE2402149 VAT NO:BG 3074097765', 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 1, 1, 0, 2, 8, '18.09.2022 22:08:31', '19.09.2022 00:11:26'),
+(4, 'Фруитлог Еоод', 'БЪЛГАРИЯ, гр. София, р-н Красно село, бл. 5, вх. А, ет. 5', '201946660', 'Fruitlog Ltd', 'BOROVO APT.5, ENTR. A, 5TH FLOOR APT 15 DISTRICT KRASNO SELO, STOLICHNA ', 1, 0, 0, 2, 0, '20.09.2022 12:28:19', ''),
+(5, 'Голдън Фрутс - 2016 Еоод', 'БЪЛГАРИЯ, гр. Сливен, ул. Феликс Каниц, 7А', '203883835', 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', 1, 0, 0, 2, 0, '20.09.2022 12:37:18', ''),
+(6, '', '', '', 'Lehmann & Troost B.v.', 'Transportweg 33 (DOELWIJK), 2742 RH Waddinxveen, Netherlands', 1, 1, 0, 2, 0, '20.09.2022 12:43:38', ''),
+(7, '', '', 'ATU57056358', 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 1, 1, 0, 2, 0, '20.09.2022 12:59:00', ''),
+(8, 'Родопи Лес 65 Еоод', 'гр. Хасково, ул. \"Полковник Веселин Вълков\", 235', '204875574', 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', 1, 0, 0, 2, 0, '20.09.2022 13:02:01', ''),
+(9, 'Родопи Агро Еоод ', 'БЪЛГАРИЯ, гр. Хасково, бул. \"Илинден\", 47А', '203227133', 'Rodopi Agro Ltd', 'BUL. ILINDEN 47A, 6300, HASKOVO, BULGARIA ', 1, 0, 0, 2, 0, '20.09.2022 13:05:35', ''),
+(10, 'Лина-07 - Владимир Иванов Ет', 'с. Кирково, Д. БЛАГОЕВ, 23', '108015507', 'Et Lina 07- Vladimir Ivanov', 'STR DIMITAR BLAGOEV NO: 23, KIRKOVO', 1, 0, 0, 2, 0, '20.09.2022 13:11:35', ''),
+(11, 'Балкан Фруит Еоод', 'гр. София, р-н Оборище, \"Георги Бенковски\", 14, ет. 2', '819411799', 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 'VIA G. BENCOVSKI N 14, SOFIA/ BULGARIA', 1, 0, 0, 10, 0, '29.09.2022 11:47:46', ''),
+(12, 'Фреш Бан Еоод', 'гр. Пловдив, р-н Западен, ул. Битоля, 12', '115899821', 'Fresh Ban Ltd ', 'STR BITOLYA 12, PLOVDIV/BULGARIA', 1, 0, 0, 10, 0, '29.09.2022 11:50:45', ''),
+(13, 'Г.м.г. България Оод', ' гр. София, р-н Изгрев, ЛОВЕН ПАРК, 3, вх. А, ет. 4', '201931548', 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', 1, 0, 0, 10, 0, '29.09.2022 11:54:34', '');
 
 -- --------------------------------------------------------
 
@@ -5595,9 +5599,8 @@ INSERT INTO `locations` (`id`, `ekatte`, `tvm`, `t_v_m`, `name`, `postal_code`, 
 DROP TABLE IF EXISTS `qcertificates`;
 CREATE TABLE IF NOT EXISTS `qcertificates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `certificate_id` int(11) NOT NULL,
   `import` int(11) NOT NULL,
-  `export` int(11) NOT NULL,
-  `internal` int(11) NOT NULL,
   `is_all` tinyint(1) NOT NULL DEFAULT '0',
   `what_7` tinyint(2) NOT NULL,
   `type_crops` tinyint(2) NOT NULL,
@@ -5613,42 +5616,82 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
   `id_country` tinyint(1) NOT NULL,
   `for_country_bg` varchar(300) NOT NULL,
   `for_country_en` varchar(300) NOT NULL,
-  `for_country_more` varchar(300) NOT NULL,
+  `observations` varchar(500) NOT NULL,
   `transport` varchar(100) NOT NULL,
   `from_country` varchar(300) NOT NULL,
   `customs_bg` varchar(100) NOT NULL,
   `customs_en` varchar(100) NOT NULL,
   `place_bg` varchar(100) NOT NULL,
   `place_en` varchar(100) NOT NULL,
-  `date_issue` varchar(20) NOT NULL,
+  `date_issue` int(11) NOT NULL,
   `valid_until` varchar(20) NOT NULL,
   `invoice` varchar(11) NOT NULL,
   `date_invoice` varchar(20) NOT NULL,
+  `sum` int(11) NOT NULL,
   `inspector_bg` varchar(50) NOT NULL,
   `inspector_en` varchar(50) NOT NULL,
   `date_add` varchar(20) NOT NULL,
   `date_update` varchar(20) NOT NULL,
   `added_by` tinyint(2) NOT NULL,
   `updated_by` tinyint(2) NOT NULL,
+  `is_lock` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Схема на данните от таблица `qcertificates`
 --
 
-INSERT INTO `qcertificates` (`id`, `import`, `export`, `internal`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `for_country_more`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice`, `date_invoice`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`) VALUES
-(1, 2001, 0, 0, 0, 2, 1, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 'Daxascasc', 'Addddd', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 1, 'Австрия', 'Austria', 'Аввв', 'ass454/dfdf6453', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '234533', '28.09.2022', 'Мария Чанкова', 'Мария Чанкова-en', '28.09.2022', '', 10, 0),
-(2, 2002, 0, 0, 0, 2, 2, 2, 'Forever 9 Eood', 'BULGARIA, SOFIA, DRUJBA BL. 9, VH. J, AP. 11', '203020031', 'Daxascasc', 'AAAAAADDDDD', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 7, 'Белгия', 'Belgium', 'belll', 'ass454/dfdf6453', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '0003243234', '28.09.2022', 'Мария Чанкова', 'Мария Чанкова-en', '28.09.2022', '', 10, 0),
-(3, 2003, 0, 0, 0, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 'Daxascasc', 'Addsasadasd', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', 'герррр', 'ass454/dfdf6453', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '00032432333', '28.09.2022', 'Мария Чанкова', 'Мария Чанкова-en', '28.09.2022', '', 10, 0),
-(4, 2004, 0, 0, 0, 2, 2, 4, 'Fruitlog Ltd', 'BOROVO APT.5, ENTR. A, 5TH FLOOR APT 15 DISTRICT KRASNO SELO, STOLICHNA ', '201946660', 'Daxascasc', 'vsdvdsvsd', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 7, 'Белгия', 'Belgium', 'сацса', 'ass454/dfdf6453', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '43244', '28.09.2022', 'Мария Чанкова', 'Мария Чанкова-en', '28.09.2022', '', 10, 0),
-(5, 2005, 0, 0, 0, 2, 2, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 'Daxascasc', 'dsvsvsdvds', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', 'bul', 'ass454/dfdf6453', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '234533', '28.09.2022', 'Владимир Данев Наков', 'Владимир Данев Наков-en', '28.09.2022', '', 8, 0),
-(6, 0, 0, 1001, 0, 1, 1, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 'Daxascasc', 'dsvdsvsdv', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 7, 'Белгия', 'Belgium', 'bel', 'ass454/dfdf6453', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '11111', '28.09.2022', 'Владимир Данев Наков', 'Владимир Данев Наков-en', '28.09.2022', '', 8, 0),
-(7, 0, 0, 1002, 0, 1, 1, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 'Daxascasc', 'sdfdsfsd', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 1, 'Австрия', 'Austria', 'deeee', 'ass454/dfdf6453', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '2222', '28.09.2022', 'Владимир Данев Наков', 'Владимир Данев Наков-en', '28.09.2022', '', 8, 0),
-(8, 0, 0, 1003, 0, 1, 2, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 'Daxascasc', 'dsvsdv', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', 'ger', 'ass454/dfdf6453', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '222222', '28.09.2022', 'Владимир Данев Наков', 'Владимир Данев Наков-en', '28.09.2022', '', 8, 0),
-(9, 0, 3001, 0, 0, 3, 1, 5, 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', '203883835', 'Daxascasc', 'vsdvdsvs', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 22, 'Кипър', 'Cyprus', 'kip', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '30.09.2022', '33333', '28.09.2022', 'Владимир Данев Наков', 'Владимир Данев Наков-en', '28.09.2022', '', 8, 0),
-(10, 0, 3002, 0, 0, 3, 1, 10, 'Et Lina 07- Vladimir Ivanov', 'STR DIMITAR BLAGOEV NO: 23, KIRKOVO', '108015507', 'Daxascasc', 'sdcdscsd', 'X-', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 32, 'Нидерландия', 'Netherlands', 'nid', 'as232/ sds333', 'Turkv', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', '28.09.2022', '05.10.2022', '55555', '28.09.2022', 'Делчо Тенчев Тенев', 'Делчо Тенчев Тенев-en', '28.09.2022', '', 2, 0),
-(11, 0, 3003, 0, 0, 3, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 'Daxascasc', 'dsvvdsv', 'X-', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 19, 'Испания', 'Spain', 'isp', 'ass454/dfdf6453', 'България', 'МБ Свиленград', 'CP Svilengrad,.', 'Свиленград ./234', 'Svilengrad 345./', '28.09.2022', '30.09.2022', '666666', '28.09.2022', 'Делчо Тенчев Тенев', 'Делчо Тенчев Тенев-en', '28.09.2022', '', 2, 0);
+INSERT INTO `qcertificates` (`id`, `certificate_id`, `import`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice`, `date_invoice`, `sum`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
+(1, 0, 2001, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'STI. CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/TRABZON/TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', '31AJN161/ 31 AJH167', 'България/ Bulgaria', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1665858752, '17.10.2022', '3333', '15.10.2022', 1000, 'Мария Чанкова', 'Marya Chankova', '15.10.2022', '16.10.2022', 10, 10, 0),
+(2, 0, 2002, 2, 2, 2, 9, 'Rodopi Agro Ltd', 'BUL. ILINDEN 47A, 6300, HASKOVO, BULGARIA ', '203227133', 'SENOL HOCAOGLU KORUK ORGANIK TARIM ', 'URUNLERI HURRIET MAH 1058 SK NO:43/2/ GAZIEMIR/IZMIR/TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', '', '07AAG455/ 15AAS175', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1665860361, '16.10.2022', '22222', '15.10.2022', 2222, 'Мария Чанкова', 'Marya Chankova', '15.10.2022', '', 10, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `qxcertificates`
+--
+
+DROP TABLE IF EXISTS `qxcertificates`;
+CREATE TABLE IF NOT EXISTS `qxcertificates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `export` int(11) NOT NULL,
+  `is_all` tinyint(1) NOT NULL DEFAULT '0',
+  `what_7` tinyint(2) NOT NULL,
+  `type_crops` tinyint(2) NOT NULL,
+  `importer_id` tinyint(3) NOT NULL,
+  `importer_name` varchar(300) NOT NULL,
+  `importer_address` varchar(300) NOT NULL,
+  `importer_vin` varchar(100) NOT NULL,
+  `packer_name` varchar(300) NOT NULL,
+  `packer_address` varchar(500) NOT NULL,
+  `stamp_number` varchar(10) NOT NULL,
+  `authority_bg` varchar(50) NOT NULL,
+  `authority_en` varchar(50) NOT NULL,
+  `id_country` tinyint(1) NOT NULL,
+  `for_country_bg` varchar(300) NOT NULL,
+  `for_country_en` varchar(300) NOT NULL,
+  `observations` varchar(300) NOT NULL,
+  `transport` varchar(100) NOT NULL,
+  `from_country` varchar(300) NOT NULL,
+  `customs_bg` varchar(100) NOT NULL,
+  `customs_en` varchar(100) NOT NULL,
+  `place_bg` varchar(100) NOT NULL,
+  `place_en` varchar(100) NOT NULL,
+  `date_issue` int(11) NOT NULL,
+  `valid_until` varchar(20) NOT NULL,
+  `invoice` varchar(11) NOT NULL,
+  `date_invoice` varchar(20) NOT NULL,
+  `sum` int(11) NOT NULL,
+  `inspector_bg` varchar(50) NOT NULL,
+  `inspector_en` varchar(50) NOT NULL,
+  `is_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `date_add` varchar(20) NOT NULL,
+  `date_update` varchar(20) NOT NULL,
+  `added_by` tinyint(2) NOT NULL,
+  `updated_by` tinyint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5691,6 +5734,47 @@ INSERT INTO `settings` (`id`, `area`, `area_id`, `odbh_city`, `city`, `postal_co
 -- --------------------------------------------------------
 
 --
+-- Структура на таблица `stocks`
+--
+
+DROP TABLE IF EXISTS `stocks`;
+CREATE TABLE IF NOT EXISTS `stocks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `certificate_id` int(11) NOT NULL,
+  `date_issue` int(11) NOT NULL,
+  `import` int(11) NOT NULL,
+  `export` int(11) NOT NULL,
+  `internal` int(11) NOT NULL,
+  `type_pack` int(11) NOT NULL,
+  `number_packages` int(11) NOT NULL,
+  `different` varchar(100) NOT NULL,
+  `crop_id` int(11) NOT NULL,
+  `crops_name` varchar(200) NOT NULL,
+  `crop_en` varchar(200) NOT NULL,
+  `variety` varchar(200) NOT NULL,
+  `quality_class` varchar(100) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `date_add` varchar(20) NOT NULL,
+  `date_update` varchar(20) NOT NULL,
+  `added_by` tinyint(2) NOT NULL,
+  `updated_by` tinyint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `stocks`
+--
+
+INSERT INTO `stocks` (`id`, `certificate_id`, `date_issue`, `import`, `export`, `internal`, `type_pack`, `number_packages`, `different`, `crop_id`, `crops_name`, `crop_en`, `variety`, `quality_class`, `weight`, `date_add`, `date_update`, `added_by`, `updated_by`) VALUES
+(2, 1, 1665858752, 2, 0, 0, 4, 5, '', 34, 'Праз', 'Leek', '', '3', 200, '15.10.2022', '', 10, 0),
+(6, 2, 1665860361, 2, 0, 0, 1, 1456, '', 68, 'Корнишони', 'Cornichons', '', '3', 19900, '15.10.2022', '', 10, 0),
+(7, 2, 1665860936, 2, 0, 0, 4, 3, '', 37, 'Безглавеста салата', 'Lettuce', '', '1', 333, '15.10.2022', '', 10, 0),
+(8, 1, 1665866315, 2, 0, 0, 3, 100, '', 33, 'Чесън', 'Garlic', '', '1', 500, '15.10.2022', '16.10.2022', 10, 10),
+(9, 1, 1665866544, 2, 0, 0, 4, 56, '', 19, 'Домати ', 'Tomato', 'Идеал', '2', 1200, '15.10.2022', '16.10.2022', 10, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура на таблица `users`
 --
 
@@ -5699,6 +5783,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `all_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `all_name_en` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `short_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `full_all_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `full_short_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
@@ -5719,24 +5804,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `lab` tinyint(1) NOT NULL DEFAULT '0',
   `stamp_number` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Схема на данните от таблица `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `all_name`, `short_name`, `full_all_name`, `full_short_name`, `password`, `remember_token`, `created_at`, `updated_at`, `karta`, `dlaznost`, `active`, `admin`, `position`, `position_short`, `rz`, `orz`, `fsk`, `ppz`, `lab`, `stamp_number`) VALUES
-(1, 'angel', 'Ангел Михайлов Христов', 'А. Христов', 'Началник отдел Ангел Михайлов Христов', 'Н-к отдел А. Христов', '$2y$10$0LifJpgCWVarFVoGQOk7zuF0q1tUiec1RAwvzVp0ACuFSI1cHGxjy', 'mU2J0wylIjTlKbtjwzHuxRGrO9pK1RmC1kDAi91vPv6nDHZ1AYel8oiR9yip', '2016-10-04 15:35:15', '2017-08-29 06:32:26', '26059', 1, 2, 1, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, NULL),
-(2, 'admin', 'Делчо Тенчев Тенев', 'Д. Тенев', 'Главен инспектор Делчо Тенчев Тенев', 'Гл. инспектор Д. Тенев', '$2y$10$dCFChsrdM.Ln5AT3KDRvB.rqrNlLPfJkvHzsCjrTKeHXAIVtG9GoG', 'AoTsVtgm3CqZUWsU4dH59lBjzgL2AhbcZDbEUjQF2NX2p7lDR9OTwsgSzKRP', '2016-10-04 15:36:24', '2022-09-14 21:39:53', '26062', 2, 1, 2, 'Главен инспектор', 'Гл. инспектор', 1, 1, 1, 1, 1, NULL),
-(3, 'juls_07', 'Юлиана Д. Василева-Пенева', 'Ю. Василева', 'Главен инспектор Юлиана Д. Василева-Пенева', 'Гл. инспектор Ю. Василева', '$2y$10$c6.jTORU9Nw8qYhchLRhB.XCDPbXR9/gOirLOVKErTBrsoTWqZRb6', 'A4hQjz728p1gCjGUKfZkzZgTBJnDcxPLCUh8SBfFI7I5GJKUwqXy9hQZElnx', '2016-10-04 15:38:05', '2021-11-29 09:35:25', '26063', 2, 1, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
-(4, 'petar', 'Петър Димитров Петров', 'П. Петров', 'Главен инспектор Петър Димитров Петров', 'Гл. инспектор П. Петров', '$2y$10$OONdUe4WoItuEG7qwg3xwOaNr9wqFH3EYpepMJvoctDPEmZhYZeRW', 'DO3P1dSbsTRf6pVPQncABDzYdzTtX9Vo7NtfN2mTPCLoS7OGXFwHFjpCB3EK', '2016-10-04 15:39:52', '2022-09-16 13:13:56', '26162', 2, 1, 1, 'Главен инспектор', 'Гл. инспектор', 1, 1, 0, 0, 0, NULL),
-(5, '', 'Марин Георгиев Филипов', 'М. Филипов', 'Главен инспектор Марин Георгиев Филипов', 'Гл. инспектор М. Филипов', '', NULL, '2016-10-04 15:41:11', '2016-10-04 15:41:11', '', 2, 2, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
-(6, '', 'Димитрийка Михайлова Иванова', 'Д. Иванова', 'Началник отдел Димитрийка Михайлова Иванова', 'Н-к отдел Д. Иванова', '', NULL, '2016-10-04 15:42:12', '2016-10-04 15:42:12', '', 1, 2, 1, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, NULL),
-(7, '', 'Елена Странджалиева', 'Е. Странджалиева', 'Главен инспектор Елена Странджалиева', 'Гл. инспектор Е. Странджалиева', '', NULL, '2016-10-04 15:43:01', '2016-10-04 15:43:01', '', 2, 2, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
-(8, 'vlado', 'Владимир Данев Наков', 'В. Наков', 'Инспектор Владимир Данев Наков', 'Инспектор В. Наков', '$2y$10$RaLHfuKdy87cF4n.nFfjaOQZz1A9rtinOZqziB3Agl7EysWaOnAoe', 'uGxod5p0vkaiIcgSJylujwUuQyPiRd51avBJaMeq2Egbe1INAbrRQQbTB9ZV', '2016-10-21 10:35:09', '2022-09-28 13:18:01', '260146', 4, 1, 1, 'Инспектор', 'Инспектор', 0, 0, 1, 1, 0, '106'),
-(9, 'atonev', 'Антон Александров Тонев', 'А. Тонев', 'Инспектор Антон Александров Тонев', 'Инспектор А. Тонев', '$2y$10$dUtSZKL7oCVlZlEa.a.VFO5i5P3RjXauC77ODdAKP6hetQme47Dc2', NULL, '2020-05-01 10:37:15', '2020-05-01 10:37:15', '26099', 4, 1, 1, 'Инспектор', 'Инспектор', 1, 1, 1, 1, 0, NULL),
-(10, 'maria', 'Мария Чанкова', 'М. Чанкова', 'Началник отдел Мария Чанкова', 'Н-к отдел М. Чанкова', '$2y$10$x2E2f/8HnM6RpJjmH8D0NO67QiHvgsc6k1hh1UPGHLs8lzpAzhZiW', 'fGZuhw6KLjqtp0WeOiXnxXaIX6PwL5VjY01xpUPFnR9ysNTYTcy0BdH04UCx', '2021-09-03 07:53:21', '2022-09-28 13:08:13', '26015', 1, 1, 2, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, '103'),
-(11, 'ivan', 'Иван Петров Петров', 'И. Петров', 'Инспектор Иван Петров Петров', 'Инспектор И. Петров', '$2y$10$imsiUMG4DX1FSyY9D3ssMu9kWZqnT6MXtspJUlpxkpRXuPr3J/0oK', NULL, '2022-09-14 17:55:51', '2022-09-14 18:18:51', '26002', 4, 1, 1, 'Инспектор', 'Инспектор', 0, 0, 0, 1, 0, '107');
+INSERT INTO `users` (`id`, `name`, `all_name`, `all_name_en`, `short_name`, `full_all_name`, `full_short_name`, `password`, `remember_token`, `created_at`, `updated_at`, `karta`, `dlaznost`, `active`, `admin`, `position`, `position_short`, `rz`, `orz`, `fsk`, `ppz`, `lab`, `stamp_number`) VALUES
+(1, 'angel', 'Ангел Михайлов Христов', '', 'А. Христов', 'Началник отдел Ангел Михайлов Христов', 'Н-к отдел А. Христов', '$2y$10$0LifJpgCWVarFVoGQOk7zuF0q1tUiec1RAwvzVp0ACuFSI1cHGxjy', 'mU2J0wylIjTlKbtjwzHuxRGrO9pK1RmC1kDAi91vPv6nDHZ1AYel8oiR9yip', '2016-10-04 15:35:15', '2017-08-29 06:32:26', '26059', 1, 2, 1, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, NULL),
+(2, 'admin', 'Делчо Тенчев Тенев', 'Delcho Tenev', 'Д. Тенев', 'Главен инспектор Делчо Тенчев Тенев', 'Гл. инспектор Д. Тенев', '$2y$10$dCFChsrdM.Ln5AT3KDRvB.rqrNlLPfJkvHzsCjrTKeHXAIVtG9GoG', 'gzUsvnAoBewWr5bshmbi1dBPRdeZ1G821tCGys6bg34PW4Ws1QsABXaGzgaj', '2016-10-04 15:36:24', '2022-10-13 20:59:59', '26062', 2, 1, 2, 'Главен инспектор', 'Гл. инспектор', 1, 1, 1, 1, 1, ''),
+(3, 'juls_07', 'Юлиана Д. Василева-Пенева', '', 'Ю. Василева', 'Главен инспектор Юлиана Д. Василева-Пенева', 'Гл. инспектор Ю. Василева', '$2y$10$c6.jTORU9Nw8qYhchLRhB.XCDPbXR9/gOirLOVKErTBrsoTWqZRb6', 'A4hQjz728p1gCjGUKfZkzZgTBJnDcxPLCUh8SBfFI7I5GJKUwqXy9hQZElnx', '2016-10-04 15:38:05', '2021-11-29 09:35:25', '26063', 2, 1, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
+(4, 'petar', 'Петър Димитров Петров', '', 'П. Петров', 'Главен инспектор Петър Димитров Петров', 'Гл. инспектор П. Петров', '$2y$10$OONdUe4WoItuEG7qwg3xwOaNr9wqFH3EYpepMJvoctDPEmZhYZeRW', 'BWcy84iCRQ6dLuXk5YnXA5AMKpWJdn4eyLsCa44PnYZsDcN3Ldq6hEfl3mB3', '2016-10-04 15:39:52', '2022-10-07 18:43:23', '26162', 2, 1, 1, 'Главен инспектор', 'Гл. инспектор', 1, 1, 0, 0, 0, NULL),
+(5, '', 'Марин Георгиев Филипов', '', 'М. Филипов', 'Главен инспектор Марин Георгиев Филипов', 'Гл. инспектор М. Филипов', '', NULL, '2016-10-04 15:41:11', '2016-10-04 15:41:11', '', 2, 2, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
+(6, '', 'Димитрийка Михайлова Иванова', '', 'Д. Иванова', 'Началник отдел Димитрийка Михайлова Иванова', 'Н-к отдел Д. Иванова', '', NULL, '2016-10-04 15:42:12', '2016-10-04 15:42:12', '', 1, 2, 1, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, NULL),
+(7, '', 'Елена Странджалиева', '', 'Е. Странджалиева', 'Главен инспектор Елена Странджалиева', 'Гл. инспектор Е. Странджалиева', '', NULL, '2016-10-04 15:43:01', '2016-10-04 15:43:01', '', 2, 2, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
+(8, 'vlado', 'Владимир Наков', 'Vladimir Nakov', 'В. Наков', 'Инспектор Владимир Наков', 'Инспектор В. Наков', '$2y$10$RaLHfuKdy87cF4n.nFfjaOQZz1A9rtinOZqziB3Agl7EysWaOnAoe', 'Y7TE8Wm64ayMJnayHJzBgxgImrNRhUmMxDGMr68IaHPM46hlPLlRZiCQydEs', '2016-10-21 10:35:09', '2022-10-15 12:39:35', '260146', 4, 1, 1, 'Инспектор', 'Инспектор', 0, 0, 1, 1, 0, '106'),
+(9, 'atonev', 'Антон Тонев', 'Anton Tonev', 'А. Тонев', 'Инспектор Антон Тонев', 'Инспектор А. Тонев', '$2y$10$dUtSZKL7oCVlZlEa.a.VFO5i5P3RjXauC77ODdAKP6hetQme47Dc2', 'Yi5bh89sa0rzrM4UTRrhsnTDgELQvPp93LyWOeBpa5Gpvx8G3F0bSgdJEIDE', '2020-05-01 10:37:15', '2022-10-15 12:53:21', '26099', 4, 1, 1, 'Инспектор', 'Инспектор', 1, 1, 1, 1, 0, '999'),
+(10, 'maria', 'Мария Чанкова', 'Marya Chankova', 'М. Чанкова', 'Началник отдел Мария Чанкова', 'Н-к отдел М. Чанкова', '$2y$10$x2E2f/8HnM6RpJjmH8D0NO67QiHvgsc6k1hh1UPGHLs8lzpAzhZiW', 'SWjlOIwfjQOOXdVfWEkqqRNrWtcd8miWHnAgl04s9reHqePZUsxskjUZ6yPy', '2021-09-03 07:53:21', '2022-10-15 12:52:33', '26015', 1, 1, 2, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, '103');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

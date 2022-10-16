@@ -9,6 +9,9 @@
     {!!Html::style("css/qcertificates/show_opinion.css" )!!}
     {!!Html::style("css/qcertificates/body_table.css" )!!}
     {!!Html::style("css/qcertificates/print.css", array('media' => 'print'))!!}
+    <?php 
+    // echo($certificate->is_lock)
+    ?>
 @endsection
 
 @section('message')
@@ -152,12 +155,19 @@
                 </div>
             </div>
             <div class="col-md-12 row-table-bottom " >
-                <div  class="archive small_field_bottom print-button" >
-                    <button id="btn_archive" class="btn-sm"><i class="fa fa-print"></i> Виж и принтирай за клиента</button>
-                </div>
-                <div  class="hidden client small_field_bottom print-button" style="display: table-cell">
-                    <button id="btn_client" class="btn-sm" ><i class="fa fa-print"></i> За архива</button>
-                </div>
+                @if ((Auth::user()->id == $certificate->added_by) || (Auth::user()->admin == 2))
+                    <div  class="archive small_field_bottom print-button" >
+                        <p style="font-weight: normal"><span class="bold" style="text-transform: none;">ВНИМАНИЕ!!!</span> Само администратор или инспектора съставил Сертификата могат да го Редактират!</p>
+                        <hr class="my_hr_in"/>
+                        <div class="btn_add" style="text-align: left; display: inline-block; margin-top: 5px">
+                            <a href="{!!URL::to('/контрол/сертификат-внос/'.$certificate->id.'/edit')!!}" class="fa fa-edit btn btn-primary">  Редактирай Данните</a>
+                        </div>
+                        <div class="btn_add" style="float: right; display: inline-block; margin-top: 5px">
+                            <a href="{!!URL::to('/import/stock/'.$certificate->id.'/0/edit')!!}" class="fa fa-edit btn btn-danger">  Редактирай Стоките</a>
+                        </div>
+                    </div>
+                @endif
+                
             </div>
         </fieldset>
     </div>
@@ -182,7 +192,16 @@
                                 <td class="cell first-row-cell" style="height: 5.2cm">
                                     <p class="p_info" style="margin-bottom: 3px">1. Търговец / Trader</p>
                                     <p class="p_content" style="margin-bottom: 8px">{{$certificate->importer_name }}</p>
-                                    <p class="p_content" style="">{{$certificate->importer_address }} / {{$certificate->importer_vin }}</p>
+                                    <?php
+                                        if($firm->is_bulgarian == 0) {
+                                            $vin = 'BG:'.$certificate->importer_vin;
+                                            
+                                        }
+                                        else {
+                                            $vin = $certificate->importer_vin;
+                                        }
+                                    ?>
+                                    <p class="p_content" style="">{{$certificate->importer_address }} / {{ $vin }}</p>
                                 </td>
                                 <td class="cell first-row-cell cell-top" style="height: 5.2cm">
                                     @if ($certificate->type_crops == 1)
@@ -196,7 +215,7 @@
                                         </p>
                                     @endif
                                     <p class="p_info line" style="margin-bottom: 3px">
-                                        Certificate of conformity with the European Unionmarketing standards applicable to fresh fruit and vegetables, according Regulation 543/2011
+                                        Certificate of conformity with the European Union marketing standards applicable to fresh fruit and vegetables, according Regulation 543/2011
                                     </p>
                                     <p class="p_content number_sert" style="">
                                         №/No {{ $certificate->stamp_number }}/{{ $certificate->import }}
@@ -217,7 +236,7 @@
                             <tr>
                                 <td class="cell second-row-cell cell-control autority" style=" height: 3.6cm" rowspan="2">
                                     <p class="p_info" style="margin-bottom: 3px;">
-                                        2. Опаковчик, посочен върху опаковката (ако е  различеноттърговеца)/ Packer identified on packaging (if other than trader)
+                                        2. Опаковчик, посочен върху опаковката (ако е  различен от търговеца)/ Packer identified on packaging (if other than trader)
                                     </p>
                                     <p class="p_content" style="margin-top: 20px">
                                         {{$certificate->packer_name }}
@@ -228,7 +247,7 @@
                                 </td>
                                 <td class="cell second-row-cell cell-control autority" style="height: 1cm  !important" colspan="2">
                                     <p class="p_info" style="margin-bottom: 3px">
-                                        3.Контролен орган / inspectionbody
+                                        3. Контролен орган / Inspectionbody
                                     </p>
                                     <p class="p_content bold"  style="line-height: 15px">
                                         {{$certificate->authority_bg }}
@@ -269,14 +288,14 @@
                             <tr >
                                 <td class="cell second-row-cell cell-rowspan"  >
                                     <p class="p_info" style="margin-bottom: 3px;">
-                                        6. Идентификация на транспортните средства/Identifier of means of transport BY TRUCK
+                                        6. Идентификация на транспортните средства/ Identifier of means of transport BY TRUCK
                                     </p>
                                     <p class="p_content transport" style="margin-bottom: 3px">
                                         {{$certificate->transport }}
                                     </p>
                                 </td>
                                 <td class="cell second-row-cell cell-controlss" >
-                                    <p class="p_info" style="margin-bottom: 10px;">
+                                    <p class="p_info" id="p_seven" style="margin-bottom: 10px;">
                                         7.
                                     </p>
                                     @if ($certificate->what_7  == 1)
@@ -309,34 +328,32 @@
                                     <p class="p_info" style="margin-bottom: 3px; display:block">
                                         8. Опаковки (брой и вид)/ Packages (number and type)
                                     </p>
-                                    <div>
-                                        @foreach ($stocks as $k => $stock)
-                                        <?php
-                                            if ($stock['type_pack'] == 1) {
-                                                $pack = 'Каси/ Pl. cases';
-                                            }
-                                            elseif ($stock['type_pack'] == 2) {
-                                                $pack = 'Палети/ Cages';
-                                            }
-                                            elseif ($stock['type_pack'] == 3) {
-                                                $pack = 'Кашони/ C. boxes';
-                                            }
-                                            elseif ($stock['type_pack'] == 4) {
-                                                $pack = 'Торби/ Bags';
-                                            }
-                                            elseif ($stock['type_pack'] == 999) {
-                                                $pack = $stock['different'];
-                                            }
-                                            else {
-                                                $pack = '';
-                                            }
-                                        ?>
-                                        <p class="p_content bold pack pack{{$k}}" style="text-transform: none">{{ $pack }} {{$stock['number_packages']}}</p>
-                                        @endforeach
-                                    </div>
+                                    @foreach ($stocks as $k => $stock)
+                                    <?php
+                                        if ($stock['type_pack'] == 1) {
+                                            $pack = 'Каси/ Pl. cases';
+                                        }
+                                        elseif ($stock['type_pack'] == 2) {
+                                            $pack = 'Палети/ Cages';
+                                        }
+                                        elseif ($stock['type_pack'] == 3) {
+                                            $pack = 'Кашони/ C. boxes';
+                                        }
+                                        elseif ($stock['type_pack'] == 4) {
+                                            $pack = 'Торби/ Bags';
+                                        }
+                                        elseif ($stock['type_pack'] == 999) {
+                                            $pack = $stock['different'];
+                                        }
+                                        else {
+                                            $pack = '';
+                                        }
+                                    ?>
+                                    <p class="p_content bold pack pack{{$k}}" style="text-transform: none">{{ $pack }} {{$stock['number_packages']}}</p>
+                                    @endforeach
                                 </td>
                                 {{-- Pole 9 --}}
-                                <td class="cell fourth-row-cell cell-control" >
+                                <td class="cell fourth-row-cell cell-control" id="stocs_cell">
                                     <p class="p_info stocs" style="margin-bottom: 3px;">
                                         9. Тип продукт (сорт, ако стандартът го посочва)/ Type of product (variety if the standard specifies)
                                     </p>
@@ -353,9 +370,20 @@
                                         <span>{{$stock['crops_name']}}</span>/
                                         <span style="text-transform: none">{{$stock['crop_en']}}</span>
                                         <span style="text-transform: none">{!! $variety !!}</span>
-                                        {{-- <span>ДИНИ</span>/<span style="text-transform: none">Watermelons</span> --}}
                                     </p>
                                     @endforeach
+                                    {{-- <p class="p_content bold crop crop0" style="margin-top: 6px;" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons1</span></p>
+                                    <p class="p_content bold crop crop1" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons2</span></p>
+                                    <p class="p_content bold crop crop2" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons3</span></p>
+                                    <p class="p_content bold crop crop3" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons4</span></p>
+                                    <p class="p_content bold crop crop4" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons5</span></p>
+                                    <p class="p_content bold crop crop5" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons6</span></p>
+                                    <p class="p_content bold crop crop6" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons7</span></p>
+                                    <p class="p_content bold crop crop7" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons8</span></p>
+                                    <p class="p_content bold crop crop8" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons9</span></p>
+                                    <p class="p_content bold crop crop9" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons10</span></p>
+                                    <p class="p_content bold crop crop10" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons11</span></p>
+                                    <p class="p_content bold crop crop11" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons12</span></p> --}}
                                 </td>
                                 {{-- Pole 10 --}}
                                 <td class="cell fourth-row-cell cell-rowspan" >
@@ -381,7 +409,7 @@
                                     @endforeach
                                 </td>
                                 {{-- Pole 11 --}}
-                                <td class="cell fourth-row-cell cell-control" >
+                                <td class="cell fourth-row-cell cell-control last-cell" >
                                     <p class="p_info" style="margin-bottom: 3px;">
                                         11. Общо нето тегло в kg/ Total net weight in kg
                                     </p>
@@ -399,7 +427,7 @@
                         <tbody>
                             <tr >
                                 <td class="cell fifth-row-cell cell-rowspan" >
-                                    <p class="p_info" style="margin-bottom: 35px;">
+                                    <p class="p_info" id="p_top_set" >
                                         12. Към момента на издаване на сертификата посочената по-горе пратка съответства на 
                                         действащите пазарни стандарти на Европейския съюз, съгласно Регламент 543/2011/
                                         The consignment referred to above conforms, at the issue time, with the European Union 
@@ -424,13 +452,13 @@
                                     <p class="" style="font-size: 11.5px; margin-top: 5px">
                                         Валиден до (дата)/Valid until (date) <span style="" ><span class="bold">{{$certificate->valid_until }}</span></span>
                                     </p>
-                                    <p style="font-size: 11.5px; margin-top: 30px">
+                                    <p style="font-size: 11.5px; " id="p_bottom_set">
                                         Подписващо лице (име с главни букви): <span class="bold" style="text-transform: uppercase">{{$certificate->inspector_bg }}</span>
                                     </p>
                                     <p style="font-size: 11.5px;">
                                         Signatory (name in block letters): <span class="bold" style="text-transform: uppercase">{{$certificate->inspector_en }}</span>
                                     </p>
-                                    <p style="font-size: 11.5px; margin-top: 15px">
+                                    <p style="font-size: 11.5px;" id="signature">
                                         Подпис/Signature..................Печат на компетентния орган/Seal of the competent authority
                                     </p>
                                 </td>
@@ -444,9 +472,16 @@
                                 <td class="cell sixth-row-cell cell-rowspan" >
                                     
                                     @if ($certificate->type_crops == 2 )
-                                        <p class="p_content" style="text-transform: none">13. Забележки/ Observations: \Сертификатътсеиздаваи  наоснование чл.4 т.7 отРегламент (ЕС) 543/2011г.</p>
+                                        <p class="p_content" style="text-transform: none">
+                                            13. Забележки/ Observations: Сертификатът се издава на основание чл.4 т.7 от Регламент (ЕС) 543/2011 г. 
+                                        </p>
+                                        <p class="p_content" style="text-transform: none">
+                                            {{$certificate->observations}}
+                                        </p>
                                     @else
-                                        <p class="p_content" style="text-transform: none">13. Забележки/ Observations</p>
+                                        <p class="p_content" style="text-transform: none">
+                                            13. Забележки/ Observations  {{$certificate->observations}}
+                                        </p>
                                     @endif
                                 </td>
                             </tr>
@@ -454,7 +489,7 @@
                     </table>
                 </div>
                 <p class="p_bottom">
-                    (1) При реекспорт на стоки се посочва произходът им в клетка 9/ Where the goods агаbeing re-exported, indicate the origin In box 9.
+                    (1) При реекспорт на стоки се посочва произходът им в клетка 9/ Where the goods аrе being re-exported, indicate the origin In box 9.
                 </p>
             </div>
         </div>
@@ -464,20 +499,12 @@
 @section('scripts')
     {{-- ПЪРВОНАЧАЛНИТЕ НАСТРОЙКИ СА ЗАДАДЕНИ В  flipText.js --}}
     
-    {!!Html::script("js/build/jquery.datetimepicker.full.min.js" )!!}
+    {{-- {!!Html::script("js/build/jquery.datetimepicker.full.min.js" )!!} --}}
     {{-- {!!Html::script("js/date/in_date.js" )!!} --}}
     {{-- {!!Html::script("js/opinions/clientDocument.js" )!!} --}}
     {!!Html::script("js/quality/flipText.js" )!!}
     {{-- {!!Html::script("js/opinions/addressFlip.js" )!!} --}}
 
-    
-
     <script>
-        // document.getElementById("fifth_table").style.height="10cm";
-        const height = document.querySelector('#first_table').offsetHeight
-        // const height_p = document.querySelector('.type_big').offsetHeight
-        // console.log(height * 0.0264583333)
-        // console.log(height  * 0.0264583333 )
-        // console.log($('#country_wrapp').height());
     </script>
 @endsection

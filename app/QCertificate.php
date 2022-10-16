@@ -21,9 +21,9 @@ class QCertificate extends Model
     protected $fillable = [
         'import', 'is_all', 'what_7', 'type_crops', 'importer_id', 'importer_name', 'importer_address',
         'importer_vin', 'packer_name', 'packer_address', 'stamp_number', 'number_certificate', 'authority_bg', 'authority_en',
-        'for_country_bg', 'for_country_en', 'id_country', 'for_country_more', 'transport', 'from_country', 'customs_bg', 'customs_en', 
+        'for_country_bg', 'for_country_en', 'id_country', 'observations', 'transport', 'from_country', 'customs_bg', 'customs_en', 
         'place_bg', 'place_en', 'date_issue', 'valid_until', 'inspector_bg', 'inspector_en', 'invoice', 'date_invoice', 'sum',
-        'date_update', 'updated_by', 'date_add', 'added_by'
+        'date_update', 'updated_by', 'date_add', 'added_by', 'is_lock'
     ];
 
     

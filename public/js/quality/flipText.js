@@ -1,50 +1,8 @@
-// $(function() {
-//     $('#address').css('font-size', '1em');
-
-//     while ($('#address').height() > $('#fitin').height()) {
-//         $('#address').css('font-size', (parseInt($('#address').css('font-size')) - 0.1) + "px");
-//     }
-// })
-// $(function() {
-//     $('#fitin_bottom div').css('font-size', '1em');
-
-//     while ($('#fitin_bottom div').height() > $('#fitin_bottom').height()) {
-//         $('#fitin_bottom div').css('font-size', (parseInt($('#fitin_bottom div').css('font-size')) - 0.1) + "px");
-//     }
-// })
-
-
-// ЗА ПРЕРАБОТКА
-$(function() {
-    const height = document.querySelector('#first_table').offsetHeight * 0.0264583333;
-    console.log(height )
-    if (height > 5.3) {
-        $('.number_sert').css('margin-top', '13px');
-        $('.number_sert').css('padding-bottom', '13px');
-    }
-   
-})
-
-
-
-//   КОГАТО СТРАНАТА Е НА ДВА РЕДА
-$(function() {
-    $('#country_wrapp').css('margin-top', '25px');
-
-    const height = document.querySelector('#country_p').offsetHeight
-    // console.log(height)
-    if (height > 18) {
-        $('#country_wrapp').css('margin-top', '8px');
-    }
-    if (height > 35) {
-        $('#country_wrapp').css('margin-top', '3px');
-    }
-})
 
 //  ЗА КУЛТУРИТЕ КОГАТО СЕ МНОГО И ПОДРАВНЯВАНЕ С ДРУГИТЕ ПОЛЕТА
 $(function() {
     $('.pack0').css('margin-top', '20px');
-    $('.crop0').css('margin-top', '6px');
+    $('.crop0').css('margin-top', '5px');
     $('.quality0').css('margin-top', '20px');
     $('.weight0').css('margin-top', '20px');
 
@@ -75,7 +33,7 @@ $(function() {
             $('.quality1').css('margin-bottom', quality0 * 2 +'px');
             $('.weight1').css('margin-bottom', quality0 * 2 +'px');
         }
-}
+    }
 
     // ////  2  ///
     if ( document.querySelector('.crop2') !== null ) {
@@ -118,12 +76,13 @@ $(function() {
             $('.quality4').css('margin-bottom', quality0 + 'px');
             $('.weight4').css('margin-bottom', quality0 + 'px');
         }
-        if ( quality4 * 4 ==  crop4 ) {
+        if ( quality4 * 3 ==  crop4 ) {
             $('.pack4').css('margin-bottom', quality0 * 2 +'px');
             $('.quality4').css('margin-bottom', quality0 * 2 +'px');
             $('.weight4').css('margin-bottom', quality0 * 2 +'px');
         }
     }
+    // console.log(document.querySelector('.crop5')  )
     // ////  5  ///
     if ( document.querySelector('.crop5') !== null ) {
         const crop5 = document.querySelector('.crop5').offsetHeight
@@ -133,7 +92,7 @@ $(function() {
             $('.quality5').css('margin-bottom', quality0 + 'px');
             $('.weight5').css('margin-bottom', quality0 + 'px');
         }
-        if ( quality5 * 5 ==  crop5 ) {
+        if ( quality5 * 3 ==  crop5 ) {
             $('.pack5').css('margin-bottom', quality0 * 2 +'px');
             $('.quality5').css('margin-bottom', quality0 * 2 +'px');
             $('.weight5').css('margin-bottom', quality0 * 2 +'px');
@@ -149,12 +108,12 @@ $(function() {
             $('.quality6').css('margin-bottom', quality0 + 'px');
             $('.weight6').css('margin-bottom', quality0 + 'px');
         }
-        if ( quality6 * 6 ==  crop6 ) {
+        if ( quality6 * 3 ==  crop6 ) {
             $('.pack6').css('margin-bottom', quality0 * 2 +'px');
             $('.quality6').css('margin-bottom', quality0 * 2 +'px');
             $('.weight6').css('margin-bottom', quality0 * 2 +'px');
         }
-}
+    }
 
     // ////  7  ///
     if ( document.querySelector('.crop7') !== null ) {
@@ -165,7 +124,7 @@ $(function() {
             $('.quality7').css('margin-bottom', quality0 + 'px');
             $('.weight7').css('margin-bottom', quality0 + 'px');
         }
-        if ( quality7 * 7 ==  crop7 ) {
+        if ( quality7 * 3 ==  crop7 ) {
             $('.pack7').css('margin-bottom', quality0 * 2 +'px');
             $('.quality7').css('margin-bottom', quality0 * 2 +'px');
             $('.weight7').css('margin-bottom', quality0 * 2 +'px');
@@ -181,7 +140,7 @@ $(function() {
             $('.quality8').css('margin-bottom', quality0 + 'px');
             $('.weight8').css('margin-bottom', quality0 + 'px');
         }
-        if ( quality8 * 8 ==  crop8 ) {
+        if ( quality8 * 3 ==  crop8 ) {
             $('.pack8').css('margin-bottom', quality0 * 2 +'px');
             $('.quality8').css('margin-bottom', quality0 * 2 +'px');
             $('.weight8').css('margin-bottom', quality0 * 2 +'px');
@@ -196,11 +155,123 @@ $(function() {
             $('.quality9').css('margin-bottom', quality0 + 'px');
             $('.weight9').css('margin-bottom', quality0 + 'px');
         }
-        if ( quality9 * 9 ==  crop9 ) {
+        if ( quality9 * 3 ==  crop9 ) {
             $('.pack9').css('margin-bottom', quality0 * 2 +'px');
             $('.quality9').css('margin-bottom', quality0 * 2 +'px');
             $('.weight9').css('margin-bottom', quality0 * 2 +'px');
         }
     }
-
 })
+
+// ДОБАВЕНИ ПОВЕЧЕ ОТ ТРИ РЕДА
+$(function() {
+    const first = document.querySelector('#first_table').offsetHeight
+    const second = document.querySelector('#second_table').offsetHeight
+    const third = document.querySelector('#third_table').offsetHeight
+    const fourth = document.querySelector('#fourth_table').offsetHeight
+    const fifth = document.querySelector('#fifth_table').offsetHeight
+    const sixth = document.querySelector('#sixth_table').offsetHeight
+
+    // console.log( fourth * 0.0264583333 + '---' + fourth)
+
+    $('#p_top_set').css('margin-bottom', '35px');
+    $('#p_bottom_set').css('margin-top', '30px');
+    $('#signature').css('margin-top', '15px');
+    
+    // ЧЕТИРИ 
+    if (fourth > 110) {
+        $('#fifth_table').css('height', 'auto');
+        $('#stocs_cell').css('padding-bottom', '1px');
+        $('#p_top_set').css('margin-bottom', '33px');
+        $('#p_bottom_set').css('margin-top', '29px');
+        $('#signature').css('margin-top', '14px');
+    }
+    // ПЕТ
+    if (fourth >= 123) {
+        $('#p_top_set').css('margin-bottom', '25px');
+        $('#p_bottom_set').css('margin-top', '23px');
+    }
+        // ШЕСТ
+        if (fourth >= 140) {
+        $('#sixth_table').css('height', '1.74cm');
+    }
+    // СЕДЕМ
+        if (fourth >= 157) {
+        $('#third_table').css('height', '2.8cm');
+        $('#p_top_set').css('margin-bottom', '19px');
+        $('#p_bottom_set').css('margin-top', '19px');
+    }
+    // ОСЕМ
+        if (fourth >= 173) {
+        $('#third_table').css('height', '2.35cm');
+    }
+    //  ДЕВЕТ
+    if (fourth >= 191) {
+        $('#p_top_set').css('margin-bottom', '14px');
+        $('#p_bottom_set').css('margin-top', '14px');
+        $('#signature').css('margin-top', '8px');
+    }
+    //  ДЕСЕТ
+    if (fourth >= 208) {
+        $('#p_seven').css('margin-bottom', '0');
+        $('#p_top_set').css('margin-bottom', '7px');
+        $('#p_bottom_set').css('margin-top', '7px');
+        $('#signature').css('margin-top', '4px');
+        $('#sixth_table').css('height', '1.3cm');
+    }
+    //  ЕДИНАДЕСЕТ
+    if (fourth >= 225) {
+        $('.p_bottom').css('margin-top', '7px');
+        $('.h3_bottom').css('margin-bottom', '0.8cm');
+    }
+    //  ДВАНАДЕСЕТ
+    if (fourth >= 243) {
+        $('.h3_bottom').css('margin-bottom', '0.5cm');
+    }
+})
+
+// ЗА ПРЕРАБОТКА
+$(function() {
+    const height = document.querySelector('#first_table').offsetHeight * 0.0264583333;
+    if (height > 5.3) {
+        $('.number_sert').css('margin-top', '13px');
+        $('.number_sert').css('padding-bottom', '13px');
+    }
+})
+
+//   КОГАТО СТРАНАТА Е НА ДВА РЕДА
+$(function() {
+    $('#country_wrapp').css('margin-top', '25px');
+
+    const height = document.querySelector('#country_p').offsetHeight
+    
+    if (height > 18) {
+        $('#country_wrapp').css('margin-top', '8px');
+    }
+    if (height > 35) {
+        $('#country_wrapp').css('margin-top', '3px');
+    }
+})
+
+
+
+
+
+
+
+// $(function() {
+//     $('#address').css('font-size', '1em');
+
+//     while ($('#address').height() > $('#fitin').height()) {
+//         $('#address').css('font-size', (parseInt($('#address').css('font-size')) - 0.1) + "px");
+//     }
+// })
+// $(function() {
+//     $('#fitin_bottom div').css('font-size', '1em');
+
+//     while ($('#fitin_bottom div').height() > $('#fitin_bottom').height()) {
+//         $('#fitin_bottom div').css('font-size', (parseInt($('#fitin_bottom div').css('font-size')) - 0.1) + "px");
+//     }
+// })
+
+

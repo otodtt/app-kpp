@@ -71,20 +71,24 @@ table, th, td {
     /* width: 15.2cm; */
     height: 2.9cm;
     padding: 0;
-    background-color: #f08351;
+    /* background-color: #f08351; */
 }
 .fourth-row-cell {
     width: 25%;
-    border: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
     border-top: none;
     padding-top: 1px !important;
+}
+.last-cell {
+    border-right: 1px solid black;
 }
 #fifth_table {
     margin: 0 auto;
     /* width: 15.2cm; */
     height: 6.5cm;
     padding: 0;
-    background-color: #71d836;
+    /* background-color: #71d836; */
 }
 .fifth-row-cell {
     width: 100%;
@@ -148,64 +152,3 @@ table, th, td {
     margin-right: 50px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* 
-#first-row {
-    border: 1px solid black;
-}
-.cell {
-    border: 1px solid black;
-}
-.first-row-cell {
-    width: 7.1cm;
-}
-.third-row-cell {
-    width: 50%;
-}
-
-
-.div-row {
-    margin: 0;
-    padding: 0;
-    display: initial;
-}
-.div-col {
-    height: 100%; 
-    display: inline-block;
-} */
-
-
-
-/* .cell_left{
-    width: 50%;
-    max-height: 5.2cm;
-    background-color: #d2d0d0;
-    border-bottom: 1px solid #4c4c4c;
-}
-.cell_right{
-    width: 50%;
-    max-height: 5.2cm;
-    border-left: 1px solid #4c4c4c;
-    border-bottom: 1px solid #4c4c4c;
-} */
-
-
-
-/* table {
-    margin: 0 auto;
-    width: 15.2cm;
-    height: 22.7cm;
-    border: 1px solid black;
-    padding: 0;
-    background-color: #d2d0d0;
-} */

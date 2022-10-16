@@ -95,14 +95,15 @@
         <span class="description">В зависимост от това кой сектор е избран, инспекторът ще има права да добавя или редактира
         документи. За останалите, само ще вижда определени страници. Н-к одела и Администратора трябва да иамат достъп
         до всички страници.</span><br/>
-
     </div>
 </fieldset>
 
 <fieldset>
-    <span class="description">Попълни трите имена или име и фамиля на инспектора!</span><br/>
+    <span class="description">Попълни име и фамиля на инспектора! Ако е маркиран КППЗ, попълни името на английски!</span><br/>
     {!! Form::label('all_name', ' Име на Инспектора:', ['class'=>'labels']) !!}
-    {!! Form::text('all_name', null, ['class'=>'sample2', 'placeholder'=>'Иван Иванов Петров', 'title'=>'Трите имена или Име и Фамилия на инспектора', 'size'=>30 ]) !!}
+    {!! Form::text('all_name', null, ['class'=>'sample2', 'placeholder'=>'Иван Петров', 'title'=>'Трите имена или Име и Фамилия на инспектора', 'size'=>30 ]) !!}
+    {!! Form::label('all_name_en', ' Имена на Английски:', ['class'=>'labels', 'style'=>'float: right; margin-right: 50px' ]) !!}
+    {!! Form::text('all_name_en', null, ['class'=>'sample2', 'placeholder'=>'Ivan Petrov', 'title'=>'Трите имена на английски', 'size'=>30, 'style'=>'float: right; margin-right: 0px' ]) !!}
     <span class="error">
         {{ $errors->first('all_name') }}
     </span>

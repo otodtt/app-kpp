@@ -45,11 +45,18 @@ class UserUpdateRequest extends Request
         else{
             $error = '';
         }
+        if ($request['ppz'] == 1) {
+            $name_en = 'required|min:7|max:50|latin';
+        }
+        else {
+            $name_en = 'min:7|max:50|latin';
+        }
         
         $data = [
             'active' => 'required',
             'dlaznost' => 'required',
             'all_name' => 'required|min:7|max:50|cyrillic',
+            'all_name_en' => $name_en,
             'karta' => 'required_if:active,1|digits_between:4,7|unique:users,karta,'.$user,
             'short_name' => 'required:|min:4|max:50|cyrillic_with',
             'name' => 'required_if:active,1|min:4|max:10|latin|unique:users,name,'.$user,
@@ -80,6 +87,11 @@ class UserUpdateRequest extends Request
 
             'all_name.required' => 'Попълни името!',
             'all_name.min' => 'Минимален брой символи за името - 7!',
+            'all_name.cyrillic' => 'За името използвай кирилица!',
+
+            'all_name_en.required' => 'Попълни името на англиски!',
+            'all_name_en.min' => 'Минимален брой символи за името на англиски - 7!',
+            'all_name_en.latin' => 'За името на англиски използвай латиница!',
 
             'karta.unique' => 'Номера на картата трябва да е уникален!',
             'karta.digits_between' => ' Полето трябва да има между 4 и 7 цифри без букви!',

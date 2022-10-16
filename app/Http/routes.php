@@ -92,8 +92,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/контрол/сертификати-внос/добави', 'QCertificatesController@import_create');
     Route::post('/контрол/сертификати-внос/store', 'QCertificatesController@import_store');
     Route::get('контрол/сертификат-внос/{id}/завърши', 'QCertificatesController@import_ending');
-    Route::post('/import/add-stock/store', 'QCertificatesController@import_stock');
+    Route::get('контрол/сертификат-внос/{id}/edit', 'QCertificatesController@edit');
+    Route::post('контрол/сертификат-внос/{id}/update', 'QCertificatesController@update');
+    Route::post('/import/add-stock/store', 'QCertificatesController@import_stock_store');
+    Route::post('/import/edit-stock/update/{id}', 'QCertificatesController@import_stock_update');
     Route::post('/import-finish/store', 'QCertificatesController@import_finish');
+    Route::get('/import/stock/{id}/{sid?}/edit', 'QCertificatesController@stocks_edit');
+    Route::post('/import/stock/{id}/delete', 'QCertificatesController@destroy');
 
 
 

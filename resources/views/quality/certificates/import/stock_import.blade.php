@@ -93,11 +93,7 @@
                                         <span style="font-weight: bold">{{$certificate['for_country_en']}}</span> 
                                     </p>
                                     <br>
-                                    <p>Регион: 
-                                        <span style="font-weight: bold; text-transform: uppercase;">
-                                            {{$certificate['for_country_more']}}
-                                        </span> 
-                                    </p>
+                                    <br>
                                 </div>
                             </div>
                         </fieldset>

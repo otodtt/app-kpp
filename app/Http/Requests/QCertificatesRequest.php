@@ -23,7 +23,6 @@ class QCertificatesRequest extends Request
      */
     public function rules()
     {
-
         return [
             // 'what_7'=>'required',
             'type_crops'=>'required',
@@ -32,7 +31,7 @@ class QCertificatesRequest extends Request
             'packer_address'=>'required|latin|min:5|max:500',
             'from_country'=>'required|min:5|max:300',
             'id_country'=>'required',
-            'for_country_more'=>'min:2|max:300',
+            'observations'=>'min:2|max:500',
             'transport'=>'required|latin|min:3|max:300',
             'customs_bg'=>'required|cyrillic_with|min:3|max:300',
             'customs_en'=>'required|latin|min:3|max:300',
@@ -52,7 +51,6 @@ class QCertificatesRequest extends Request
     public function messages()
     {
         return [
-            // 'what_7.required' => 'Избери Поле № 7. За какво се издава сертификата!',
             'type_crops.required' => 'Избери дали е за консумация или преработка!',
             'importer_data.required' => 'Избери Поле № 1 Избери фирмата! Търговеца!',
 
@@ -72,8 +70,8 @@ class QCertificatesRequest extends Request
 
             'id_country.required' => 'Избери в Поле № 5. Регион или страна!',
 
-            'for_country_more.min' => 'Поле № 5. Региона се изписва с минимум 2 символа!',
-            'for_country_more.max' => 'Поле № 5. Региона се изписва с максимум 300 символа!',
+            'observations.min' => 'Поле № 13. Забележки се изписва с минимум 2 символа!',
+            'observations.max' => 'Поле № 13. Забележки се изписва с максимум 500 символа!',
 
             'transport.required' => 'Поле № 6 Идентификация на транспортните средства е задължително!',
             'transport.min' => 'Поле № 6. Идентификация се изписва с минимум 3 символа!',
@@ -102,7 +100,7 @@ class QCertificatesRequest extends Request
 
             'valid_until.required' => 'Поле № 12. Валиден до .. е задължително! Избери дата!',
             'valid_until.date_format' => 'Поле № 12. Валиден до .. е в Непозволен формат за дата!',
-            'valid_until.after' => 'Поле № 12. Валиден до .. трябва да е поне 1 ден след днешната дата!',
+            'valid_until.after' => 'Поле № 12. Валиден до .. трябва да е поне 1 ден след дата на Сертификата!',
 
             'invoice.required' => 'Номера на Фактурата е здължителен!',
             'invoice.numeric' => 'За номер на Фактура използвай само цифри!',

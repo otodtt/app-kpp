@@ -19,7 +19,7 @@ class Stock extends Model
      * @var array
      */
     protected $fillable = [
-        'certificate_id', 'import', 'export', 'internal', 'type_pack', 'number_packages', 'different', 'crop_id', 
-        'crops_name', 'crop_en', 'variety', 'quality_class', 'weight', 'date_update', 'updated_by', 'date_add', 'added_by'
+        'certificate_id', 'import', 'export', 'internal', 'type_pack', 'number_packages', 'different', 'crop_id', 'crops_name', 
+        'crop_en', 'variety', 'quality_class', 'weight', 'date_issue', 'date_update', 'updated_by', 'date_add', 'added_by'
     ];
 }
