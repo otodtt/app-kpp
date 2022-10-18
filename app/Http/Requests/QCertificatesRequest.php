@@ -38,9 +38,9 @@ class QCertificatesRequest extends Request
             'place_bg'=>'required|cyrillic_with|min:3|max:300',
             'place_en'=>'required|latin|min:3|max:300',
             'valid_until'=>'required|date_format:d.m.Y|after:hidden_date',
-            'invoice'=> 'required|numeric|min:1',
-            'date_invoice'=> 'required|date_format:d.m.Y',
-            'sum'=> 'required|numeric|min:1',
+//            'invoice'=> 'required|numeric|min:1',
+//            'date_invoice'=> 'required|date_format:d.m.Y',
+//            'sum'=> 'required|numeric|min:1',
         ];
     }
 
@@ -102,16 +102,16 @@ class QCertificatesRequest extends Request
             'valid_until.date_format' => 'Поле № 12. Валиден до .. е в Непозволен формат за дата!',
             'valid_until.after' => 'Поле № 12. Валиден до .. трябва да е поне 1 ден след дата на Сертификата!',
 
-            'invoice.required' => 'Номера на Фактурата е здължителен!',
-            'invoice.numeric' => 'За номер на Фактура използвай само цифри!',
-            'invoice.min' => 'Номера на Фактурата не може да е нула - 0 или отрицателно число!',
-
-            'date_invoice.required' => 'Дата на Фактурата е здължителна!',
-            'date_invoice.date_format' => 'Непозволен формат за Дата на Фактура!',
-
-            'sum.required' => 'Сумата е здължителен!',
-            'sum.numeric' => 'За сумата на Фактура използвай само цифри!',
-            'sum.min' => 'Сумата не може да е нула - 0 или отрицателно число!',
+//            'invoice.required' => 'Номера на Фактурата е здължителен!',
+//            'invoice.numeric' => 'За номер на Фактура използвай само цифри!',
+//            'invoice.min' => 'Номера на Фактурата не може да е нула - 0 или отрицателно число!',
+//
+//            'date_invoice.required' => 'Дата на Фактурата е здължителна!',
+//            'date_invoice.date_format' => 'Непозволен формат за Дата на Фактура!',
+//
+//            'sum.required' => 'Сумата е здължителен!',
+//            'sum.numeric' => 'За сумата на Фактура използвай само цифри!',
+//            'sum.min' => 'Сумата не може да е нула - 0 или отрицателно число!',
         ];
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.quality')
 @section('title')
-    {{ 'Добави Стока!' }}
+    {{ 'Добави Фактура!' }}
 @endsection
 
 @section('css')
@@ -12,18 +12,12 @@
     <hr class="my_hr"/>
     <div class="alert alert-info my_alert" role="alert">
         <div class="row">
-            <h3 class="my_center" style="color: #d9534f;">Добавяне на Стоки към Сертификат за ВНОС!</h3>
+            {{--@if()--}}
+            {{--@elseif()--}}
+            <h3 class="my_center" style="color: #d9534f;">Добавяне на Фактура към Сертификат за Внос!</h3>
         </div>
     </div>
-    <div class="alert alert-danger my_alert" role="alert">
-        <p class="my_p"><span class="fa fa-warning red" aria-hidden="true"></span> <span class="bold red">Внимание! Прочети преди да продължиш!</span><br/>
-                <span class="bold">Ако култура я няма в падащото меню, иди на страница „ВСИЧКИ КУЛТУРИ“ и добави култура!
-                </span><br>
-                 <span class="bold">
-                     Ако вида на опаковката я няма в падащото меню, избери „Друго“ и попълни появилото се поле.
-                </span>
-        </p>
-    </div>
+    <div class="alert alert-danger my_alert" role="alert"></div>
 
     <div class="form-group">
         @if(count($errors)>0)
@@ -44,18 +38,6 @@
                     <legend class="small_legend" style="text-align: center">
                         <span class="fa fa-warning red" aria-hidden="true"></span> <span class="bold red" style="font-weight: bold; text-transform: uppercase;" >Внимание! Провери данните преди да продължиш!</span>
                     </legend>
-                    <div class="col-md-4 col-md-6_my" >
-                        <fieldset class="small_field_in">
-                            <p class="description">1. Търговец /Trader</p><hr class="hr_in"/>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p>Фирма: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['importer_name']}}</span></p>
-                                    <p>Адрес: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['importer_address']}}</span></p>
-                                    <p>ЕИК :&nbsp; <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['importer_vin']}}</span></p>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </div>
                     <div class="col-md-2"  style="padding: 0">
                         <fieldset class="small_field_in">
                             <p class="description">Сертификат номер</p><hr class="hr_in"/>
@@ -72,28 +54,20 @@
                         <fieldset class="small_field_in">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="description">2. Опаковчик</p><hr class="hr_in"/>
-                                    <p>Фирма: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['packer_name']}}</span></p>
-                                    <p>Адрес: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['packer_address']}}</span></p>
+                                    <p class="description">Инспектор издал сертификата</p><hr class="hr_in"/>
+                                    <br>
+                                    <p>Инспектор: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['inspector_bg']}}</span></p>
                                     <br>
                                 </div>
                             </div>
                         </fieldset>
                     </div>
-
-                    <div class="col-md-2" style="padding: 0" >
+                    <div class="col-md-4 col-md-6_my" >
                         <fieldset class="small_field_in">
+                            <p class="description">1. Търговец /Trader</p><hr class="hr_in"/>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="description">5. Регион местоназначение</p><hr class="hr_in"/>
-                                    <p>За:
-                                        <span style="font-weight: bold;">
-                                            {{$certificate['for_country_bg']}}/
-                                        </span>
-                                        <span style="font-weight: bold">{{$certificate['for_country_en']}}</span>
-                                    </p>
-                                    <br>
-                                    <br>
+                                    <p>Фирма: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['importer_name']}}</span></p><br>
                                 </div>
                             </div>
                         </fieldset>
@@ -103,108 +77,49 @@
         </div>
     </div>
     <hr class="hr_in"/>
-    <div class="container-fluid"  id="show_stckr">
-        <div class="row">
-            <div class="col-md-12" >
-                <fieldset class="small_field" style="margin-top: 9px">
-                    @if(!empty($stocks))
-                        @foreach ( $stocks as $stock)
-                            <?php
-                            if($stock['type_pack'] == 1 ) {
-                                $pack = 'Каси/ Pl. cases';
-                            }
-                            elseif ($stock['type_pack'] == 2) {
-                                $pack = 'Палети/ Cages';
-                            }
-                            elseif ($stock['type_pack'] == 3) {
-                                $pack = 'Кашони/ C. boxes';
-                            }
-                            elseif ($stock['type_pack'] == 4) {
-                                $pack = 'Торби/ Bags';
-                            }
-                            elseif ($stock['type_pack'] == 999) {
-                                $pack = $stock['different'];
-                            }
-                            else {
-                                $pack = '';
-                            }
-                            // \\\\
-                            if (strlen($stock['variety']) > 0) {
-                                $variety = '('.$stock['variety'].')';
-                            }
-                            else {
-                                $variety = '';
-                            }
-                            // \\\\
-                            if($stock['quality_class'] == 1) {
-                                $class = 'I клас/I class';
-                            }
-                            elseif ($stock['quality_class'] == 2) {
-                                $class = 'II клас/II class';
-                            }
-                            elseif ($stock['quality_class'] == 3) {
-                                $class = 'OПС/GPS';
-                            }
-                            else {
-                                $class = '';
-                            }
-                            ?>
-                            <ul>
-                                <li>
-                                    <p style="font-size: 16px" class="bold">
-                                        <span style="display: inline-block; width: 300px;">{{$pack}} - {{$stock['number_packages'] }}</span>
-                                    <span style="display: inline-block; width: 300px;">
-                                        {{$stock['crops_name'] }}/{{$stock['crop_en']}} <span style="font-weight: normal;">{{$variety}}</span>
-                                    </span>
-                                    <span style="display: inline-block; width: 300px;">
-                                        {{$class}} - {{$stock['weight']}} kg
-                                    </span>
-                                    </p>
-                                </li>
-                            </ul>
-                        @endforeach
 
-                    @else
-                        <p class="bold">Все още няма добавни продукти</p>
-                    @endif
+    {!! Form::open(['url'=>'контрол/фактури-внос/'.$certificate['id'].'/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
+
+    {{--ФАКТУРА И ДАТА--}}
+    <div class="container-fluid" >
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset class="small_field"><legend class="small_legend">Фактура</legend>
+                    <fieldset class="small_field_in" style="width: 50%">
+                        <p class="description"><span class="fa fa-warning red" aria-hidden="true"> ВАЖНО!!!
+                            В сумата когато се налага изпозвай ТОЧКА!</span></p><hr class="hr_in"/>
+                        <div class="col-md-3 col-md-6_my" >
+                            {!! Form::label('invoice', 'Фактура №', ['class'=>'my_labels']) !!}<br>
+                            {!! Form::text('invoice', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>20 ]) !!}
+                        </div>
+                        <div class="col-md-4 col-md-6_my" >
+                            {!! Form::label('date_invoice', 'Дата Фактура:', ['class'=>'my_labels']) !!}<br>
+                            {!! Form::text('date_invoice', null, ['class'=>'form-control form-control-my',
+                            'id'=>'date_invoice', 'size'=>13, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
+                        </div>
+                        <div class="col-md-4 col-md-6_my" >
+                            {!! Form::label('sum', 'Сума', ['class'=>'my_labels']) !!}<br>
+                            {!! Form::text('sum', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>10 ]) !!}
+                            {{--<input type="number" onchange="setTwoNumberDecimal" min="0" max="10" step="0.25" value="0.00" />--}}
+                            {{--{!! Form::number('sum', null, ['class'=>'form-control form-control-my',--}}
+                                                            {{--'size'=>10,'maxlength'=>10,--}}
+                                                            {{--'min'=>'0', 'value'=>'0.00', 'step'=>'0.25' ]) !!}--}}
+                            {{--<input type="number" name="sum" class="form-control form-control-my" data-decimal="2" oninput="enforceNumberValidation(this)" step="0.25"  value="0.00" />--}}
+                        </div>
+                    </fieldset>
                 </fieldset>
             </div>
         </div>
     </div>
-    <hr class="hr_in"/>
-
-    {!! Form::open(['url'=>'import/add-stock/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
-
-    @include('quality.certificates.forms.stock_form')
 
     <div class="col-md-12" id="add_stock" style="text-align: center; margin-top: 10px;">
-        {!! Form::submit('Добави Продукт!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
+        {!! Form::submit('Добави Фактура!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
     </div>
     <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
 
     {!! Form::close() !!}
 
-    @if(!empty($stocks))
-        <hr />
-        <hr class="hr_in"/>
 
-        <div class="alert alert-success my_alert" role="alert" style="margin-top: 150px">
-            <p class="my_p"><span class="fa fa-success" aria-hidden="true"></span> <span class="bold">Прочети преди да продължиш!</span><br/>
-                    <span class="bold">
-                        След като са добавени всички стоки, натисни бутона "КРАЙ" за да отидеш на Сертификата за отпечатване!
-                    </span>
-            </p>
-        </div>
-
-        {!! Form::open(['url'=>'import-finish/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
-
-        <div class="col-md-12" id="finish_stock" style="text-align: center; margin-top: 10px;">
-            {!! Form::submit('КРАЙ', ['class'=>'btn btn-success btn-lg', 'id'=>'submit-finish']) !!}
-        </div>
-        <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
-        <input type="hidden" name="certificate_id" value="{{$id}}" id="finish">
-        {!! Form::close() !!}
-    @endif
 @endsection
 
 @section('scripts')
@@ -212,30 +127,26 @@
     {!!Html::script("js/confirm/prevent.js" )!!}
     {!!Html::script("js/quality/date_issue.js" )!!}
     <script>
-        var test = $( "#type option:selected" ).text();
-        if (test == 'ДРУГО') {
-            $( "#different_row" ).removeClass( "hidden" );
-        } else {
-            $( "#different_row" ).addClass( "hidden" );
-        }
-
-        function run() {
-            var different = document.getElementById('type').value;
-            if (different == 999) {
-                $( "#different_row" ).removeClass( "hidden" );
+        function enforceNumberValidation(ele) {
+            if ($(ele).data('decimal') != null) {
+                // found valid rule for decimal
+                var decimal = parseInt($(ele).data('decimal')) || 0;
+                var val = $(ele).val();
+                if (decimal > 0) {
+                    var splitVal = val.split('.');
+                    if (splitVal.length == 2 && splitVal[1].length > decimal) {
+                        // user entered invalid input
+                        $(ele).val(splitVal[0] + '.' + splitVal[1].substr(0, decimal));
+                    }
+                } else if (decimal == 0) {
+                    // do not allow decimal place
+                    var splitVal = val.split('.');
+                    if (splitVal.length > 1) {
+                        // user entered invalid input
+                        $(ele).val(splitVal[0]); // always trim everything after '.'
+                    }
+                }
             }
-            else {
-                $( "#different_row" ).addClass( "hidden" );
-            }
         }
-
-        $('#crops').change(function () {
-            var crop_en=$(this).find('option:selected').attr('crop_en');
-            var crops_name=$(this).find('option:selected').attr('crops_name');
-            var group_id=$(this).find('option:selected').attr('group_id');
-            $('#crop_en').val(crop_en);
-            $('#crops_name').val(crops_name);
-            $('#group_id').val(group_id);
-        });
     </script>
 @endsection

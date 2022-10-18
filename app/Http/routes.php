@@ -82,6 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('контрол/култури', 'CropsController');
     Route::get('crops/edit/{id}', 'CropsController@edit');
     Route::get('crops/show/{id}', 'CropsController@show');
+    Route::post('crops/delete/{id}', 'CropsController@destroy');
     Route::post('/контрол/култури/{id}/update', 'CropsController@update');
 
     // /////// Q-СЕРТИФИКАТИ
@@ -100,6 +101,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/import/stock/{id}/{sid?}/edit', 'QCertificatesController@stocks_edit');
     Route::post('/import/stock/{id}/delete', 'QCertificatesController@destroy');
 
+    Route::post('lock-import-certificate/{id}', 'QCertificatesController@import_lock');
+    Route::post('unlock-import-certificate/{id}', 'QCertificatesController@import_unlock');
+
+    ///// Добаи покажи
+    Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
+
+    // /////// ФАКТУРИ
+    Route::get('контрол/фактури-внос/{id}', 'InvoicesController@import_create');
+    Route::post('контрол/фактури-внос/{id}/store', 'InvoicesController@import_store');
 
 
 
@@ -109,7 +119,7 @@ Route::group(['middleware' => ['auth']], function () {
     //  Route::get('контрол/сертификат-износ/{id}/завърши', 'QCertificatesController@end_export');
  
 
-    Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
+
 
 
     // Route::any('/контрол/сертификати/завърши-внос', 'QCertificatesController@store_import');

@@ -46,7 +46,7 @@ class CropsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\CropsRequest|CropsRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(CropsRequest $request)
@@ -56,17 +56,18 @@ class CropsController extends Controller
         $insert = preg_replace('/(\w+)/', '-$1', $string);
         $remove= str_replace(' ', '', $insert);
         $first = substr($remove, 1);
-        $lower = strtolower($first);
+//        $lower = strtolower($first);
 
         $data = [
             'name' => $request['name'],
             'group_id' => (int)$request['group_id'],
             'name_en' => $request['name_en'],
-            'latin' => $request['latin'],
-            'latin_name' => $lower,
-            'cropDescription' => $request['cropDescription'],
             'date_create' => date('d.m.Y H:i:s', time()),
             'created_by' => Auth::user()->id,
+//            'latin' => $request['latin'],
+//            'latin_name' => $lower,
+//            'cropDescription' => $request['cropDescription'],
+
         ];
         Crop::create($data);
         Session::flash('message', 'Културата е добавена успешно!');
@@ -99,8 +100,8 @@ class CropsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request|CropsRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(CropsRequest $request, $id)
@@ -110,19 +111,19 @@ class CropsController extends Controller
         $insert = preg_replace('/(\w+)/', '-$1', $string);
         $remove= str_replace(' ', '', $insert);
         $first = substr($remove, 1);
-        $lower = strtolower($first);
+//        $lower = strtolower($first);
 
        $data = [
             'name' => $request['name'],
             'group_id' => (int)$request['group_id'],
             'name_en' => $request['name_en'],
-            'latin' => $request['latin'],
-            'latin_name' => $lower,
-            'cropDescription' => $request['cropDescription'],
-            'date_update' => date('d.m.Y H:i:s', time()),
-            'updated_by' => Auth::user()->id,
-        ];
-        
+           'date_update' => date('d.m.Y H:i:s', time()),
+           'updated_by' => Auth::user()->id,
+//            'latin' => $request['latin'],
+//            'latin_name' => $lower,
+//            'cropDescription' => $request['cropDescription'],
+
+       ];
 
         $crop->fill($data);
         $crop->save();
@@ -139,6 +140,8 @@ class CropsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $crop = Crop::find($id);
+        $crop->delete();
+        return back();
     }
 }

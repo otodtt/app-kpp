@@ -44,9 +44,9 @@ class ImportersController extends Controller
     /**
      * Sort firms by different types.
      *
-     * @param null $type
      * @param null $sort
      * @return \Illuminate\Http\Response
+     * @internal param null $type
      */
     public function sort($sort = null) 
     {

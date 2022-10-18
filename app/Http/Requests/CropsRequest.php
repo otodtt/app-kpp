@@ -27,8 +27,8 @@ class CropsRequest extends Request
             'group_id'=> 'required',
             'name'=> 'required|min:3|max:100|cyrillic_with',
             'name_en'=> 'required|min:3|max:100|latin',
-            'latin'=> 'required|min:3|max:100|latin',
-            'cropDescription'=> 'required|min:5'
+//            'latin'=> 'required|min:3|max:100|latin',
+//            'cropDescription'=> 'required|min:5'
         ];
     }
 
@@ -51,13 +51,13 @@ class CropsRequest extends Request
             'name_en.max' => 'Максимален брой символи за иметона английски - 100!',
             'name_en.latin' => 'За име на на английски пиши само на латински!',
 
-            'latin.required' => 'Попълни Латинското име на Културата!',
-            'latin.min' => 'Минимален брой символи за Латинското име - 3!',
-            'latin.max' => 'Максимален брой символи за Латинското име - 100!',
-            'latin.latin' => 'Латинското име пиши само на Латински, без симвоил!',
-
-            'cropDescription.required' => 'Попълни полето Description!',
-            'cropDescription.min' => 'Минимален брой символи за полето Description - 3!',
+//            'latin.required' => 'Попълни Латинското име на Културата!',
+//            'latin.min' => 'Минимален брой символи за Латинското име - 3!',
+//            'latin.max' => 'Максимален брой символи за Латинското име - 100!',
+//            'latin.latin' => 'Латинското име пиши само на Латински, без симвоил!',
+//
+//            'cropDescription.required' => 'Попълни полето Description!',
+//            'cropDescription.min' => 'Минимален брой символи за полето Description - 3!',
         ];
     }
 }

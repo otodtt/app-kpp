@@ -8,10 +8,9 @@
     {{-- {!!Html::style("css/opinions/logo_document.css" )!!} --}}
     {!!Html::style("css/qcertificates/show_opinion.css" )!!}
     {!!Html::style("css/qcertificates/body_table.css" )!!}
-    {!!Html::style("css/qcertificates/print.css", array('media' => 'print'))!!}
-    <?php 
-    // echo($certificate->is_lock)
-    ?>
+    @if($certificate->is_lock == 1)
+        {!!Html::style("css/qcertificates/print.css", array('media' => 'print'))!!}
+    @endif
 @endsection
 
 @section('message')
@@ -136,25 +135,49 @@
                     </div>
                 </div>
                 <div class="small_field_bottom" style="display: table-cell">
-                    <div class="col-md-6">
-                        <p >Контролен орган: <span class="bold" style="text-transform: none">{{$certificate->authority_bg }}/{{$certificate->authority_en }}</span></p>
+                    <div class="col-md-4">
+                        <p >Контролен орган: <span class="bold" style="text-transform: none">{{$certificate->authority_bg }}</span></p>
                         <hr class="my_hr_in"/>
                         <p >Митница: <span class="bold" style="text-transform: none">{{$certificate->customs_bg }}/{{$certificate->customs_en }}</span></p>
                         <hr class="my_hr_in"/>
                         <p >Място на издаване: <span class="bold">{{$certificate->place_bg }}/ {{$certificate->place_en }}</span></p>
                         <hr class="my_hr_in"/>
                     </div>
-                    <div class="col-md-6">
-                        <p >Подписващо лице : <span class="bold" style="text-transform: uppercase">{{$certificate->inspector_bg }}/ {{$certificate->inspector_en }}</span></p>
+                    <div class="col-md-4">
+                        <p >Подписващо лице : <span class="bold" style="text-transform: uppercase">{{$certificate->inspector_bg }}</span></p>
                         <hr class="my_hr_in"/>
                         <p >Дата на издаване: <span class="bold" style="text-transform: none">{{ date( 'd.m.Y', $certificate->date_issue) }}</span></p>
                         <hr class="my_hr_in"/>
                         <p >Валиден до : <span class="bold">{{$certificate->valid_until }}</span></p>
                         <hr class="my_hr_in"/>
                     </div>
+                    <div class="col-md-2">
+                        <p >5. Регион или страна: <span class="bold" style="text-transform: uppercase"></span></p>
+                        <hr class="my_hr_in"/>
+                        <p ><span class="bold" style="text-transform: none">{{$certificate->for_country_bg }}/{{$certificate->for_country_en }}</span></p>
+                        <hr class="my_hr_in"/>
+                    </div>
+                    @if($certificate->invoice_id != 0)
+                        <div class="col-md-2">
+                            <p >Фактура: <span class="bold" style="text-transform: uppercase"></span></p>
+                            <hr class="my_hr_in"/>
+                            {{--<p ><span class="bold" style="text-transform: none">{{$certificate->invoice }}/{{$certificate->date_invoice }}</span></p>--}}
+                            <hr class="my_hr_in"/>
+                            {{--<p >Сума: <span class="bold" style="text-transform: none">{{$certificate->sum }} лв.</span></p>--}}
+                        </div>
+                    @else
+                        <div class="col-md-2">
+                            <p >Фактура: <span class="bold" style="text-transform: uppercase"></span></p>
+                            <hr class="my_hr_in"/>
+                            <p ><span class="bold red" style="text-transform: none">Поълни фактурта!</span></p>
+                            <hr class="my_hr_in"/>
+                            <p >Сума: <span class="bold red" style="text-transform: none">Фактурта!</span></p>
+                        </div>
+                    @endif
                 </div>
             </div>
-            <div class="col-md-12 row-table-bottom " >
+            @if($certificate->is_lock == 0)
+                <div class="col-md-12 row-table-bottom " style="display: table" >
                 @if ((Auth::user()->id == $certificate->added_by) || (Auth::user()->admin == 2))
                     <div  class="archive small_field_bottom print-button" >
                         <p style="font-weight: normal"><span class="bold" style="text-transform: none;">ВНИМАНИЕ!!!</span> Само администратор или инспектора съставил Сертификата могат да го Редактират!</p>
@@ -167,7 +190,38 @@
                         </div>
                     </div>
                 @endif
-                
+            </div>
+            @endif
+            <div class="col-md-12 row-table-bottom " style="display: table" >
+                @if($certificate->is_lock == 0)
+                    <div class="small_field_bottom" style="display: table-cell">
+                        {!! Form::model($certificate, ['url'=>'lock-import-certificate/'.$certificate->id , 'method'=>'POST', 'id'=>'form']) !!}
+                        <button type="submit" class="btn-sm btn-default " id="complexConfirm">
+                            <i class="fa fa-print"></i> Подготви за печат!
+                        </button>
+                        <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                        {!! Form::close() !!}
+                    </div>
+                    <div class="small_field_bottom" style="display: table-cell">
+                        <p ><span class="red bold"><i class="fa fa-warning"></i>
+                            ВНИМАНИЕ!!</span> Ако данните са коректни, за да се отпечата Сертификата трябва да се натисне бутона "Подготви за печат!".<br/>
+                            След което, няма да могат да се правят повече промени по Сертификата!!! </p>
+                    </div>
+                @else
+                    <div class="small_field_bottom" style="display: table-cell">
+                        <p class="bold">Сертификата е заключен и не може да се редактира повече.</p>
+                    </div>
+                    @if(Auth::user()->admin == 2 )
+                        <div class="small_field_bottom" style="display: table-cell">
+                            {!! Form::model($certificate, ['url'=>'unlock-import-certificate/'.$certificate->id , 'method'=>'POST', 'id'=>'form']) !!}
+                            <button type="submit" class="btn-sm btn-success " id="unlockConfirm">
+                                <i class="fa fa-unlock"></i> Откючи!
+                            </button>
+                            <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                            {!! Form::close() !!}
+                        </div>
+                    @endif
+                @endif
             </div>
         </fieldset>
     </div>

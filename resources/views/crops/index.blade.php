@@ -42,19 +42,9 @@
     <hr/>
     <div class="container">
         <div class="row">
-           <h4>Зърненожитни</h4>
-           <table class="table">
-               <thead>
-                   <tr>
-                       <th>N</th>
-                       <th>Име</th>
-                       <th>Име Англиски</th>
-                       <th>Латинско</th>
-                       <th>Латинско мое</th>
-                       <th class="crop_center">Edit</th>
-                       <th class="crop_center">Покажи</th>
-                   </tr>
-               </thead>
+
+            <h4 style="margin-top: 20px">Зърненожитни</h4>
+            <table class="table">
                <tbody>
                @foreach($cultures as $culture)
                     @if($culture->group_id == 1)
@@ -62,15 +52,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td  class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td  class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -90,15 +84,19 @@
                                 <td class="first_td">{{$culture->id}}</td>
                                 <td class="crop_td">{{$culture ->name}}</td>
                                 <td class="crop_td">{{$culture ->name_en}}</td>
-                                <td class="crop_td">{{$culture ->latin}}</td>
-                                <td class="crop_td">{{$culture ->latin_name}}</td>
+                                <td  class="crop_btn">
+                                    <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                        <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                    </form>
+                                </td>
                                 <td class="crop_btn">
                                     <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                         &nbsp;Редактирай!
                                     </a>
                                 </td>
                                 <td class="crop_btn">
-                                    <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                    <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                         &nbsp;ВИЖ КУЛТУРАТА!
                                     </a>
                                 </td>
@@ -117,15 +115,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -143,15 +145,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -169,15 +175,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -195,15 +205,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -221,15 +235,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -248,15 +266,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -275,15 +297,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -301,15 +327,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -327,15 +357,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -353,15 +387,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -379,15 +417,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -405,15 +447,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -431,15 +477,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>
@@ -457,15 +507,19 @@
                             <td class="first_td">{{$culture->id}}</td>
                             <td class="crop_td">{{$culture ->name}}</td>
                             <td class="crop_td">{{$culture ->name_en}}</td>
-                            <td class="crop_td">{{$culture ->latin}}</td>
-                            <td class="crop_td">{{$culture ->latin_name}}</td>
+                            <td  class="crop_btn">
+                                <form action="{{ url('/crops/delete/'.$culture->id) }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази култура?');">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                                </form>
+                            </td>
                             <td class="crop_btn">
                                 <a href="{!!URL::to('/crops/edit/'.$culture->id)!!}" class="fa fa-edit btn btn-primary">
                                     &nbsp;Редактирай!
                                 </a>
                             </td>
                             <td class="crop_btn">
-                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-edit btn btn-success">
+                                <a href="{!!URL::to('/crops/show/'.$culture->id)!!}" class="fa fa-binoculars btn btn-success">
                                     &nbsp;ВИЖ КУЛТУРАТА!
                                 </a>
                             </td>

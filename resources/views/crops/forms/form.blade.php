@@ -38,18 +38,18 @@
         {!! Form::text('name_en', null, ['class'=>'form-control', 'placeholder'=>'Име на английски', 'id'=>'name_en' ]) !!}
     </div>
 </div>
-<div class="form-group">
-    <label for="latin" class="col-lg-2 control-label">Име на Латински</label>
-    <div class="col-lg-10">
-        {!! Form::text('latin', null, ['class'=>'form-control', 'placeholder'=>'Hordeum vulgare', 'id'=>'latin' ]) !!}
-    </div>
-</div>
-<div class="form-group">
-    <label for="cropDescription" class="col-lg-2 control-label">Description</label>
-    <div class="col-lg-10">
-        {!! Form::textarea('cropDescription', null, ['class'=>'form-control', 'id'=>'cropDescription' ]) !!}
-    </div>
-    <p>
-        Продукти (Препарати) за растителна защита при ..... . Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по ..... .
-    </p>
-</div>
+{{--<div class="form-group">--}}
+    {{--<label for="latin" class="col-lg-2 control-label">Име на Латински</label>--}}
+    {{--<div class="col-lg-10">--}}
+        {{--{!! Form::text('latin', null, ['class'=>'form-control', 'placeholder'=>'Hordeum vulgare', 'id'=>'latin' ]) !!}--}}
+    {{--</div>--}}
+{{--</div>--}}
+{{--<div class="form-group">--}}
+    {{--<label for="cropDescription" class="col-lg-2 control-label">Description</label>--}}
+    {{--<div class="col-lg-10">--}}
+        {{--{!! Form::textarea('cropDescription', null, ['class'=>'form-control', 'id'=>'cropDescription' ]) !!}--}}
+    {{--</div>--}}
+    {{--<p>--}}
+        {{--Продукти (Препарати) за растителна защита при ..... . Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по ..... .--}}
+    {{--</p>--}}
+{{--</div>--}}
