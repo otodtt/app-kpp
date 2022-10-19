@@ -8,6 +8,7 @@ use odbh\Http\Requests\QCertificatesRequest;
 use odbh\Http\Requests\StocksRequest;
 
 use odbh\Crop;
+use odbh\Invoice;
 use odbh\Stock;
 use odbh\Http\Requests;
 use odbh\Http\Controllers\Controller;
@@ -134,9 +135,6 @@ class QCertificatesController extends Controller
             'place_en' => $request->place_en,
             'date_issue' => time(),
             'valid_until' => $request->valid_until,
-            'invoice' => $request->invoice,
-            'date_invoice' => $request->date_invoice,
-            'sum' => $request->sum,
             'inspector_bg' => $user[0]['all_name'],
             'inspector_en' => $user[0]['all_name_en'],
             'stamp_number' => $index[0]['q_index'].'-'.$user[0]['stamp_number'],
@@ -231,7 +229,7 @@ class QCertificatesController extends Controller
         ];
         $stock->fill($data);
         $stock->save();
-        // return back();
+
         return Redirect::to('/import/stock/'.$stock->certificate_id.'/0/edit');
     }
 
@@ -260,8 +258,9 @@ class QCertificatesController extends Controller
         $certificate = QCertificate::findOrFail($id);
         $stocks = $certificate->stocks->toArray();
         $firm = Importer::findOrFail($certificate->importer_id);
-        
-        return view('quality.certificates.show', compact('certificate', 'stocks', 'firm'));
+        $invoice = $certificate->invoice->toArray();
+
+        return view('quality.certificates.show', compact('certificate', 'stocks', 'firm', 'invoice'));
     }
 
     /**
@@ -319,15 +318,21 @@ class QCertificatesController extends Controller
             'place_bg' => $request->place_bg,
             'place_en' => $request->place_en,
             'valid_until' => $request->valid_until,
-            'invoice' => $request->invoice,
-            'date_invoice' => $request->date_invoice,
-            'sum' => $request->sum,
             'date_update' => date('d.m.Y', time()),
             'updated_by' => Auth::user()->id,
         ];
-        
+
         $certificate->fill($data);
         $certificate->save();
+
+        // Промяна на Фирмата във ФАКТУРИТЕ
+        $data_firm = [
+            'importer_id' => $request->importer_data,
+            'importer_name' => $request->en_name,
+            'date_update' => date('d.m.Y', time()),
+            'updated_at' => Auth::user()->id,
+        ];
+        Invoice::where('certificate_id', $id)->update($data_firm);
 
         Session::flash('message', 'Сертификата е редактиран успешно!');
         return Redirect::to('/контрол/сертификат/'.$id);
@@ -336,7 +341,8 @@ class QCertificatesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     * @param $sid
      * @return Response
      */
     public function stocks_edit($id, $sid) {

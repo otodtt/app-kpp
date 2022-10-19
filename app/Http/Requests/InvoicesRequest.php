@@ -44,7 +44,7 @@ class InvoicesRequest extends Request
             'date_invoice.required' => 'Дата на Фактурата е здължителна!',
             'date_invoice.date_format' => 'Непозволен формат за Дата на Фактура!',
 
-            'sum.required' => 'Сумата е здължителен!',
+            'sum.required' => 'Сумата е здължителна!',
             'sum.numeric' => 'За сумата на Фактура използвай ТОЧКА или само цифри! ',
             'sum.min' => 'Сумата не може да е нула - 0 или отрицателно число!',
         ];

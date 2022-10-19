@@ -33,10 +33,10 @@
                 @if( $certificate->invoice_id == '0')
                     <a href='/контрол/фактури-внос/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
                 @else
-                    номер на фактура
+                    {{ $certificate->invoice_number }}/{{ date('d.m.Y' ,$certificate->invoice_date ) }}
                 @endif
             </td>
-            <td style="text-align: right; padding-right: 4px"></td>
+            <td style="text-align: right; padding-right: 4px">{{ $certificate->sum }}</td>
             <td>{{$certificate->inspector_bg}}</td>
             <td><span class="{{$alert}}">{{$all}}</span></td>
             <td>

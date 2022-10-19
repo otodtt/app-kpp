@@ -159,11 +159,14 @@
                     </div>
                     @if($certificate->invoice_id != 0)
                         <div class="col-md-2">
-                            <p >Фактура: <span class="bold" style="text-transform: uppercase"></span></p>
+                            <p >
+                                Фактура: <span class="bold" style="text-transform: uppercase"></span>
+                                <a href='/контрол/фактури-внос/{{$certificate->id}}/edit' class="fa fa-edit btn btn-success my_btn" style="float: right"> Edit</a>
+                            </p>
                             <hr class="my_hr_in"/>
-                            {{--<p ><span class="bold" style="text-transform: none">{{$certificate->invoice }}/{{$certificate->date_invoice }}</span></p>--}}
+                            <p ><span class="bold" style="text-transform: none">{{$invoice[0]['number_invoice'] }}/{{ date('d.m.Y' ,$invoice[0]['date_invoice']) }}</span></p>
                             <hr class="my_hr_in"/>
-                            {{--<p >Сума: <span class="bold" style="text-transform: none">{{$certificate->sum }} лв.</span></p>--}}
+                            <p >Сума: <span class="bold" style="text-transform: none">{{$invoice[0]['sum']}} лв.</span></p>
                         </div>
                     @else
                         <div class="col-md-2">
@@ -171,7 +174,9 @@
                             <hr class="my_hr_in"/>
                             <p ><span class="bold red" style="text-transform: none">Поълни фактурта!</span></p>
                             <hr class="my_hr_in"/>
-                            <p >Сума: <span class="bold red" style="text-transform: none">Фактурта!</span></p>
+                            <p >
+                                <a href='/контрол/фактури-внос/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
+                            </p>
                         </div>
                     @endif
                 </div>

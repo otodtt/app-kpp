@@ -108,8 +108,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
 
     // /////// ФАКТУРИ
+    Route::get('контрол/фактури', 'InvoicesController@index');
     Route::get('контрол/фактури-внос/{id}', 'InvoicesController@import_create');
     Route::post('контрол/фактури-внос/{id}/store', 'InvoicesController@import_store');
+    Route::get('контрол/фактури-внос/{id}/edit', 'InvoicesController@import_edit');
+    Route::post('контрол/фактури-внос/{id}/update', 'InvoicesController@import_update');
 
 
 

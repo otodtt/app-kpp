@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Време на генериране: 18 окт 2022 в 14:26
+-- Време на генериране: 19 окт 2022 в 14:16
 -- Версия на сървъра: 5.7.36
 -- Версия на PHP: 7.4.26
 
@@ -57,6 +57,9 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
   `date_issue` int(11) NOT NULL,
   `valid_until` varchar(20) NOT NULL,
   `invoice_id` int(11) NOT NULL DEFAULT '0',
+  `invoice_number` varchar(20) NOT NULL,
+  `invoice_date` int(11) NOT NULL,
+  `sum` float NOT NULL,
   `inspector_bg` varchar(50) NOT NULL,
   `inspector_en` varchar(50) NOT NULL,
   `date_add` varchar(20) NOT NULL,
@@ -65,17 +68,18 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
   `updated_by` tinyint(2) NOT NULL,
   `is_lock` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Схема на данните от таблица `qcertificates`
 --
 
-INSERT INTO `qcertificates` (`id`, `certificate_id`, `import`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice_id`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
-(1, 0, 2001, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'STI. CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/TRABZON/TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', '31AJN161/ 31 AJH167', 'България/ Bulgaria', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1665858752, '17.10.2022', 0, 'Мария Чанкова', 'Marya Chankova', '15.10.2022', '16.10.2022', 10, 10, 1),
-(2, 0, 2002, 2, 2, 2, 9, 'Rodopi Agro Ltd', 'BUL. ILINDEN 47A, 6300, HASKOVO, BULGARIA ', '203227133', 'SENOL HOCAOGLU KORUK ORGANIK TARIM ', 'URUNLERI HURRIET MAH 1058 SK NO:43/2/ GAZIEMIR/IZMIR/TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', '', '07AAG455/ 15AAS175', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1665860361, '16.10.2022', 0, 'Мария Чанкова', 'Marya Chankova', '15.10.2022', '17.10.2022', 10, 10, 0),
-(3, 0, 2003, 3, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 'ADSS OOD', 'Addres 454', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 24, 'Латвия', 'Latvia', '', 'AS54/AD876', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666001449, '20.10.2022', 0, 'Мария Чанкова', 'Marya Chankova', '17.10.2022', '17.10.2022', 10, 10, 1),
-(4, 0, 2004, 4, 2, 2, 8, 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', '204875574', 'SHENOL OOD', 'Address 12', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', '', 'as213/dsd212', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666004261, '18.10.2022', 0, 'Владимир Наков', 'Vladimir Nakov', '17.10.2022', '', 8, 0, 1);
+INSERT INTO `qcertificates` (`id`, `certificate_id`, `import`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice_id`, `invoice_number`, `invoice_date`, `sum`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
+(1, 0, 2001, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 'LIDER GIDA SANAYI VE DIS TICARET LTD', ' TICARET LTD 111', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', '31AJN161/ 31 AJH166', 'България/Bulgaria', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177584, '22.10.2022', 1, '6571020601', 1665349200, 11.11, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 1),
+(2, 0, 2002, 2, 2, 2, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 'KOLA MUNCEN', 'KOLA MUNCEN 222', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 19, 'Испания', 'Spain', '', '31AJN161/ 31 AJH166', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177665, '21.10.2022', 3, '6571020603', 1665608400, 33, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 0),
+(3, 0, 2003, 3, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'DIS TICARET LTD 333', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 11, 'Великобритания', 'United Kingdom', '', '31AJN161/ 31 AJH166', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177807, '21.10.2022', 2, '6571020602', 1665522000, 12, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 0),
+(4, 0, 2004, 4, 2, 1, 8, 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', '204875574', 'LIDER GIDA SANAYI VE DIS TICARET LTD', ' VE DIS TICARET LTD 44', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 15, 'Дания', 'Denmark', '', '31AJN161/ 31 AJH166', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666181342, '21.10.2022', 4, '6571020604', 1665694800, 40, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '19.10.2022', 10, 10, 1),
+(5, 0, 2005, 5, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'DIS TICARET LTD', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '31AJN161/ 31 AJH166', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666184593, '21.10.2022', 5, '6571020605', 1665781200, 60.6, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

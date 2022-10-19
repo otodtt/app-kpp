@@ -100,11 +100,6 @@
                         <div class="col-md-4 col-md-6_my" >
                             {!! Form::label('sum', 'Сума', ['class'=>'my_labels']) !!}<br>
                             {!! Form::text('sum', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>10 ]) !!}
-                            {{--<input type="number" onchange="setTwoNumberDecimal" min="0" max="10" step="0.25" value="0.00" />--}}
-                            {{--{!! Form::number('sum', null, ['class'=>'form-control form-control-my',--}}
-                                                            {{--'size'=>10,'maxlength'=>10,--}}
-                                                            {{--'min'=>'0', 'value'=>'0.00', 'step'=>'0.25' ]) !!}--}}
-                            {{--<input type="number" name="sum" class="form-control form-control-my" data-decimal="2" oninput="enforceNumberValidation(this)" step="0.25"  value="0.00" />--}}
                         </div>
                     </fieldset>
                 </fieldset>

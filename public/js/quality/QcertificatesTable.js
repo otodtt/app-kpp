@@ -17,8 +17,6 @@ $(document).ready(function() {
                 }, 0);
                 $(api.column(5).footer()).html(total + ' лв.');
 
-                console.log(total);
-
         },
         "columns": [
             null,
