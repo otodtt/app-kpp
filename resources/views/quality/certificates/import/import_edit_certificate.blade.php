@@ -84,5 +84,12 @@
             $('#for_country_en').val(for_country_en);
         });
 
+        $('#packer_data').change(function () {
+            var name_of_packer=$(this).find('option:selected').attr('name_of_packer');
+            var address_of_packer=$(this).find('option:selected').attr('address_of_packer');
+            $('#name_of_packer').val(name_of_packer);
+            $('#address_of_packer').val(address_of_packer);
+        });
+
     </script>
 @endsection

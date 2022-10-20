@@ -75,6 +75,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/контрол/търговци/{id}/edit', 'ImportersController@edit');
     Route::post('/контрол/търговци/{id}/update', 'ImportersController@update');
     Route::post('/контрол/търговци/сортирай/{sort?}', 'ImportersController@sort');
+    Route::get('/контрол/търговци/{id}/show', 'ImportersController@show');
+
+
+    Route::resource('контрол/опаковчици', 'PackersController');
+    Route::get('/контрол/опаковчик/добави', 'PackersController@create');
+    Route::get('/контрол/опаковчик/{id}/edit', 'PackersController@edit');
+    Route::post('/контрол/опаковчик/{id}/update', 'PackersController@update');
+    Route::post('/контрол/опаковчик/{id}/destroy', 'PackersController@destroy');
 
 
     /////////////////////////////

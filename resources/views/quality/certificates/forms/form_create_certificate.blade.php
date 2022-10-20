@@ -1,52 +1,16 @@
-<?php
-    // print_r($last_import);
-    // if (isset($last_internal[0]['internal']) || $last_internal[0]['internal'] == 1) {
-    //     $number_internal = $last_internal[0]['internal'];
-    // }
-    // else {
-    //     $number_internal = '';
-    // }
-    // if (isset($last_import[0]['import']) || $last_import[0]['import'] == 2) {
-    //     $number_import = $last_import[0]['import'];
-    // }
-    // else {
-    //     $number_import = '';
-    // }
-    // if (isset($last_export[0]['export']) || $last_export[0]['export'] == 2) {
-    //     $number_export = $last_export[0]['export'];
-    // }
-    // else {
-    //     $number_export = '';
-    // }
-?>
+
 <div class="container-fluid" >
     <div class="row">
         <div class="col-md-12" >
             <fieldset class="small_field" ><legend class="small_legend">Сертификата се издава за ..</legend>
                 <div class="col-md-6 col-md-6_my in_table" >
-                    {{-- <fieldset class="small_field_in" style="display: none">
-                        <p class="description">
-                            Поле № 7. Избери за какво се издава сертификата.
-                        </p>
-                        <hr class="hr_in"/>
-                        <label class="labels_limit"><span>Вътрешен/Internal</span>
-                            {!! Form::radio('what_7', 1) !!}
-                        </label>&nbsp;&nbsp;|
-                        <label class="labels_limit"><span>&nbsp;&nbsp;Внос/Import</span>
-                            {!! Form::radio('what_7', 2, true) !!}
-                        </label>
-                        &nbsp; | &nbsp;
-                        <label class="labels_limit"><span>&nbsp;&nbsp;Износ/Export</span>
-                            {!! Form::radio('what_7', 3) !!}
-                        </label>
-                    </fieldset> --}}
                     <fieldset class="small_field_in" >
                         <p class="description">
                             Поле № 7. За какво се издава сертификата.
                         </p>
                         <hr class="hr_in"/>
                         <label class="labels_limit"><span>Вътрешен/Internal</span>
-                            @if ($type == 0)
+                            @if ($type == 3)
                             <i class="fa fa-check-circle-o" aria-hidden="true"></i>
                             @else
                             <i class="fa fa-circle-o" aria-hidden="true"></i>
@@ -156,11 +120,34 @@
                         <p class="description">
                             Поле № 2. Опаковчик, посочен върху .. &nbsp; &nbsp; &nbsp;<br>
                         </p>
-                        <label for="packer_name">Име на Опаковчик:</label>
-                        {!! Form::text('packer_name', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Име на Опаковчик']) !!}
-                        <br>
-                        <label for="packer_address">Адрес:</label>
-                        {!! Form::text('packer_address', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=>'Адрес на Опаковчик', 'autocomplete'=>'packer_address']) !!}
+                        <label for="packer_data">Избери Опаковчик:</label>
+                        <select name="packer_data" id="packer_data" class="localsID form-control" style="width: 97%">
+                            <option value="">-- Избери --</option>
+                            <option value="999" {{(old('packer_data') == 999)? 'selected':''}}>ФИРМАТА Я НЯМА. ДОБАВИ!</option>
+                            @foreach($packers as $packer)
+                                <option value="{{$packer['id']}}"
+                                        {{(old('packer_data') == $packer['id'])? 'selected':''}}
+                                        name_of_packer="{{$packer['packer_name']}}"
+                                        address_of_packer="{{$packer['packer_address']}}">
+                                    {{ strtoupper($packer['packer_name']) }}
+                                </option>
+                            @endforeach
+                        </select>
+                        {!! Form::hidden('name_of_packer', old('name_of_packer'), ['id'=>'name_of_packer']) !!}
+                        {!! Form::hidden('address_of_packer', old('address_of_packer'), ['id'=>'address_of_packer']) !!}
+                        <br class="my_br" />
+                        <br class="my_br" />
+                        <br />
+
+
+
+                        <div class="packer_wrap hidden" >
+                            <label for="packer_name">Име на Опаковчик:</label>
+                            {!! Form::text('packer_name', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Име на Опаковчик']) !!}
+                            {{--<br>--}}
+                            <label for="packer_address">Адрес:</label>
+                            {!! Form::text('packer_address', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=>'Адрес на Опаковчик']) !!}
+                        </div>
                     </div>
                 </fieldset>
             </div>

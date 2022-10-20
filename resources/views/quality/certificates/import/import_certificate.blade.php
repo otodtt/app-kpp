@@ -54,7 +54,7 @@
 
 @section('scripts')
     {!!Html::script("js/build/jquery.datetimepicker.full.min.js" )!!}
-    {!!Html::script("js/confirm/prevent.js" )!!}
+{{--    {!!Html::script("js/confirm/prevent.js" )!!}--}}
     {!!Html::script("js/quality/date_issue.js" )!!}
     <script>
 
@@ -129,5 +129,35 @@
             $('#for_country_en').val(for_country_en);
         });
 
+        $('#packer_data').change(function () {
+            var name_of_packer=$(this).find('option:selected').attr('name_of_packer');
+            var address_of_packer=$(this).find('option:selected').attr('address_of_packer');
+            $('#name_of_packer').val(name_of_packer);
+            $('#address_of_packer').val(address_of_packer);
+        });
+
+        $(document).ready(function() {
+            var selected = $("#packer_data option:selected").val();
+
+            if (selected == 999) {
+                $( ".packer_wrap" ).removeClass( "hidden" );
+                $( ".my_br" ).addClass( "hidden" );
+            }
+            if (selected != 999) {
+                $( ".packer_wrap" ).addClass( "hidden" );
+                $( ".my_br" ).removeClass( "hidden" );
+            }
+            $("#packer_data").change(function() {
+                var selectedVal = $("#packer_data option:selected").val();
+                if (selectedVal == 999) {
+                    $( ".packer_wrap" ).removeClass( "hidden" );
+                    $( ".my_br" ).addClass( "hidden" );
+                }
+                if (selectedVal != 999) {
+                    $( ".packer_wrap" ).addClass( "hidden" );
+                    $( ".my_br" ).removeClass( "hidden" );
+                }
+            });
+        });
     </script>
 @endsection

@@ -23,12 +23,21 @@ class QCertificatesRequest extends Request
      */
     public function rules()
     {
+        $request = Request::all();
+        if($request['packer_data'] == 999) {
+            $name = 'required|latin|min:3|max:500';
+            $address = 'latin|min:5|max:500';
+        } else {
+            $name = 'latin|min:3|max:500';
+            $address = 'latin|min:5|max:500';
+        }
         return [
             // 'what_7'=>'required',
             'type_crops'=>'required',
             'importer_data'=>'required',
-            'packer_name'=>'required|latin|min:3|max:500',
-            'packer_address'=>'required|latin|min:5|max:500',
+            'packer_data'=>'required',
+            'packer_name'=>$name,
+            'packer_address'=>$address,
             'from_country'=>'required|min:5|max:300',
             'id_country'=>'required',
             'observations'=>'min:2|max:500',
@@ -53,6 +62,7 @@ class QCertificatesRequest extends Request
         return [
             'type_crops.required' => 'Избери дали е за консумация или преработка!',
             'importer_data.required' => 'Избери Поле № 1 Избери фирмата! Търговеца!',
+            'packer_data.required' => 'Избери Поле № 2 Избери фирмата! Опаковчик!',
 
             'packer_name.required' => 'Поле № 2 Опаковчик е задължително!',
             'packer_name.latin' => 'Поле № 2 За Име на Опаковчик използвай латиница!',

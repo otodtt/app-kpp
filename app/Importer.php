@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Importer extends Model
 {
     public $timestamps = false;
+
     /**
      * Защитена таблица
      *
@@ -21,4 +22,12 @@ class Importer extends Model
     protected $fillable = ['name_bg', 'address_bg', 'name_en', 'address_en', 'vin', 'is_active', 'is_bulgarian', 
                             'trade', 'created_by', 'updated_by', 'date_create', 'date_update'];
 
+    /**
+     * Фирмата има много Сертификати
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function qcertificate(){
+        return $this->hasMany('odbh\QCertificate', 'importer_id');
+    }
 }
+

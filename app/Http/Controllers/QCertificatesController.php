@@ -9,6 +9,7 @@ use odbh\Http\Requests\StocksRequest;
 
 use odbh\Crop;
 use odbh\Invoice;
+use odbh\Packer;
 use odbh\Stock;
 use odbh\Http\Requests;
 use odbh\Http\Controllers\Controller;
@@ -41,7 +42,7 @@ class QCertificatesController extends Controller
      */
     public function index()
     {
-        $certificates = QCertificate::get();
+        $certificates = QCertificate::orderBy('is_all', 'asc')->get();
 
         return view('quality.certificates.index', compact('certificates'));
     }
@@ -57,6 +58,8 @@ class QCertificatesController extends Controller
         $type = 1;
         $edit = 0;
         $index = $this->index;
+
+        $packers = Packer::select('id', 'packer_name', 'packer_address')->get()->toArray();
         $importers = Importer::select(['id', 'name_bg', 'name_en', 'address_en', 'vin', 'trade'])
                                     ->where('is_active', '=', 1)
                                     ->where('trade', '=', 0)
@@ -77,7 +80,6 @@ class QCertificatesController extends Controller
             ->orWhere('group_id', '=', 15)
             ->orWhere('group_id', '=', 16)
             ->orderBy('group_id', 'asc')->get()->toArray();
-
        
         $last_import = QCertificate::select('import')->orderBy('import', 'desc')->limit(1)->get()->toArray();
 
@@ -90,7 +92,8 @@ class QCertificatesController extends Controller
             $last_number[0]['import'] = '2001';
         }
 
-        return view('quality.certificates.import.import_certificate', compact('index', 'importers', 'countries', 'crops', 'user', 'last_number', 'type', 'edit'));
+        return view('quality.certificates.import.import_certificate',
+                    compact('index', 'importers', 'countries', 'crops', 'user', 'last_number', 'type', 'edit', 'packers'));
     }
 
     /**
@@ -101,7 +104,6 @@ class QCertificatesController extends Controller
      */
     public function import_store(QCertificatesRequest $request)
     {
-        
         $index = $this->index;
         $user = User::select('id', 'all_name', 'all_name_en', 'short_name', 'stamp_number')->where('id', '=', Auth::user()->id)->get()->toArray();
 
@@ -113,6 +115,14 @@ class QCertificatesController extends Controller
             $import = '2001';
         }
 
+        if($request->packer_data == 999  ) {
+            $packer_name = $request->packer_name;
+            $packer_address = $request->packer_address;
+        } else {
+            $packer_name = $request->name_of_packer;
+            $packer_address = $request->address_of_packer;
+        }
+
         $data = [
             'import' => $import,
             'what_7' => 2,
@@ -121,8 +131,9 @@ class QCertificatesController extends Controller
             'importer_name' => $request->en_name,
             'importer_address' => $request->en_address,
             'importer_vin' => $request->vin_hidden,
-            'packer_name' => $request->packer_name,
-            'packer_address' => $request->packer_address,
+            'packer_id' => $request->packer_data,
+            'packer_name' => $packer_name,
+            'packer_address' => $packer_address,
             'from_country' => $request->from_country,
             'id_country' => $request->id_country,
             'for_country_bg' => $request->for_country_bg,
@@ -143,6 +154,15 @@ class QCertificatesController extends Controller
             'date_add' => date('d.m.Y', time()),
             'added_by' => Auth::user()->id,
         ];
+//        dd($data);
+        if ($request->packer_data == 999) {
+            $data_packer = [
+                'packer_name' => $packer_name,
+                'packer_address' => $packer_address,
+            ];
+            Packer::create($data_packer);
+        }
+
         QCertificate::create($data);
 
         $last_id = QCertificate::select('id')->orderBy('id', 'desc')->limit(1)->get()->toArray();
@@ -151,6 +171,80 @@ class QCertificatesController extends Controller
         return Redirect::to('/контрол/сертификат-внос/'.$last_id[0]['id'] .'/завърши');
 
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $type = 1;
+        $index = $this->index;
+        $certificate = QCertificate::findOrFail($id);
+        $packers = Packer::select('id', 'packer_name', 'packer_address')->get()->toArray();
+        $importers = Importer::select(['id', 'name_bg', 'name_en', 'address_en', 'vin', 'trade'])
+            ->where('is_active', '=', 1)
+            ->where('trade', '=', 0)
+            ->orWhere('trade', '=', 2)
+            ->get()->toArray();
+
+        $countries = Country::select('id', 'name', 'name_en', 'EC')->where('EC', '=', 1)->orderBy('name', 'asc')->get()->toArray();
+        $lock = $certificate->is_lock;
+
+        return view('quality.certificates.import.import_edit_certificate', compact('type', 'certificate', 'importers', 'index', 'countries', 'lock', 'packers'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request|QCertificatesRequest $request
+     * @param  int $id
+     * @return Response
+     */
+    public function update(QCertificatesRequest $request, $id)
+    {
+        $certificate = QCertificate::findOrFail($id);
+        $data = [
+            'type_crops' => $request->type_crops,
+            'importer_id' => $request->importer_data,
+            'importer_name' => $request->en_name,
+            'importer_address' => $request->en_address,
+            'importer_vin' => $request->vin_hidden,
+            'packer_id' => $request->packer_data,
+            'packer_name' => $request->name_of_packer,
+            'packer_address' => $request->address_of_packer,
+            'from_country' => $request->from_country,
+            'id_country' => $request->id_country,
+            'for_country_bg' => $request->for_country_bg,
+            'for_country_en' => $request->for_country_en,
+            'observations' => $request->observations,
+            'transport' => $request->transport,
+            'customs_bg' => $request->customs_bg,
+            'customs_en' => $request->customs_en,
+            'place_bg' => $request->place_bg,
+            'place_en' => $request->place_en,
+            'valid_until' => $request->valid_until,
+            'date_update' => date('d.m.Y', time()),
+            'updated_by' => Auth::user()->id,
+        ];
+
+        $certificate->fill($data);
+        $certificate->save();
+
+        // Промяна на Фирмата във ФАКТУРИТЕ
+        $data_firm = [
+            'importer_id' => $request->importer_data,
+            'importer_name' => $request->en_name,
+            'date_update' => date('d.m.Y', time()),
+            'updated_at' => Auth::user()->id,
+        ];
+        Invoice::where('certificate_id', $id)->update($data_firm);
+
+        Session::flash('message', 'Сертификата е редактиран успешно!');
+        return Redirect::to('/контрол/сертификат/'.$id);
     }
 
     public function import_ending($id)
@@ -261,81 +355,6 @@ class QCertificatesController extends Controller
         $invoice = $certificate->invoice->toArray();
 
         return view('quality.certificates.show', compact('certificate', 'stocks', 'firm', 'invoice'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $type = 1;
-        $index = $this->index;
-        $certificate = QCertificate::findOrFail($id);
-        $importers = Importer::select(['id', 'name_bg', 'name_en', 'address_en', 'vin', 'trade'])
-                                    ->where('is_active', '=', 1)
-                                    ->where('trade', '=', 0)
-                                    ->orWhere('trade', '=', 2)
-                                    ->get()->toArray();
-
-        $id = Auth::user()->id;
-        $user = User::select('id', 'all_name' , 'all_name_en', 'short_name', 'stamp_number')->where('id', '=', $id)->get()->toArray();
-        $last_number = QCertificate::select('import')->orderBy('import', 'desc')->limit(1)->get()->toArray();
-        $countries = Country::select('id', 'name', 'name_en', 'EC')->where('EC', '=', 1)->orderBy('name', 'asc')->get()->toArray();
-        $lock = $certificate->is_lock;
-
-        return view('quality.certificates.import.import_edit_certificate', compact('type', 'certificate', 'importers', 'index', 'countries', 'lock'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request|QCertificatesRequest $request
-     * @param  int $id
-     * @return Response
-     */
-    public function update(QCertificatesRequest $request, $id)
-    {
-        $certificate = QCertificate::findOrFail($id);
-        $data = [
-            'type_crops' => $request->type_crops,
-            'importer_id' => $request->importer_data,
-            'importer_name' => $request->en_name,
-            'importer_address' => $request->en_address,
-            'importer_vin' => $request->vin_hidden,
-            'packer_name' => $request->packer_name,
-            'packer_address' => $request->packer_address,
-            'from_country' => $request->from_country,
-            'id_country' => $request->id_country,
-            'for_country_bg' => $request->for_country_bg,
-            'for_country_en' => $request->for_country_en,
-            'observations' => $request->observations,
-            'transport' => $request->transport,
-            'customs_bg' => $request->customs_bg,
-            'customs_en' => $request->customs_en,
-            'place_bg' => $request->place_bg,
-            'place_en' => $request->place_en,
-            'valid_until' => $request->valid_until,
-            'date_update' => date('d.m.Y', time()),
-            'updated_by' => Auth::user()->id,
-        ];
-
-        $certificate->fill($data);
-        $certificate->save();
-
-        // Промяна на Фирмата във ФАКТУРИТЕ
-        $data_firm = [
-            'importer_id' => $request->importer_data,
-            'importer_name' => $request->en_name,
-            'date_update' => date('d.m.Y', time()),
-            'updated_at' => Auth::user()->id,
-        ];
-        Invoice::where('certificate_id', $id)->update($data_firm);
-
-        Session::flash('message', 'Сертификата е редактиран успешно!');
-        return Redirect::to('/контрол/сертификат/'.$id);
     }
 
     /**

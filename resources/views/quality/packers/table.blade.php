@@ -1,38 +1,34 @@
-<table id="example" class="display my_table table-striped " cellspacing="0" width="100%" border="1px">
+<table id="example" class="display my_table table-striped " cellspacing="0" width="100%" border="1px" style="margin-top: 50px">
     <thead>
         <tr>
             <th>N</th>
+            <th>Delete</th>
             <th>Име на Фирмата</th>
             <th>Адрес</th>
-            <th>Булстат</th>
             <th>Edit</th>
         </tr>
     </thead>
     <tbody>
     <?php $n = 1; ?>
-    @foreach($importers as $importer)
+    @foreach($packers as $packer)
         <tr>
             <td class="center"><?= $n++ ?></td>
+            <td class="center">
+                <form action="{{ url('/контрол/опаковчик/'.$packer->id.'/destroy') }}" method="post" style="display: inline-block; margin-top: 5px" onsubmit="return confirm('Наистина ли искате да изтриете тази стока?');">
+                    <div class="col-md-6 " >
+                        {!! Form::submit('Изтрий!', ['class'=>'fa fa-edit btn btn-danger my_btn', 'id'=>'submit']) !!}
+                    </div>
+                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
+                </form>
+            </td>
             <td>
-                {{mb_strtoupper($importer->name_en, 'UTF-8')}}
-                <br>
-                {{mb_strtoupper($importer->name_bg), 'UTF-8'}}
+                {{mb_strtoupper($packer->packer_name), 'UTF-8'}}
             </td>
             <td class="">
-                {{mb_strtoupper($importer->address_en, 'UTF-8')}}
-                <br>
-                {{$importer->address_bg}}
-            </td>
-            <td>
-                @if($importer->is_bulgarian == 0)
-                    <span >BG: </span>
-                @else
-                    <span ></span>
-                @endif
-                {{$importer->vin}}
+                {{$packer->packer_address}}
             </td>
             <td class="center last-column">
-                <a href="{!!URL::to('/контрол/търговци/'.$importer->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>
+                <a href="{!!URL::to('/контрол/опаковчик/'.$packer->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>
             </td> 
         </tr>
     @endforeach

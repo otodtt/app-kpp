@@ -25,7 +25,7 @@
             </td>
             <td>
                 {{$invoice->importer_name}}
-                <a href="{!!URL::to('/контрол/фирма/'.$invoice->id.'/edit')!!}" class="fa fa-binoculars btn btn-default my_btn" style="float: right"></a>
+                <a href="{!!URL::to('/контрол/търговци/'.$invoice->id.'/show')!!}" class="fa fa-binoculars btn btn-default my_btn" style="float: right"></a>
             </td>
             <td>
                 @if($invoice->invoice_for == 1)

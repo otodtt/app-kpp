@@ -16,7 +16,6 @@ use Input;
 
 class ImportersController extends Controller
 {
-
     private $index = null;
 
     public function __construct()
@@ -33,12 +32,9 @@ class ImportersController extends Controller
      */
     public function index()
     {
-        $districts_list = $this->districts_list;
-        $districts_list[0] = 'Друга област';
-
         $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
 
-        return view('quality.importers.index', compact( 'importers', 'districts_list'));
+        return view('quality.importers.index', compact( 'importers'));
     }
 
     /**
@@ -65,7 +61,6 @@ class ImportersController extends Controller
         }
         return view('quality.importers.index', compact( 'importers', 'input_sort' ));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -110,7 +105,11 @@ class ImportersController extends Controller
      */
     public function show($id)
     {
-        //
+        $importer  = Importer::findOrFail($id);
+        $certificates = $importer->qcertificate;
+//        dd($certificates);
+
+        return view('quality.importers.show', compact( 'importer', 'certificates'));
     }
 
     /**

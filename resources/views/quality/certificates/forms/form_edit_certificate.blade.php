@@ -142,11 +142,49 @@
                         <p class="description">
                             Поле № 2. Опаковчик, посочен върху .. &nbsp; &nbsp; &nbsp;<br>
                         </p>
-                        <label for="packer_name">Име на Опаковчик:</label>
-                        {!! Form::text('packer_name', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Име на Опаковчик']) !!}
-                        <br>
-                        <label for="packer_address">Адрес:</label>
-                        {!! Form::text('packer_address', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=>'Адрес на Опаковчик', 'autocomplete'=>'packer_address']) !!}
+                        <label for="packer_data">Избери Опаковчик:</label>
+                        <select name="packer_data" id="packer_data" class="localsID form-control" style="width: 97%">
+                            <option value="">-- Избери --</option>
+                            @foreach($packers as $packer)
+                                <option value="{{$packer['id']}}"
+                                        @if (old('packer_data') == null)
+                                        {{( $certificate->packer_id  == $packer['id']) ? 'selected':''}}
+                                        @else
+                                        {{(old('packer_data') == $packer['id']) ? 'selected':''}}
+                                        @endif
+
+{{--                                        {{(old('packer_data') == $packer['id'])? 'selected':''}}--}}
+                                        name_of_packer="{{$packer['packer_name']}}"
+                                        address_of_packer="{{$packer['packer_address']}}">
+                                    {{ strtoupper($packer['packer_name']) }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <?php
+                        if(old('name_of_packer') == null){
+                            $name = $certificate->packer_name;
+                        }else{
+                            $name = old('name_of_packer');
+                        };
+                        if(old('address_of_packer') == null){
+                            $address = $certificate->packer_address;
+                        }else{
+                            $address = old('address_of_packer');
+                        }
+                        ?>
+                        <input type="hidden" name="name_of_packer" id="name_of_packer" value="{{$name}}">
+                        <input type="hidden" name="address_of_packer" id="address_of_packer" value="{{$address}}">
+                        {{--{!! Form::hidden('name_of_packer', old('name_of_packer'), ['id'=>'name_of_packer']) !!}--}}
+                        {{--{!! Form::hidden('address_of_packer', old('address_of_packer'), ['id'=>'address_of_packer']) !!}--}}
+                        <br class="my_br" />
+                        <br class="my_br" />
+                        <br />
+                        {{--<label for="packer_name">Име на Опаковчик:</label>--}}
+                        {{--{!! Form::text('packer_name', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=> 'Име на Опаковчик']) !!}--}}
+                        {{--<br>--}}
+                        {{--<label for="packer_address">Адрес:</label>--}}
+                        {{--{!! Form::text('packer_address', null, ['class'=>'form-control', 'style'=>'width: 97%', 'placeholder'=>'Адрес на Опаковчик', 'autocomplete'=>'packer_address']) !!}--}}
                     </div>
                 </fieldset>
             </div>
@@ -218,8 +256,6 @@
                         ?>
                         <input type="hidden" name="for_country_bg" id="for_country_bg" value="{{$country_bg}}">
                         <input type="hidden" name="for_country_en" id="for_country_en" value="{{$country_en}}">
-                        {{-- {!! Form::hidden('for_country_bg', old('for_country_bg'), ['id'=>'for_country_bg']) !!}
-                        {!! Form::hidden('for_country_en', old('for_country_en'), ['id'=>'for_country_en']) !!} --}}
                         <br>
                         <br>
                         

@@ -6,6 +6,7 @@
             <th>Адрес</th>
             <th>Булстат</th>
             <th>Edit</th>
+            <th>Виж</th>
         </tr>
     </thead>
     <tbody>
@@ -33,7 +34,10 @@
             </td>
             <td class="center last-column">
                 <a href="{!!URL::to('/контрол/търговци/'.$importer->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>
-            </td> 
+            </td>
+            <td class="center last-column">
+                <a href="{!!URL::to('/контрол/търговци/'.$importer->id.'/show')!!}" class="fa fa-binoculars btn btn-success my_btn"></a>
+            </td>
         </tr>
     @endforeach
     </tbody>

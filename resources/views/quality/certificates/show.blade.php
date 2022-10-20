@@ -298,11 +298,16 @@
                                         2. Опаковчик, посочен върху опаковката (ако е  различен от търговеца)/ Packer identified on packaging (if other than trader)
                                     </p>
                                     <p class="p_content" style="margin-top: 20px">
-                                        {{$certificate->packer_name }}
+                                        @if( strlen($certificate->packer_address) > 0)
+                                            {{$certificate->packer_name }}, {{ $certificate->packer_address }}
+                                        @else
+                                            {{$certificate->packer_name }} {{ $certificate->packer_address }}
+                                        @endif
+
                                     </p>
-                                    <p class="p_content">
-                                        {{$certificate->packer_address }}
-                                    </p>
+                                    {{--<p class="p_content">--}}
+                                        {{--{{$certificate->packer_address }}--}}
+                                    {{--</p>--}}
                                 </td>
                                 <td class="cell second-row-cell cell-control autority" style="height: 1cm  !important" colspan="2">
                                     <p class="p_info" style="margin-bottom: 3px">
