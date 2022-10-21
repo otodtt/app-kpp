@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Време на генериране: 20 окт 2022 в 14:22
+-- Време на генериране: 21 окт 2022 в 14:20
 -- Версия на сървъра: 5.7.36
 -- Версия на PHP: 7.4.26
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `crops` (
 INSERT INTO `crops` (`id`, `group_id`, `name`, `name_en`, `latin`, `latin_name`, `cropDescription`, `date_create`, `date_update`, `created_by`, `updated_by`) VALUES
 (1, 1, 'Пшеница', 'Wheat', 'Triticum spp', 'triticum-spp', 'Продукти (Препарати) за растителна защита при Пшеница. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Пшеница.', '19.09.2022 15:30:16', '', 2, 0),
 (2, 1, 'Ечемик', 'Barley', 'Hordeum vulgare', 'hordeum-vulgare', 'Продукти (Препарати) за растителна защита при Ечемик. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Ечемик.', '19.09.2022 15:39:35', '', 2, 0),
-(3, 1, 'Ове', 'Oats', 'Avena sativa', 'avena-sativa', 'Продукти (Препарати) за растителна защита при Овес. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Овес.', '19.09.2022 15:42:43', '17.10.2022 10:34:36', 2, 8),
+(3, 1, 'Овес', 'Oats', 'Avena sativa', 'avena-sativa', 'Продукти (Препарати) за растителна защита при Овес. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Овес.', '19.09.2022 15:42:43', '21.10.2022 15:16:53', 2, 8),
 (4, 1, 'Ръж', 'Rye', 'Secale cereale', 'secale-cereale', 'Продукти (Препарати) за растителна защита при Ръж. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Ръж.', '19.09.2022 16:04:26', '', 2, 0),
 (5, 1, 'Царевица', 'Maize', 'Zea mays', 'zea-mays', 'Продукти (Препарати) за растителна защита при Царевица. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Царевица.', '19.09.2022 16:06:19', '', 2, 0),
 (6, 2, 'Фасул', 'Beans', 'Phaseolus vulgaris', 'phaseolus-vulgaris', 'Продукти (Препарати) за растителна защита при Фасул. Фунгициди, Инсектициди, Хербициди, Акарициди, Нематоциди, Десиканти, Растежни регулатори и др. при борба с болести, неприятели и плевели по Фасул.', '19.09.2022 16:14:11', '', 2, 0),
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `importers` (
   `date_create` varchar(20) NOT NULL,
   `date_update` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Схема на данните от таблица `importers`
@@ -282,7 +282,8 @@ INSERT INTO `importers` (`id`, `name_bg`, `address_bg`, `vin`, `name_en`, `addre
 (10, 'Лина-07 - Владимир Иванов Ет', 'с. Кирково, Д. БЛАГОЕВ, 23', '108015507', 'Et Lina 07- Vladimir Ivanov', 'STR DIMITAR BLAGOEV NO: 23, KIRKOVO', 1, 0, 0, 2, 0, '20.09.2022 13:11:35', ''),
 (11, 'Балкан Фруит Еоод', 'гр. София, р-н Оборище, \"Георги Бенковски\", 14, ет. 2', '819411799', 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 'VIA G. BENCOVSKI N 14, SOFIA/ BULGARIA', 1, 0, 0, 10, 0, '29.09.2022 11:47:46', ''),
 (12, 'Фреш Бан Еоод', 'гр. Пловдив, р-н Западен, ул. Битоля, 12', '115899821', 'Fresh Ban Ltd ', 'STR BITOLYA 12, PLOVDIV/BULGARIA', 1, 0, 0, 10, 0, '29.09.2022 11:50:45', ''),
-(13, 'Г.м.г. България Оод', 'гр. София, р-н Изгрев, ЛОВЕН ПАРК, 3, вх. А, ет. 4', '201931548', 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', 1, 0, 0, 10, 0, '29.09.2022 11:54:34', '');
+(13, 'Г.м.г. България Оод', 'гр. София, р-н Изгрев, ЛОВЕН ПАРК, 3, вх. А, ет. 4', '201931548', 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', 1, 0, 0, 10, 0, '29.09.2022 11:54:34', ''),
+(14, 'Еуро Плантс Еоод', 'с. Костур, общ. Свиленград, България', '203782284', 'Euro Plants Ltd', 'Kostur, Svilengrad, Bulgaria/ 6533', 1, 0, 1, 8, 0, '21.10.2022 09:22:05', '');
 
 -- --------------------------------------------------------
 
@@ -314,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `invoices` (
 --
 
 INSERT INTO `invoices` (`id`, `number_invoice`, `date_invoice`, `sum`, `certificate_id`, `certificate_number`, `importer_id`, `importer_name`, `identifier`, `invoice_for`, `date_create`, `date_update`, `created_by`, `updated_at`) VALUES
-(1, '6571020601', 1665349200, 11.11, 1, 2001, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'X-103/2001', 1, '19.10.2022', '', 10, 0),
+(1, '6571020601', 1665349200, 11.11, 1, 2001, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'X-103/2001', 1, '19.10.2022', '21.10.2022', 10, 10),
 (2, '6571020602', 1665522000, 12, 3, 2003, 3, 'Kolla Munchen Gbmh', 'X-103/2003', 1, '19.10.2022', '', 10, 0),
 (3, '6571020603', 1665608400, 33, 2, 2002, 1, 'Emi Frut Eood', 'X-103/2002', 1, '19.10.2022', '20.10.2022', 10, 10),
 (4, '6571020604', 1665694800, 40, 4, 2004, 8, 'Rodopi Les 65 Eood ', 'X-103/2004', 1, '19.10.2022', '19.10.2022', 10, 10),
@@ -5711,11 +5712,11 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
 --
 
 INSERT INTO `qcertificates` (`id`, `certificate_id`, `import`, `export`, `internal`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_id`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice_id`, `invoice_number`, `invoice_date`, `sum`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
-(1, 0, 2001, 0, 0, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD', ' TICARET LTD 111', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', '31AJN161/ 31 AJH166', 'България/Bulgaria', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177584, '22.10.2022', 1, '6571020601', 1665349200, 11.11, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 1),
+(1, 0, 2001, 0, 0, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD', ' TICARET LTD 111', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', '31AJN161/ 31 AJH166', 'България/Bulgaria', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177584, '22.10.2022', 1, '6571020601', 1665349200, 11.11, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '21.10.2022', 10, 10, 1),
 (2, 0, 2002, 0, 0, 2, 2, 2, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 19, 'Испания', 'Spain', '', '31AJN161/ 31 AJH166', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177665, '21.10.2022', 3, '6571020603', 1665608400, 33, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '20.10.2022', 10, 10, 0),
 (3, 0, 2003, 0, 0, 3, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'DIS TICARET LTD 333', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 11, 'Великобритания', 'United Kingdom', '', '31AJN161/ 31 AJH166', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666177807, '21.10.2022', 2, '6571020602', 1665522000, 12, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 0),
 (4, 0, 2004, 0, 0, 4, 2, 1, 8, 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', '204875574', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD', ' VE DIS TICARET LTD 44', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 15, 'Дания', 'Denmark', '', '31AJN161/ 31 AJH166', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666181342, '21.10.2022', 4, '6571020604', 1665694800, 40, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '19.10.2022', 10, 10, 1),
-(5, 0, 2005, 0, 0, 5, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'DIS TICARET LTD', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '31AJN161/ 31 AJH166', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666184593, '21.10.2022', 5, '6571020605', 1665781200, 60.6, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 1),
+(5, 0, 2005, 0, 0, 5, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD', 'DIS TICARET LTD', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '31AJN161/ 31 AJH166', 'Турция/ Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666184593, '21.10.2022', 5, '6571020605', 1665781200, 60.6, 'Мария Чанкова', 'Marya Chankova', '19.10.2022', '', 10, 0, 0),
 (6, 0, 2006, 0, 0, 6, 2, 1, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', '', '31AJN161/ 31 AJH166', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666265325, '22.10.2022', 0, '', 0, 0, 'Мария Чанкова', 'Marya Chankova', '20.10.2022', '', 10, 0, 0),
 (7, 0, 2007, 0, 0, 7, 2, 1, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 'VIA G. BENCOVSKI N 14, SOFIA/ BULGARIA', '819411799', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 11, 'Великобритания', 'United Kingdom', '', ' 33CHD17/33AL966', 'България/ Bulgaria', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666266109, '23.10.2022', 0, '', 0, 0, 'Мария Чанкова', 'Marya Chankova', '20.10.2022', '20.10.2022', 10, 10, 0),
 (8, 0, 2008, 0, 0, 8, 2, 1, 2, 'Forever 9 Eood', 'BULGARIA, SOFIA, DRUJBA BL. 9, VH. J, AP. 11', '203020031', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 25, 'Литва', 'Lithuania', '', '31AJN161/ 31 AJH166', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666267761, '22.10.2022', 0, '', 0, 0, 'Мария Чанкова', 'Marya Chankova', '20.10.2022', '', 10, 0, 0);
@@ -5899,7 +5900,7 @@ INSERT INTO `users` (`id`, `name`, `all_name`, `all_name_en`, `short_name`, `ful
 (5, '', 'Марин Георгиев Филипов', '', 'М. Филипов', 'Главен инспектор Марин Георгиев Филипов', 'Гл. инспектор М. Филипов', '', NULL, '2016-10-04 15:41:11', '2016-10-04 15:41:11', '', 2, 2, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
 (6, '', 'Димитрийка Михайлова Иванова', '', 'Д. Иванова', 'Началник отдел Димитрийка Михайлова Иванова', 'Н-к отдел Д. Иванова', '', NULL, '2016-10-04 15:42:12', '2016-10-04 15:42:12', '', 1, 2, 1, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, NULL),
 (7, '', 'Елена Странджалиева', '', 'Е. Странджалиева', 'Главен инспектор Елена Странджалиева', 'Гл. инспектор Е. Странджалиева', '', NULL, '2016-10-04 15:43:01', '2016-10-04 15:43:01', '', 2, 2, 1, 'Главен инспектор', 'Гл. инспектор', 1, 0, 0, 0, 0, NULL),
-(8, 'vlado', 'Владимир Наков', 'Vladimir Nakov', 'В. Наков', 'Инспектор Владимир Наков', 'Инспектор В. Наков', '$2y$10$RaLHfuKdy87cF4n.nFfjaOQZz1A9rtinOZqziB3Agl7EysWaOnAoe', 'by6BRceXJlGYaz7ebsgSG4MaZkGGdZtFAD0Y9cwTKgbBpSB70OaQYPnJeSdB', '2016-10-21 10:35:09', '2022-10-17 11:50:45', '260146', 4, 1, 1, 'Инспектор', 'Инспектор', 0, 0, 1, 1, 0, '106'),
+(8, 'vlado', 'Владимир Наков', 'Vladimir Nakov', 'В. Наков', 'Инспектор Владимир Наков', 'Инспектор В. Наков', '$2y$10$RaLHfuKdy87cF4n.nFfjaOQZz1A9rtinOZqziB3Agl7EysWaOnAoe', '4rhAVJxCvfGD03iozzbvyskJHkjoOBrhHJSiJImGZNvogZK86rfQLRKhRbRJ', '2016-10-21 10:35:09', '2022-10-21 12:39:51', '260146', 4, 1, 1, 'Инспектор', 'Инспектор', 0, 0, 1, 1, 0, '106'),
 (9, 'atonev', 'Антон Тонев', 'Anton Tonev', 'А. Тонев', 'Инспектор Антон Тонев', 'Инспектор А. Тонев', '$2y$10$dUtSZKL7oCVlZlEa.a.VFO5i5P3RjXauC77ODdAKP6hetQme47Dc2', 'Yi5bh89sa0rzrM4UTRrhsnTDgELQvPp93LyWOeBpa5Gpvx8G3F0bSgdJEIDE', '2020-05-01 10:37:15', '2022-10-17 10:06:04', '26099', 4, 1, 1, 'Инспектор', 'Инспектор', 1, 1, 1, 1, 0, '108'),
 (10, 'maria', 'Мария Чанкова', 'Marya Chankova', 'М. Чанкова', 'Началник отдел Мария Чанкова', 'Н-к отдел М. Чанкова', '$2y$10$x2E2f/8HnM6RpJjmH8D0NO67QiHvgsc6k1hh1UPGHLs8lzpAzhZiW', 'oi6tBtqL9m2BaKuKMzWSnSMPeUP9Hy5ypnDi0MdW78C7QjhaNsEFibzRoKrY', '2021-09-03 07:53:21', '2022-10-17 11:43:40', '26015', 1, 1, 2, 'Началник отдел', 'Н-к отдел', 1, 1, 1, 1, 1, '103');
 COMMIT;

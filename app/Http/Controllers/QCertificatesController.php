@@ -269,6 +269,21 @@ class QCertificatesController extends Controller
        
     }
 
+    public function import_finish(Request $request)
+    {
+        $certificate = QCertificate::findOrFail($request->certificate_id);
+        $data = [
+            'is_all' => $request->certificate_id,
+        ];
+        $certificate->fill($data);
+        $certificate->save();
+        
+        Session::flash('message', 'Записа е успешен!');
+        return Redirect::to('/контрол/сертификат/'.$request->certificate_id);
+    }
+    /** ВНОС КРАЙ//////////////// */
+
+    /** ЗА СТОКИТЕ//////////////// */
     /**
      * Display the specified resource.
      *
@@ -294,7 +309,7 @@ class QCertificatesController extends Controller
             'date_add' => date('d.m.Y', time()),
             'added_by' => Auth::user()->id,
         ];
-        
+
         Stock::create($data);
         return back();
     }
@@ -302,7 +317,7 @@ class QCertificatesController extends Controller
     public function import_stock_update(StocksRequest $request, $id)
     {
         $stock = Stock::findOrFail($id);
-        
+
         if ($request->type_package != 999) {
             $different = '';
         } else {
@@ -325,36 +340,6 @@ class QCertificatesController extends Controller
         $stock->save();
 
         return Redirect::to('/import/stock/'.$stock->certificate_id.'/0/edit');
-    }
-
-    public function import_finish(Request $request)
-    {
-        $certificate = QCertificate::findOrFail($request->certificate_id);
-        $data = [
-            'is_all' => $request->certificate_id,
-        ];
-        $certificate->fill($data);
-        $certificate->save();
-        
-        Session::flash('message', 'Записа е успешен!');
-        return Redirect::to('/контрол/сертификат/'.$request->certificate_id);
-    }
-    /** ВНОС КРАЙ//////////////// */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $certificate = QCertificate::findOrFail($id);
-        $stocks = $certificate->stocks->toArray();
-        $firm = Importer::findOrFail($certificate->importer_id);
-        $invoice = $certificate->invoice->toArray();
-
-        return view('quality.certificates.show', compact('certificate', 'stocks', 'firm', 'invoice'));
     }
 
     /**
@@ -404,6 +389,44 @@ class QCertificatesController extends Controller
         $stock = Stock::find($id);
         $stock->delete();
         return back();
+    }
+
+    /**
+     * СПИСЪК СЪС СТОКИТЕ
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function stock_index()
+    {
+        $stocks = Stock::where('import', '>', 0)->get();
+        foreach($stocks as $stock){
+            $certificates[] = QCertificate::findOrFail($stock->certificate_id);
+        }
+//        if(!isset($stocks)) {
+//            $stocks = 0;
+//        }
+//        dd($certificates);
+        return view('quality.stocks.index', compact('stocks', 'certificates'));
+    }
+    /** КРАЙ ЗА СТОКИТЕ//////////////// */
+
+    /**
+     * ПОКАЗВА СЕРТИФИКАТА
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $certificate = QCertificate::findOrFail($id);
+        $stocks = $certificate->stocks->toArray();
+        $firm = Importer::findOrFail($certificate->importer_id);
+        $invoice = $certificate->invoice->toArray();
+
+        return view('quality.certificates.show', compact('certificate', 'stocks', 'firm', 'invoice'));
     }
 
     /**

@@ -107,9 +107,15 @@ class ImportersController extends Controller
     {
         $importer  = Importer::findOrFail($id);
         $certificates = $importer->qcertificate;
-//        dd($certificates);
 
-        return view('quality.importers.show', compact( 'importer', 'certificates'));
+        foreach($certificates as $certificate){
+            $stocks[] = $certificate->stocks->toArray();
+        }
+        if(!isset($stocks)) {
+            $stocks = 0;
+        }
+
+        return view('quality.importers.show', compact( 'importer', 'certificates', 'stocks'));
     }
 
     /**

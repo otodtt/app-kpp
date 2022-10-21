@@ -2,48 +2,82 @@
     <thead>
         <tr>
             <th>N</th>
-            <th>Номер</th>
             <th>Дата на издаване</th>
-            <th>Фирма</th>
-            <th>Фактура</th>
-            <th>Сума</th>
+            <th>Серт. Номер/Дата</th>
+            <th>Издаден на</th>
+            <th>Култура</th>
+            <th>Опаковки</th>
+            <th>Количество</th>
             <th>Инспектор</th>
-            <th>Завършен</th>
             <th>Виж</th>
         </tr>
     </thead>
     <tbody>
     <?php $n = 1; ?>
-    @foreach($certificates as $certificate)
-            <?php
-                if($certificate->is_all === 0) {
-                    $all = 'Не завършен';
-                    $alert = 'red';
-                } else {
-                    $all = 'OK';
-                    $alert = '';
-                }
-            ?>
+    @foreach($stocks as $stock)
+
         <tr>
             <td class="right"><?= $n++ ?></td>
-            <td>{{$certificate->import}}</td>
-            <td>{{ date('d.m.Y', $certificate->date_issue) }}</td>
-            <td>{{strtoupper($certificate->importer_name)}}</td>
-            <td style="text-align: right; padding-right: 4px">
-                @if( $certificate->invoice_id == '0')
-                    <a href='/контрол/фактури-внос/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
-                @else
-                    {{ $certificate->invoice_number }}/{{ date('d.m.Y' ,$certificate->invoice_date ) }}
+            <td>{{ date('d.m.Y', $stock->date_issue) }}</td>
+            <td>
+                @foreach($certificates as $k=>$certificate)
+                    <?php //break; ?>
+                    <?php
+                        if($certificate->id == $stock->certificate_id) {
+                            ?>
+                                {{ $certificate->import }} / {{ date('d.m.Y', $certificate->date_issue) }}
+                            <?php
+                            break;
+                        }
+                    ?>
+                @endforeach
+
+            </td>
+            <td>
+                @if($stock->import > 0)
+                    <p>Внос</p>
+                @endif
+                @if($stock->export > 0)
+                    <p>Износ</p>
+                @endif
+                @if($stock->internal > 0)
+                    <p>Вътрешен</p>
                 @endif
             </td>
-            <td style="text-align: right; padding-right: 4px">{{ $certificate->sum }}</td>
-            <td>{{$certificate->inspector_bg}}</td>
-            <td><span class="{{$alert}}">{{$all}}</span></td>
+            <td style="text-align: left">
+                {{$stock->crops_name}} / {{$stock->crop_en}}
+            </td>
+            <td style="text-align: left;">
+                <?php
+                    if( $stock->type_pack == 1){
+                        $type = 'Каси';
+                    }
+                    elseif($stock->type_pack == 2){
+                        $type = 'Палети';
+                    }
+                    elseif($stock->type_pack == 3){
+                        $type = 'Кашони';
+                    }
+                    elseif($stock->type_pack == 4){
+                        $type = 'Торби';
+                    }
+                    elseif($stock->type_pack == 999){
+                        $type = $stock->different;
+                    }
+                    else {
+                        $type = '';
+                    }
+                ?>
+                {{ $type }} <span style="float: right; margin-right: 10px">{{ $stock->number_packages }}</span>
+            </td>
+            <td style="text-align: right; padding-right: 4px">{{ number_format($stock->weight , 0, ',', ' ') }}</td>
+            <td>{{$stock->updated_by}}</td>
+            {{--<td><span class="{{$stock}}">{{$stock}}</span></td>--}}
             <td>
-                @if ($certificate->is_all === 0)
-                <a href='/контрол/сертификат-внос/{{$certificate->id}}/завърши' class="fa fa-edit btn btn-danger my_btn"></a>
+                @if ($stock->is_all === 0)
+                <a href='/контрол/сертификат-внос/{{$stock->id}}/завърши' class="fa fa-edit btn btn-danger my_btn"></a>
                 @else
-                <a href='/контрол/сертификат/{{$certificate->id}}' class="fa fa-binoculars btn btn-primary my_btn"></a>
+                <a href='/контрол/сертификат/{{$stock->id}}' class="fa fa-binoculars btn btn-primary my_btn"></a>
                 @endif
             </td>
         </tr>

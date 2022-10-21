@@ -109,10 +109,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/import/stock/{id}/{sid?}/edit', 'QCertificatesController@stocks_edit');
     Route::post('/import/stock/{id}/delete', 'QCertificatesController@destroy');
 
+    Route::get('/контрол/стоки', 'QCertificatesController@stock_index');
+
     Route::post('lock-import-certificate/{id}', 'QCertificatesController@import_lock');
     Route::post('unlock-import-certificate/{id}', 'QCertificatesController@import_unlock');
 
-    ///// Добаи покажи
+    ///// Добави покажи
     Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
 
     // /////// ФАКТУРИ

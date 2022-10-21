@@ -22,8 +22,8 @@
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
         <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
         <span class="fa fa-files-o btn btn-default my_btn"> Фактури</span>
-        <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-trademark btn btn-info my_btn"> Всички търговци</a>
-        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Всички култури</a>
+        <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
+        <a href="{!! URL::to('/контрол/стоки')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
     </div>
     {{--<div class="btn_add_firm">--}}
         {{--<a href="{!!URL::to('/контрол/търговци/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави НОВА фирма</a>--}}

@@ -5,6 +5,7 @@ $(document).ready(function() {
             null,
             { "orderable": false },
             { "orderable": false },
+            null,
             { "orderable": false },
             { "orderable": false },
         ],
@@ -67,6 +68,8 @@ $(document).ready(function() {
         },
         "columns": [
             null,
+            { "orderable": false },
+            { "orderable": false },
             { "orderable": false },
             { "orderable": false },
             { "orderable": false },

@@ -1,10 +1,11 @@
 <table id="example" class="display my_table table-striped " cellspacing="0" width="100%" border="1px">
     <thead>
         <tr>
-            <th>N</th>
+            <th style="width: 25px">N</th>
             <th>Име на Фирмата</th>
             <th>Адрес</th>
             <th>Булстат</th>
+            <th style="width: 70px">Дейност</th>
             <th>Edit</th>
             <th>Виж</th>
         </tr>
@@ -31,6 +32,16 @@
                     <span ></span>
                 @endif
                 {{$importer->vin}}
+            </td>
+            <td class="left">
+                @if($importer->trade == 0 )
+                    <p>Внос</p>
+                @elseif($importer->trade == 1)
+                    <p>Износ</p>
+                @elseif($importer->trade == 2)
+                    <p>Внос/Износ</p>
+                @else
+                @endif
             </td>
             <td class="center last-column">
                 <a href="{!!URL::to('/контрол/търговци/'.$importer->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>

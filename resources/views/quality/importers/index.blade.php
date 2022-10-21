@@ -1,6 +1,6 @@
 @extends('layouts.quality')
 @section('title')
-    {{ 'Всички Вносители' }}
+    {{ 'Всички Търговци' }}
 @endsection
 
 @section('css')
@@ -15,23 +15,23 @@
 
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">ВСИЧКИ ВНОСИТЕЛИ</h4>
+        <h4 class="bold layout-title">ВСИЧКИ ТЪРГОВЦИ</h4>
     </div>
     <hr/>
     <div class="btn-group" >
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
         <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
         <a href="{!! URL::to('/контрол/фактури')!!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
-        <span class="fa fa-trademark btn btn-default my_btn"> Всички търговци</span>
-        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Всички култури</a>
+        <span class="fa fa-trademark btn btn-default my_btn"> Всички фирми</span>
+        <a href="{!! URL::to('/контрол/стоки')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
     </div>
     <div class="btn_add_firm">
-        <a href="{!!URL::to('/контрол/търговци/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави ВНОСИТЕЛ</a>
+        <a href="{!!URL::to('/контрол/търговци/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави ФИРМА</a>
     </div>
     <hr/>
     <div class="btn-group" >
-        <span class="fa fa-truck btn btn-default my_btn"> Вносители</span>
-        <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-tags btn btn-info my_btn"> Опаковчици</a>
+        <span class="fa fa-truck btn btn-default my_btn"> Търговци</span>
+        <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-archive btn btn-info my_btn"> Опаковчици</a>
     </div>
     <hr/>
     <fieldset class="form-group">
