@@ -126,8 +126,10 @@
 </fieldset>
 
 <fieldset>
-    <span class="description"> Номер на печат <span class="bold red">ЗАДЪЛЖИТЕЛНО</span> се изписва когато е избран инспектор от КППЗ. <span
-                class="bold">Номера трябва да е уникален!</span></span><br/>
+    <span class="description"> Номер на печат <span class="bold red">ЗАДЪЛЖИТЕЛНО</span> се изписва когато е избран инспектор от КППЗ.
+        <span class="bold">Ако е администратор без печат добави число над 5000!</span>
+        <span class="bold">Номера трябва да е уникален!</span>
+    </span><br/>
 
     {!! Form::label('stamp_number', ' Номер на печат:', ['class'=>'labels']) !!}
     {!! Form::text('stamp_number', null, ['class'=>'sample2', 'placeholder'=>'Номер на печат', 'title'=>'Номера на личния печат', 'size'=>20 ]) !!}

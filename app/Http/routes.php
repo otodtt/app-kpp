@@ -97,25 +97,29 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('контрол/сертификати', 'QCertificatesController');
     Route::get('/контрол/сертификат-избери', 'QCertificatesController@choose');
 
-    ///// Добаи внос
+    ///// внос
     Route::get('/контрол/сертификати-внос/добави', 'QCertificatesController@import_create');
     Route::post('/контрол/сертификати-внос/store', 'QCertificatesController@import_store');
     Route::get('контрол/сертификат-внос/{id}/завърши', 'QCertificatesController@import_ending');
     Route::get('контрол/сертификат-внос/{id}/edit', 'QCertificatesController@edit');
     Route::post('контрол/сертификат-внос/{id}/update', 'QCertificatesController@update');
-    Route::post('/import/add-stock/store', 'QCertificatesController@import_stock_store');
-    Route::post('/import/edit-stock/update/{id}', 'QCertificatesController@import_stock_update');
     Route::post('/import-finish/store', 'QCertificatesController@import_finish');
-    Route::get('/import/stock/{id}/{sid?}/edit', 'QCertificatesController@stocks_edit');
-    Route::post('/import/stock/{id}/delete', 'QCertificatesController@destroy');
-
-    Route::get('/контрол/стоки', 'QCertificatesController@stock_index');
-
+    ///// внос покажи
+    Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
+    ///// LOCK UNLOCK
     Route::post('lock-import-certificate/{id}', 'QCertificatesController@import_lock');
     Route::post('unlock-import-certificate/{id}', 'QCertificatesController@import_unlock');
 
-    ///// Добави покажи
-    Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
+    
+    // /////// СТОКИ
+    Route::get('/контрол/стоки/внос', 'StocksController@import_index');
+    Route::post('/import/add-stock/store', 'StocksController@import_stock_store');
+    Route::post('/import/edit-stock/update/{id}', 'StocksController@import_stock_update');
+    Route::get('/import/stock/{id}/{sid?}/edit', 'StocksController@import_stocks_edit');
+    Route::post('/import/stock/{id}/delete', 'StocksController@import_destroy');
+    Route::any('/контрол/внос/сортирай/{crop?}', 'StocksController@import_sort');
+    Route::post('/контрол/стоки/внос/{type}', 'StocksController@import_search');
+
 
     // /////// ФАКТУРИ
     Route::get('контрол/фактури', 'InvoicesController@index');
@@ -123,6 +127,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('контрол/фактури-внос/{id}/store', 'InvoicesController@import_store');
     Route::get('контрол/фактури-внос/{id}/edit', 'InvoicesController@import_edit');
     Route::post('контрол/фактури-внос/{id}/update', 'InvoicesController@import_update');
+
 
 
 

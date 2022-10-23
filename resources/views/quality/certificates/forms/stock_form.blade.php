@@ -57,6 +57,9 @@
                                 {!! Form::hidden('crops_name', old('crops_name'), ['id'=>'crops_name']) !!}
                                 {!! Form::hidden('group_id', old('group_id'), ['id'=>'group_id']) !!}
                                 <input type="hidden" name="certificate_id" value="{{$id}}">
+                                <input type="hidden" name="certificate_number" value="{{$certificate->import}}">
+                                <input type="hidden" name="firm_id" value="{{$certificate->importer_id}}">
+                                <input type="hidden" name="firm_name" value="{{$certificate->importer_name}}">
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">

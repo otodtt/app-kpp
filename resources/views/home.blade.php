@@ -39,7 +39,7 @@
                                         <div class="col-lg-12  ">
                                             <a class="my_a back_link" href="{!! URL::to( '/контрол/фактури') !!}"><i class="fa fa-files-o fa-fw  "></i> Фактури</a><br/>
                                             <a class="my_a back_link" href="{!! URL::to( '/контрол/търговци') !!}"><i class="fa fa-truck fa-fw dark_color "></i> Всички фирми търговци</a><br/>
-                                            <a class="my_a back_link" href="{!! URL::to( '/контрол/стоки') !!}"><i class="fa fa-leaf fa-fw green_color"></i> Стоки и култури</a><br/>
+                                            <a class="my_a back_link" href="{!! URL::to( '/контрол/стоки/внос') !!}"><i class="fa fa-leaf fa-fw green_color"></i> Стоки и култури</a><br/>
                                             {{-- <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-file-powerpoint-o fa-fw control_color"></i> Протоколи Контрол на Пазара</a><br/>
                                             <a class="my_a back_link" href="{!! URL::to( '/') !!}"><i class="fa fa-object-ungroup fa-fw control_color"></i> Протоколи Нерегламентирани Обекти</a><br/>
                                             <a class="my_a back_link" href="{!! URL::to( '/и') !!}"><i class="fa fa-external-link fa-fw control_color"></i> Протоколи в други Области </a><br/>

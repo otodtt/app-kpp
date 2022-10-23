@@ -95,7 +95,6 @@
                     <td>
                         @if($certificate->invoice_number != 0)
                             {{$certificate->invoice_number}} /{{date('d.m.Y', $certificate->invoice_date) }}
-{{--                            {{$certificate->stamp_number }}/{{$certificate->import }} - {{$certificate->invoice_number}} /{{date('d.m.Y', $certificate->invoice_date) }}--}}
                         @else
                             <p class="red">Не е въведана фактурата</p>
                         @endif

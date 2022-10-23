@@ -32,7 +32,7 @@
     </div>
     <hr/>
     <div class="btn-group" >
-        <a href="{!! URL::to('/контрол/стоки')!!}" class="fa fa-tags btn btn-info my_btn"> Стоки</a>
+        <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-tags btn btn-info my_btn"> Стоки</a>
         <span class="fa fa-leaf btn btn-default my_btn"> Култури</span>
     </div>
     <hr/>
