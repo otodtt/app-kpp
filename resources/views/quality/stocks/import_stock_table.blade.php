@@ -53,17 +53,11 @@
                     {{ $type }} 
                     <span style="float: right; margin-right: 10px">- {{ $stock->number_packages }}</span>
                 </td>
-                <td style="text-align: right; padding-right: 4px">{{ $stock->weight}}</td>
-                {{-- <td style="text-align: right; padding-right: 4px">{{ number_format($stock->weight, 0, ',', ' ') }}</td> --}}
+                {{--<td style="text-align: right; padding-right: 4px">{{ $stock->weight}}</td>--}}
+                 <td style="text-align: right; padding-right: 4px">{{ number_format($stock->weight, 0, ',', ' ') }}</td>
                 <td>{{ $stock->inspector_name }}</td>
                 <td>
-                    @if ($stock->is_all === 0)
-                        <a href='/контрол/сертификат-внос/{{ $stock->id }}/завърши'
-                            class="fa fa-edit btn btn-danger my_btn"></a>
-                    @else
-                        <a href='/контрол/сертификат/{{ $stock->id }}'
-                            class="fa fa-binoculars btn btn-primary my_btn"></a>
-                    @endif
+                    <a href='/контрол/сертификат/{{ $stock->certificate_id }}'class="fa fa-binoculars btn btn-primary my_btn"></a>
                 </td>
             </tr>
         @endforeach
@@ -77,7 +71,8 @@
                 <?php  $total = 0; ?>
                 @foreach($stocks as $k=>$stock)
                     <?php
-                        $total += array_sum((array)$stock['weight']);
+                        //$total += array_sum((array)$stock['weight']);
+                        $total += array_sum((array)$stock->weight);
                     ?>
                 @endforeach
                 <p style="text-center: left; margin-left: 10px"> {{ number_format($total, 0, ',', ' ') }} kg.</p>

@@ -74,6 +74,36 @@
                             </label>
                         </div>
                         <div class="col-md-3">
+                            <?php
+                            if (isset($input_type) ) {
+                                if ($input_type == 0) {
+                                    $type0 = true;
+                                    $type1 =false;
+                                    //$cs999 =false;
+                                }
+                                elseif($input_type == 1) {
+                                    $type0 =false;
+                                    $type1 =true;
+                                    //$cs999 =false;
+                                }
+                                else {
+                                    $type0 =false;
+                                    $type1 =false;
+                                }
+                            }
+                            else {
+                                $type0 =false;
+                                $type1 =false;
+                            }
+                            ?>
+                            <label><span>&nbsp;&nbsp;Вносители: </span>
+                                {!! Form::radio('type', 0, $cs0 ) !!}&nbsp;&nbsp;|
+                            </label>
+                            <label><span>&nbsp;&nbsp;Износители: </span>
+                                {!! Form::radio('type', 1, $cs1 ) !!}
+                            </label>
+                        </div>
+                        <div class="col-md-3">
                             {!! Form::hidden('_token', csrf_token() ) !!}
                             {!! Form::submit('Сортирай!',['class'=>'fa btn btn-success my_btn']) !!}
                         </div>

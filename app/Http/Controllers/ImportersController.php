@@ -41,25 +41,35 @@ class ImportersController extends Controller
      * Sort firms by different types.
      *
      * @param null $sort
+     * @param null $type
      * @return \Illuminate\Http\Response
      * @internal param null $type
      */
-    public function sort($sort = null) 
+    public function sort($sort = null, $type = null)
     {
-        $input_sort = Input::get('sort');
 
+        $input_sort = Input::get('sort');
+        $input_type = Input::get('type');
+
+//        dd($input_sort.'---'.$input_type);
         //////// При Избиране
         if($input_sort !== null){
             if($input_sort >= 0){
                 $importers = Importer::select()
                     ->where('is_active', '=', '1')
                     ->where('is_bulgarian', '=', $input_sort)->get();
+//                $importers_sql = "->where('is_bulgarian', '=', $input_sort)";
+                $importers_sql = "->where('is_bulgarian', '=', $input_sort)";
             }
             else{
-                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
+                $importers_sql = '';
+//                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
             }
         }
-        return view('quality.importers.index', compact( 'importers', 'input_sort' ));
+      dd($importers_sql);
+        $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1').$importers_sql;
+        dd($importers);
+        return view('quality.importers.index', compact( 'importers', 'input_sort', 'input_type' ));
     }
 
     /**

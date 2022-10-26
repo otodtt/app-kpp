@@ -51,16 +51,16 @@
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
-                <div id="search_wrap" class="col-md-6">
+                <div id="search_wrap" class="col-md-4">
                     {!! Form::open(['url' => '/контрол/стоки/внос/1', 'method' => 'POST']) !!}
-                        {!! Form::label('stock_number', 'Търси по номер на сертификат:', ['class'=>'labels']) !!}
+                        {!! Form::label('stock_number', 'Търси номер на сертификат:', ['class'=>'labels']) !!}
                         {!! Form::text('stock_number', null, ['class' => 'form-control form-control-my search_value',
-                                        'size' => 30, 'style'=>'height: 34px; padding: 0 8px; width: 200px; display: inline-block;', 
-                                        'placeholder'=>'Номер на сертификат']) !!}
+                                        'size' => 30, 'maxlength'=>5, 'style'=>'height: 28px; padding: 0 8px; width: 100px; display: inline-block;',
+                                        'placeholder'=>'Номер']) !!}
                         {!! Form::submit(' ТЪРСИ', ['class' => 'fa fa-search btn btn-primary my_btn']) !!}
                     {!! Form::close() !!}
                 </div>
-                <div class="refresh col-md-5">
+                <div class="refresh col-md-6">
                     {!! Form::open(['url' => '/контрол/стоки/внос/2', 'method' => 'POST']) !!}
                         <?php
                             if (isset($search_firm_return)) {
@@ -71,7 +71,7 @@
                         ?>
                         <input type="hidden" value="{{old('search_firm')}}">
                         {!! Form::label('search_firm', 'Търси по фирма:', ['class'=>'labels']) !!}
-                        <select name="search_firm" id="search_firm" class="form-control form-control-my search_value" style="height: 34px; padding: 0 8px; width: 300px; display: inline-block">
+                        <select name="search_firm" id="search_firm" class="form-control form-control-my search_value" style="height: 28px; padding: 0 8px; width: 250px; display: inline-block">
                             <option value="0"> Избери фирма</option>
                             @foreach($firms as $k=>$firm)
                                 <option value="{{$k}}"
@@ -90,14 +90,14 @@
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
-                {!! Form::open(['url' => '/контрол/стоки/внос/сортирай', 'method' => 'POST']) !!}
+                {!! Form::open(['url' => '/стоки/внос/сортирай', 'method' => 'POST']) !!}
                 @include('quality.stocks.sorting')
                 {!! Form::close() !!}
             </div>
         </div>
     </fieldset>
     <hr class="my_hr" />
-    {{-- @include('old.certificates.index.alphabet') --}}
+
     <div class="btn_add_certificate" style="text-align: right">
         <a href="{!! URL::to('/контрол/стоки/внос') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
             &nbsp; Изчисти сортирането!

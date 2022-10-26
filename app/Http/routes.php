@@ -117,8 +117,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/import/edit-stock/update/{id}', 'StocksController@import_stock_update');
     Route::get('/import/stock/{id}/{sid?}/edit', 'StocksController@import_stocks_edit');
     Route::post('/import/stock/{id}/delete', 'StocksController@import_destroy');
-    Route::any('/контрол/внос/сортирай/{crop?}', 'StocksController@import_sort');
     Route::post('/контрол/стоки/внос/{type}', 'StocksController@import_search');
+    Route::post('/стоки/внос/сортирай/{start_year?}/{end_year?}/{crop_sort?}/{inspector_sort?}', 'StocksController@import_sort');
 
 
     // /////// ФАКТУРИ

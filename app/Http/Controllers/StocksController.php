@@ -2,6 +2,7 @@
 
 namespace odbh\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 
 use odbh\Http\Requests;
@@ -13,6 +14,7 @@ use odbh\User;
 use odbh\Crop;
 use odbh\Set;
 use Auth;
+use Input;
 use odbh\Importer;
 use Redirect;
 use Session;
@@ -35,7 +37,6 @@ class StocksController extends Controller
      * СПИСЪК СЪС СТОКИТЕ
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return Response
      */
     public function import_index()
@@ -50,7 +51,7 @@ class StocksController extends Controller
                                         ->lists('short_name', 'id')->toArray();
         $inspectors[''] = 'по инспектор';
         $inspectors = array_sort_recursive($inspectors);
-        // dd($inspectors);
+
         return view('quality.stocks.index', compact('stocks', 'list', 'firms', 'inspectors'));
     }
 
@@ -68,7 +69,7 @@ class StocksController extends Controller
             'certificate_number' => $request->certificate_number,
             'firm_id' => $request->firm_id,
             'firm_name' => $request->firm_name,
-            'date_issue' => time(),
+            'date_issue' => $request->date_issue,
             'import' => 2,
             'type_pack' => (int)$request->type_package,
             'number_packages' => $request->number_packages,
@@ -165,13 +166,98 @@ class StocksController extends Controller
         return back();
     }
 
-    public function import_sort(Request $request, $crop = null ) {
+
+    /**
+     * Сортира по задедени критерии.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param null $crop_sort
+     * @param  int $start_year
+     * @param  int $end_year
+     * @param  int $inspector_sort
+     *
+     * @return \Illuminate\Http\Response
+     * @internal param Crop $int
+     */
+    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null ) {
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
+
+        if (Input::has('start_year') || Input::has('end_year') || Input::has('crop_sort') || Input::has('inspector_sort')) {
+
+            $years_start_sort = Input::get('start_year');
+            $years_end_sort = Input::get('end_year');
+            $sort_crop = Input::get('crop_sort');
+            $sort_inspector = Input::get('inspector_sort');
+        } else {
+            $years_start_sort = $start_year;
+            $years_end_sort = $end_year;
+            $sort_crop = $crop_sort;
+            $sort_inspector = $inspector_sort;
+        }
+
+        if ((isset($years_start_sort) && $years_start_sort != '') || (isset($years_end_sort) && $years_end_sort != '')) {
+            $this->validate($request, ['start_year' => 'date_format:d.m.Y']);
+            $this->validate($request, ['end_year' => 'date_format:d.m.Y']);
+
+            $start = strtotime($years_start_sort);
+            $timezone_paris_start = strtotime($years_start_sort.'Europe/Paris');
+
+            $end = strtotime($years_end_sort);
+            $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
+            if($start > 0 && $end == false){
+                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+            }
+            if($end > 0 && $start == false){
+                $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+            }
+            if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
+                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+            }
+            if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
+                $years_sql = ' AND date_issue>='.$start.' AND date_issue<='.$end.'';
+            }
+            if(($start > 0 && $end > 0) && ($start > $end)){
+                $years_sql = ' AND date_issue>='.$end.' AND date_issue<='.$start.'';
+            }
+        }
+        else{
+            $years_sql = ' ';
+        }
+
+        if (isset($sort_crop)&& (int)$sort_crop != 0) {
+            $crop_sql = ' AND crop_id='.$sort_crop;
+        }
+        else{
+            $crop_sql = ' ';
+        }
+
+        if (isset($sort_inspector) && (int)$sort_inspector > 0){
+            $inspector_sql = ' AND added_by= '.$sort_inspector;
+        }
+        else{
+            $inspector_sql = '';
+        }
+
+        $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+
+        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $years_sql $crop_sql $inspector_sql");
+//        dd($stocks);
+        return view('quality.stocks.index', compact('stocks', 'list', 'firms', 'inspectors',
+                'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector'));
 
     }
 
     /**
      * Търси по задедени критерии.
      *
+     * @param  int $type
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -191,9 +277,23 @@ class StocksController extends Controller
 
         $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
         $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
         
-        return view('quality.stocks.index', compact('stocks', 'search_value_return', 'search_firm_return', 'list', 'firms'));
+        return view('quality.stocks.index', compact('stocks', 'search_value_return', 'search_firm_return', 'list', 'firms', 'inspectors'));
     }
+
+
+
+
+
+
 
 
 

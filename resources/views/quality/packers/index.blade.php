@@ -23,7 +23,7 @@
         <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
         <a href="{!! URL::to('/контрол/фактури')!!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
         <span class="fa fa-trademark btn btn-default my_btn"> Всички фирми</span>
-        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
+        <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
     </div>
     <div class="btn_add_firm">
         <a href="{!!URL::to('/контрол/опаковчик/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави ОПАКОВЧИК</a>

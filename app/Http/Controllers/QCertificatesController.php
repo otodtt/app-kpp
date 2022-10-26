@@ -89,7 +89,7 @@ class QCertificatesController extends Controller
         if(!empty($last_import)) {
             $last_number = $last_import;
         } else {
-            $last_number[0]['import'] = '2001';
+            $last_number[0]['import'] = '1001';
         }
 
         return view('quality.certificates.import.import_certificate',
@@ -112,7 +112,7 @@ class QCertificatesController extends Controller
         if(!empty($last_import)) {
             $import = $last_import[0]['import'] + 1;
         } else {
-            $import = '2001';
+            $import = '1001';
         }
 
         if($request->packer_data == 999  ) {
@@ -122,6 +122,10 @@ class QCertificatesController extends Controller
             $packer_name = $request->name_of_packer;
             $packer_address = $request->address_of_packer;
         }
+
+        $date_now = time();
+        $convert_date = date('d.m.Y', $date_now);
+        $final_date = strtotime($convert_date);
 
         $data = [
             'import' => $import,
@@ -144,7 +148,7 @@ class QCertificatesController extends Controller
             'customs_en' => $request->customs_en,
             'place_bg' => $request->place_bg,
             'place_en' => $request->place_en,
-            'date_issue' => time(),
+            'date_issue' => $final_date,
             'valid_until' => $request->valid_until,
             'inspector_bg' => $user[0]['all_name'],
             'inspector_en' => $user[0]['all_name_en'],
