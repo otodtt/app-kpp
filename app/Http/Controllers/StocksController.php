@@ -179,7 +179,8 @@ class StocksController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param Crop $int
      */
-    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null ) {
+    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) {
+        
         $inspectors = User::select('id', 'short_name')
             ->where('active', '=', 1)
             ->where('ppz','=', 1)
@@ -188,17 +189,21 @@ class StocksController extends Controller
         $inspectors[''] = 'по инспектор';
         $inspectors = array_sort_recursive($inspectors);
 
-        if (Input::has('start_year') || Input::has('end_year') || Input::has('crop_sort') || Input::has('inspector_sort')) {
+        // dd(Input::has('firm_sort'));
+
+        if (Input::has('start_year') || Input::has('end_year') || Input::has('crop_sort') || Input::has('inspector_sort') || Input::has('firm_sort')) {
 
             $years_start_sort = Input::get('start_year');
             $years_end_sort = Input::get('end_year');
             $sort_crop = Input::get('crop_sort');
             $sort_inspector = Input::get('inspector_sort');
+            $sort_firm = Input::get('firm_sort');
         } else {
             $years_start_sort = $start_year;
             $years_end_sort = $end_year;
             $sort_crop = $crop_sort;
             $sort_inspector = $inspector_sort;
+            $sort_firm = $firm_sort;
         }
 
         if ((isset($years_start_sort) && $years_start_sort != '') || (isset($years_end_sort) && $years_end_sort != '')) {
@@ -229,28 +234,35 @@ class StocksController extends Controller
         else{
             $years_sql = ' ';
         }
-
-        if (isset($sort_crop)&& (int)$sort_crop != 0) {
+        // Сортиране по култура
+        if (isset($sort_crop) && (int)$sort_crop != 0) {
             $crop_sql = ' AND crop_id='.$sort_crop;
         }
         else{
             $crop_sql = ' ';
         }
-
+        // Сортиране по инспектор
         if (isset($sort_inspector) && (int)$sort_inspector > 0){
             $inspector_sql = ' AND added_by= '.$sort_inspector;
         }
         else{
             $inspector_sql = '';
         }
-
+        // Сортиране по фирма
+        if (isset($sort_firm) && (int)$sort_firm != 0) {
+            $firm_sql = ' AND firm_id='.$sort_firm;
+        }
+        else{
+            $firm_sql = ' ';
+        }
+        // dd($firm_sql);
         $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
         $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
 
-        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $years_sql $crop_sql $inspector_sql");
-//        dd($stocks);
+        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $years_sql $crop_sql $inspector_sql $firm_sql");
+        //  dd($stocks);
         return view('quality.stocks.index', compact('stocks', 'list', 'firms', 'inspectors',
-                'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector'));
+                'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector', 'sort_firm'));
 
     }
 

@@ -79,7 +79,6 @@
                                 if ($input_type == 0) {
                                     $type0 = true;
                                     $type1 =false;
-                                    //$cs999 =false;
                                 }
                                 elseif($input_type == 1) {
                                     $type0 =false;
@@ -97,10 +96,10 @@
                             }
                             ?>
                             <label><span>&nbsp;&nbsp;Вносители: </span>
-                                {!! Form::radio('type', 0, $cs0 ) !!}&nbsp;&nbsp;|
+                                {!! Form::radio('type', 0, $type0 ) !!}&nbsp;&nbsp;|
                             </label>
                             <label><span>&nbsp;&nbsp;Износители: </span>
-                                {!! Form::radio('type', 1, $cs1 ) !!}
+                                {!! Form::radio('type', 1, $type1 ) !!}
                             </label>
                         </div>
                         <div class="col-md-3">

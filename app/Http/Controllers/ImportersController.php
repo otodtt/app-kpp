@@ -13,6 +13,7 @@ use odbh\Importer;
 use Auth;
 use Session;
 use Input;
+use DB;
 
 class ImportersController extends Controller
 {
@@ -50,25 +51,34 @@ class ImportersController extends Controller
 
         $input_sort = Input::get('sort');
         $input_type = Input::get('type');
-
-//        dd($input_sort.'---'.$input_type);
-        //////// При Избиране
+        
+        //////// При Избиране BG или Чужда
         if($input_sort !== null){
             if($input_sort >= 0){
-                $importers = Importer::select()
-                    ->where('is_active', '=', '1')
-                    ->where('is_bulgarian', '=', $input_sort)->get();
-//                $importers_sql = "->where('is_bulgarian', '=', $input_sort)";
-                $importers_sql = "->where('is_bulgarian', '=', $input_sort)";
+                $importers_sql = ' AND is_bulgarian='.$input_sort;;
             }
             else{
                 $importers_sql = '';
-//                $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1')->get();
             }
         }
-      dd($importers_sql);
-        $importers = Importer::orderBy('name_en', 'asc')->where('is_active', '=', '1').$importers_sql;
-        dd($importers);
+        else {
+            $importers_sql = '';
+        }
+        //////// При Избиране вносител или износител
+        if($input_type !== null){
+            if($input_type >= 0){
+                $type_sql = ' AND trade='.$input_type;;
+            }
+            else{
+                $type_sql = '';
+            }
+        }
+        else {
+            $type_sql = '';
+        }
+      
+        $importers = DB::select("SELECT * FROM importers WHERE is_active = 1 $importers_sql $type_sql");
+        
         return view('quality.importers.index', compact( 'importers', 'input_sort', 'input_type' ));
     }
 
