@@ -74,6 +74,6 @@ if ((int) $end_years == 0) {
         'style' => 'display: inline-block; width: 150px;',
     ]) !!}
 </div>
-<div class="col-md-1">
+<div class="col-md-1" style="padding: 0; margin-top: 5px;">
     {!! Form::submit(' СОРТИРАЙ', ['class' => 'fa fa-search btn btn-primary my_btn ']) !!}
 </div>

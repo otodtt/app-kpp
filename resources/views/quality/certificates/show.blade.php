@@ -19,7 +19,8 @@
 
 @section('content')
     <div class="info-wrap">
-        <a href="{!! URL::to('/')!!}" class="fa fa-user btn btn-success my_btn my_float"> Към Фирмата!</a>
+        <a href="{!! URL::to('/контрол/търговци/'.$certificate->importer_id.'/show')!!}" class="fa fa-user btn btn-success my_btn my_float"> Към Фирмата!</a>
+        <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn my_float" style="margin-left: 5px"> Към сертификати внос!</a>
         @if ($certificate->what_7 == 2)
             <h4 class="bold title_doc" >СЕРТИФИКАТ ЗА ВНОС</h4>
         @elseif ($certificate->what_7 == 3)
@@ -161,7 +162,7 @@
                         <div class="col-md-2">
                             <p >
                                 Фактура: <span class="bold" style="text-transform: uppercase"></span>
-                                <a href='/контрол/фактури-внос/{{$certificate->id}}/edit' class="fa fa-edit btn btn-success my_btn" style="float: right"> Edit</a>
+                                <a href='/контрол/фактури-внос/{{$certificate->invoice_id}}/edit' class="fa fa-edit btn btn-success my_btn" style="float: right"> Edit</a>
                             </p>
                             <hr class="my_hr_in"/>
                             <p ><span class="bold" style="text-transform: none">{{$invoice[0]['number_invoice'] }}/{{ date('d.m.Y' ,$invoice[0]['date_invoice']) }}</span></p>
@@ -436,18 +437,6 @@
                                         <span style="text-transform: none">{!! $variety !!}</span>
                                     </p>
                                     @endforeach
-                                    {{-- <p class="p_content bold crop crop0" style="margin-top: 6px;" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons1</span></p>
-                                    <p class="p_content bold crop crop1" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons2</span></p>
-                                    <p class="p_content bold crop crop2" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons3</span></p>
-                                    <p class="p_content bold crop crop3" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons4</span></p>
-                                    <p class="p_content bold crop crop4" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons5</span></p>
-                                    <p class="p_content bold crop crop5" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons6</span></p>
-                                    <p class="p_content bold crop crop6" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons7</span></p>
-                                    <p class="p_content bold crop crop7" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons8</span></p>
-                                    <p class="p_content bold crop crop8" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons9</span></p>
-                                    <p class="p_content bold crop crop9" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons10</span></p>
-                                    <p class="p_content bold crop crop10" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons11</span></p>
-                                    <p class="p_content bold crop crop11" ><span>ДИНИ</span>/<span style="text-transform: none">Watermelons12</span></p> --}}
                                 </td>
                                 {{-- Pole 10 --}}
                                 <td class="cell fourth-row-cell cell-rowspan" >

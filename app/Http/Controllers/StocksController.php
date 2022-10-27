@@ -180,7 +180,7 @@ class StocksController extends Controller
      * @internal param Crop $int
      */
     public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) {
-        
+
         $inspectors = User::select('id', 'short_name')
             ->where('active', '=', 1)
             ->where('ppz','=', 1)
@@ -188,8 +188,6 @@ class StocksController extends Controller
             ->lists('short_name', 'id')->toArray();
         $inspectors[''] = 'по инспектор';
         $inspectors = array_sort_recursive($inspectors);
-
-        // dd(Input::has('firm_sort'));
 
         if (Input::has('start_year') || Input::has('end_year') || Input::has('crop_sort') || Input::has('inspector_sort') || Input::has('firm_sort')) {
 
@@ -255,15 +253,14 @@ class StocksController extends Controller
         else{
             $firm_sql = ' ';
         }
-        // dd($firm_sql);
+
         $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
         $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
 
         $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $years_sql $crop_sql $inspector_sql $firm_sql");
-        //  dd($stocks);
+
         return view('quality.stocks.index', compact('stocks', 'list', 'firms', 'inspectors',
                 'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector', 'sort_firm'));
-
     }
 
     /**
@@ -279,11 +276,20 @@ class StocksController extends Controller
         $search_firm_return = $request['search_firm'];
 
         if($type == 1) {
-            $this->validate($request, ['stock_number' => 'required|digits_between:1,4']);
+            $this->validate($request, ['stock_number' => 'required|digits_between:1,4'],
+                                      [
+                                          'stock_number.required' => 'Попълни търсения номер!',
+                                          'stock_number.digits_between' => 'Номера трябва да е между една и четири цифри!',
+                                      ]);
             $stocks = Stock::where('certificate_number', '=', $request['stock_number'])->get();
         }
         if($type == 2) {
-            $this->validate($request, ['search_firm' => 'required|not_in:0']);
+            $this->validate($request, ['search_firm' => 'required|not_in:0'],
+                                      [
+                                          'search_firm.required' => 'Избери фирма!',
+                                          'search_firm.not_in' => 'Избери фирма!',
+                                      ]);
+
             $stocks = Stock::where('firm_id', '=', $request['search_firm'])->get();
         }
 

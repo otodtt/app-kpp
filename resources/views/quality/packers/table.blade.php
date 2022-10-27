@@ -14,7 +14,7 @@
         <tr>
             <td class="center"><?= $n++ ?></td>
             <td class="center">
-                <form action="{{ url('/контрол/опаковчик/'.$packer->id.'/destroy') }}" method="post" style="display: inline-block; margin-top: 5px" onsubmit="return confirm('Наистина ли искате да изтриете тази стока?');">
+                <form action="{{ url('/контрол/опаковчик/'.$packer->id.'/destroy') }}" method="post" style="display: inline-block; margin-top: 5px" onsubmit="return confirm('Наистина ли искате да изтриете тази фирма?');">
                     <div class="col-md-6 " >
                         {!! Form::submit('Изтрий!', ['class'=>'fa fa-edit btn btn-danger my_btn', 'id'=>'submit']) !!}
                     </div>

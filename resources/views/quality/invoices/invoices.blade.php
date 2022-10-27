@@ -5,6 +5,7 @@
 
 @section('css')
     {!!Html::style("css/firms_objects/firms_all_css.css" )!!}
+    {!!Html::style("css/date/jquery.datetimepicker.css" )!!}
     {!!Html::style("css/table/jquery.dataTables.css" )!!}
     {!!Html::style("css/table/table_firms.css " )!!}
 @endsection
@@ -25,54 +26,51 @@
         <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
         <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
     </div>
-    {{--<div class="btn_add_firm">--}}
-        {{--<a href="{!!URL::to('/контрол/търговци/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави НОВА фирма</a>--}}
-    {{--</div>--}}
+    <hr/>
+    @if(count($errors)>0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error  }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <fieldset class="form-group">
+        <div class="wrap_sort">
+            <div id="wr_choiz_all">
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php
+                        if (isset($search_return)) {
+                            $search_ret = $search_return;
+                        } else {
+                            $search_ret = null;
+                        }
+                        if (isset($search_value_return)) {
+                            $search_value_ret = $search_value_return;
+                        } else {
+                            $search_value_ret = null;
+                        }
+                        ?>
+                        {!! Form::open(array('url'=>'/контрол/фактури', 'method'=>'POST')) !!}
+                            {!! Form::label('search', ' Тъпси по:', ['class'=>'labels']) !!}
+                            {!! Form::select('search', array(0 =>'', 2=>'Фактура №', 1=>'Сертификат №'), $search_ret, ['class'=>'form-control class_search', 'style'=>'display: inline-block; width: 150px']) !!}
+                            {!! Form::text('search_value', $search_value_ret, ['class'=>'form-control search_value', 'size'=>30, 'style'=>'display: inline-block; width: 120px']) !!}
+                            {!! Form::submit(' ТЪРСИ', array('class' => 'fa fa-search btn btn-primary my_btn')) !!}
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
     <hr/>
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
                 <div  id="sort_firm"  style="justify-content: center">
-                    {!! Form::open(['url'=>'/контрол/фактури/сортирай', 'method'=>'POST']) !!}
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <?php
-                            if (isset($input_sort) ) {
-                                if ($input_sort == 0) {
-                                    $cs0 =true;
-                                    $cs1 =false;
-                                    $cs999 =false;
-                                }
-                                elseif($input_sort == 1) {
-                                    $cs0 =false;
-                                    $cs1 =true;
-                                    $cs999 =false;
-                                }
-                                else {
-                                    $cs0 =false;
-                                    $cs1 =false;
-                                    $cs999 =false;
-                                }
-                            }
-                            else {
-                                $cs0 =false;
-                                $cs1 =false;
-                                $cs999 =false;
-                            }
-                            ?>
-                            <label><span>&nbsp;&nbsp;Български: </span>
-                                {!! Form::radio('sort', 0, $cs0 ) !!}&nbsp;&nbsp;|
-                            </label>
-                            <label><span>&nbsp;&nbsp;Чужди: </span>
-                                {!! Form::radio('sort', 1, $cs1 ) !!}
-                            </label>
-                        </div>
-                        <div class="col-md-3">
-                            {!! Form::hidden('_token', csrf_token() ) !!}
-                            {!! Form::submit('Сортирай!',['class'=>'fa btn btn-success my_btn']) !!}
-                        </div>
-                    </div>
+                    {!! Form::open(['url' => '/контрол/фактури/сортирай', 'method' => 'POST']) !!}
+                    @include('quality.invoices.sorting')
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -90,4 +88,6 @@
     {!!Html::script("js/table/jquery-1.11.3.min.js" )!!}
     {!!Html::script("js/table/jquery.dataTables.js" )!!}
     {!!Html::script("js/quality/invoiceTable.js" )!!}
+    {!!Html::script("js/build/jquery.datetimepicker.full.min.js" )!!}
+    {!!Html::script("js/date/in_date.js" )!!}
 @endsection

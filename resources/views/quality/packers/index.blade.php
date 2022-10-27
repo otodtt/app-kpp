@@ -38,7 +38,7 @@
         <div class="wrap_sort">
             <div id="wr_choiz_all">
                 <div  id="sort_firm"  style="justify-content: center">
-                    <p>SORT</p>
+                    <p>ФИРМИ ОПАКОВЧИЦИ</p>
                 </div>
             </div>
         </div>

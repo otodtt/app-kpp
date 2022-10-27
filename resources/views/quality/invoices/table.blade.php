@@ -2,8 +2,8 @@
     <thead>
     <tr>
         <th>N</th>
-        <th>Идентификатор</th>
         <th>Номер/дата на Фактурата</th>
+        <th>Идентификатор</th>
         <th>Стойност</th>
         <th>Издадена на</th>
         <th>Издадена за</th>
@@ -15,10 +15,10 @@
         <tr>
             <td class="center"><?= $n++ ?></td>
             <td>
-                {{$invoice->identifier}}
+                {{$invoice->number_invoice}}/{{ date('d.m.Y', $invoice->date_invoice)  }}
             </td>
             <td>
-                {{$invoice->number_invoice}}/{{ date('d.m.Y', $invoice->date_invoice)  }}
+                {{substr($invoice->identifier, 2)}}
             </td>
             <td class="right">
                 {{$invoice->sum}}
@@ -29,9 +29,11 @@
             </td>
             <td>
                 @if($invoice->invoice_for == 1)
-                    <span>Сетификат за внос - </span>
+                    <span>внос - </span>
                 @elseif($invoice->invoice_for == 2)
-                    <span>Сетификат за износ - </span>
+                    <span>износ - </span>
+                @elseif($invoice->invoice_for == 3)
+                    <span>вътрешен - </span>
                 @endif
                 {{$invoice->certificate_number}}
                     <a href="{!!URL::to('/контрол/сертификат/'.$invoice->certificate_id )!!}" class="fa fa-search-plus btn btn-default my_btn" style="float: right"></a>

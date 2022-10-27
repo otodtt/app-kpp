@@ -53,8 +53,8 @@
                     {{ $type }} 
                     <span style="float: right; margin-right: 10px">- {{ $stock->number_packages }}</span>
                 </td>
-                {{--<td style="text-align: right; padding-right: 4px">{{ $stock->weight}}</td>--}}
-                 <td style="text-align: right; padding-right: 4px">{{ number_format($stock->weight, 0, ',', ' ') }}</td>
+                <td style="text-align: right; padding-right: 4px">{{ $stock->weight}}</td>
+                 {{--<td style="text-align: right; padding-right: 4px">{{ number_format($stock->weight, 0, ',', ' ') }}</td>--}}
                 <td>{{ $stock->inspector_name }}</td>
                 <td>
                     <a href='/контрол/сертификат/{{ $stock->certificate_id }}'class="fa fa-binoculars btn btn-primary my_btn"></a>

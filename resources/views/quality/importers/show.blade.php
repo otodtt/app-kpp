@@ -1,6 +1,6 @@
 @extends('layouts.quality')
 @section('title')
-    {{ 'Сертификат' }}
+    {{ 'Сертификати на фирми' }}
 @endsection
 
 @section('css')

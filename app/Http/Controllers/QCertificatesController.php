@@ -21,6 +21,8 @@ use odbh\User;
 use Auth;
 use Redirect;
 use Session;
+use DB;
+use Input;
 
 class QCertificatesController extends Controller
 {
@@ -38,16 +40,209 @@ class QCertificatesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request|QCertificatesRequest $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $certificates = QCertificate::orderBy('is_all', 'asc')->get();
+        $array = array();
+        $year_now = null;
 
-        return view('quality.certificates.index', compact('certificates'));
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+
+        if(isset($request['years'])){
+            $year_now = $request['years'];
+        }
+        else{
+            $year_now = date('Y', time());
+        }
+        $start_year = '01.01.'. $year_now;
+        $time_start = strtotime(stripslashes($start_year));
+        $end_year = '31.12.'. $year_now;
+        $time_end = strtotime(stripslashes($end_year));
+
+        $certs = QCertificate::get();
+        foreach($certs as $cert){
+            $array[date('Y', $cert->date_issue)] = date('Y', $cert->date_issue);
+        }
+        $years = array_filter(array_unique($array));
+
+        $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->get();
+//        $certificates = QCertificate::orderBy('is_all', 'asc')->get();
+
+        return view('quality.certificates.index', compact('certificates', 'years', 'year_now', 'inspectors', 'firms'));
     }
 
-    /** ВНОС НАЧАЛО//////////////// */
+    /**
+     * Търси по задедени критерии.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $array = array();
+        $year_now = null;
+
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
+
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+
+        if(isset($request['years'])){
+            $year_now = $request['years'];
+        }
+        else{
+            $year_now = date('Y', time());
+        }
+        $start_year = '01.01.'. $year_now;
+        $time_start = strtotime(stripslashes($start_year));
+        $end_year = '31.12.'. $year_now;
+        $time_end = strtotime(stripslashes($end_year));
+
+        $certs = QCertificate::get();
+        foreach($certs as $cert){
+            $array[date('Y', $cert->date_issue)] = date('Y', $cert->date_issue);
+        }
+        $years = array_filter(array_unique($array));
+        $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->get();
+
+
+        $search_return = $request['search'];
+        $search_value_return = $request['search_value'];
+
+        if((int)$request['search'] == 0){
+            $this->validate($request, ['search' => 'not_in:0']);
+        };
+        if((int)$request['search'] == 1){
+            $this->validate($request,
+                    ['search_value' => 'required|digits_between:1,5'],
+                    [
+                        'search_value.required' => 'Попълни търсения номер!',
+                        'search_value.digits_between' => 'Номера трябва да е между една и пет цифри!',
+                    ]);
+            $certificates = QCertificate::where('import','=',$request['search_value'])->get();
+        };
+        if((int)$request['search'] == 2){
+            $this->validate($request,
+                    ['search_value' => 'required|digits_between:3,10'],
+                    [
+                        'search_value.required' => 'Попълни номера на фактурата!',
+                        'search_value.digits_between' => 'Номера трябва да е между 3 и 10 цифри!',
+                    ]);
+            $certificates = QCertificate::where('invoice_number','=',$request['search_value'])->get();
+        };
+
+        return view('quality.certificates.index', compact('certificates', 'years', 'year_now', 'search_return', 'inspectors', 'firms'));
+    }
+
+    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) {
+
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+
+        if(isset($request['get_year'])){
+            $year_now = $request['get_year'];
+        }
+        else{
+            $year_now = date('Y', time());
+        }
+        $start_year = '01.01.'. $year_now;
+        $time_start = strtotime(stripslashes($start_year));
+        $end_year = '31.12.'. $year_now;
+        $time_end = strtotime(stripslashes($end_year));
+
+        $certs = QCertificate::get();
+        foreach($certs as $cert){
+            $array[date('Y', $cert->date_issue)] = date('Y', $cert->date_issue);
+        }
+        $years = array_filter(array_unique($array));
+
+        if (Input::has('start_year') || Input::has('end_year') || Input::has('inspector_sort') || Input::has('firm_sort')) {
+            $years_start_sort = Input::get('start_year');
+            $years_end_sort = Input::get('end_year');
+            $sort_inspector = Input::get('inspector_sort');
+            $sort_firm = Input::get('firm_sort');
+        }
+        else {
+            $years_start_sort = $start_year;
+            $years_end_sort = $end_year;
+            $sort_inspector = $inspector_sort;
+            $sort_firm = $firm_sort;
+        }
+
+        if ((isset($years_start_sort) && $years_start_sort != '') || (isset($years_end_sort) && $years_end_sort != '')) {
+            $this->validate($request, ['start_year' => 'date_format:d.m.Y']);
+            $this->validate($request, ['end_year' => 'date_format:d.m.Y']);
+
+            $start = strtotime($years_start_sort);
+            $timezone_paris_start = strtotime($years_start_sort.'Europe/Paris');
+
+            $end = strtotime($years_end_sort);
+            $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
+            if($start > 0 && $end == false){
+                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+            }
+            if($end > 0 && $start == false){
+                $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+            }
+            if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
+                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+            }
+            if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
+                $years_sql = ' AND date_issue>='.$start.' AND date_issue<='.$end.'';
+            }
+            if(($start > 0 && $end > 0) && ($start > $end)){
+                $years_sql = ' AND date_issue>='.$end.' AND date_issue<='.$start.'';
+            }
+        }
+        else{
+            $years_sql =' AND date_issue>='.$time_start.' AND date_issue<='.$time_end.'';
+        }
+
+        // Сортиране по инспектор
+        if (isset($sort_inspector) && (int)$sort_inspector > 0){
+            $inspector_sql = ' AND added_by= '.$sort_inspector;
+        }
+        else{
+            $inspector_sql = '';
+        }
+        // Сортиране по фирма
+        if (isset($sort_firm) && (int)$sort_firm != 0) {
+            $firm_sql = ' AND importer_id='.$sort_firm;
+        }
+        else{
+            $firm_sql = ' ';
+        }
+
+//        dd("SELECT * FROM qcertificates WHERE import >0 $years_sql $inspector_sql $firm_sql");
+        $certificates = DB::select("SELECT * FROM qcertificates WHERE import >0 $years_sql $inspector_sql $firm_sql");
+//        dd($certificates);
+
+        return view('quality.certificates.index', compact('certificates', 'firms', 'inspectors', 'years',
+            'years_start_sort', 'years_end_sort', 'sort_inspector', 'sort_firm', 'year_now'));
+    }
+
+
+        /** ВНОС НАЧАЛО//////////////// */
     /**
      * Show the form for creating a new resource.
      *

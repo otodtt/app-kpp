@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // /////// Q-СЕРТИФИКАТИ
     Route::resource('контрол/сертификати', 'QCertificatesController');
+    Route::resource('контрол/сертификати', 'QCertificatesController@index');
+    Route::post('контрол/сертификати', 'QCertificatesController@search');
+    Route::post('контрол/сертификати/сортирай', 'QCertificatesController@import_sort');
     Route::get('/контрол/сертификат-избери', 'QCertificatesController@choose');
 
     ///// внос
@@ -122,7 +125,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // /////// ФАКТУРИ
-    Route::get('контрол/фактури', 'InvoicesController@index');
+    Route::resource('контрол/фактури', 'InvoicesController');
+    Route::post('контрол/фактури', 'InvoicesController@index');
+    Route::post('контрол/фактури/сортирай', 'InvoicesController@sort');
     Route::get('контрол/фактури-внос/{id}', 'InvoicesController@import_create');
     Route::post('контрол/фактури-внос/{id}/store', 'InvoicesController@import_store');
     Route::get('контрол/фактури-внос/{id}/edit', 'InvoicesController@import_edit');
