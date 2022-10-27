@@ -16,7 +16,7 @@
     <?php $n = 1; ?>
     @foreach($certificates as $certificate)
             <?php
-                if($certificate->is_all === 0) {
+                if($certificate->is_all == 0) {
                     $all = 'Не завършен';
                     $alert = 'red';
                 } else {
@@ -52,7 +52,15 @@
     <tfoot>
         <tr>
             <th colspan="5" style="text-align:right">Всичко:</th>
-            <th></th>
+            <th>
+                <?php  $total = 0; ?>
+                @foreach($certificates as $k=>$certificate)
+                    <?php
+                        $total += array_sum((array)$certificate->sum);
+                    ?>
+                @endforeach
+                <p style="text-center: left; margin-left: 10px"> {{ number_format($total, 2, ',', ' ') }} лв.</p>
+            </th>
             <th></th>
             <th></th>
             <th></th>

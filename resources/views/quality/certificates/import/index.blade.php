@@ -16,12 +16,12 @@
 
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">ВСИЧКИ СЕРТИФИКАТИ</h4>
+        <h4 class="bold layout-title">СЕРТИФИКАТИ ВНОС</h4>
     </div>
     <hr/>
     <div class="btn-group">
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
-        <span class="fa  btn btn-default my_btn"><i class="fa fa-certificate yellow" aria-hidden="true"></i>  Сертификати</span>
+        <span class="fa  btn btn-default my_btn"><i class="fa fa-certificate " aria-hidden="true"></i>  Сертификати</span>
         <a href="{!! URL::to('/контрол/фактури')!!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
         <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
         <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
@@ -29,6 +29,12 @@
     <div class="btn_add_firm">
         <a href="{!!URL::to('/контрол/сертификат-избери')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn">
             Добави Сертификат</a>
+    </div>
+    <hr/>
+    <div class="btn-group" >
+        <span class="fa fa-arrow-down btn btn-default my_btn"> Сетификати/Внос</span>
+        <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-arrow-up btn btn-info my_btn"> Сетификати/Износ</a>
+        <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-arrows-h btn btn-info my_btn"> Вътрешен</a>
     </div>
     <hr/>
     {{-- <div class="btn-group" >
@@ -54,7 +60,7 @@
             <div id="wr_choiz_all">
                 <div class="row">
                     <div class="col-md-5">
-                        {!! Form::open(array('url'=>'/контрол/сертификати', 'method'=>'POST')) !!}
+                        {!! Form::open(array('url'=>'/контрол/сертификати-внос', 'method'=>'POST')) !!}
                             {!! Form::label('years', 'Справка за:', ['class'=>'labels']) !!}
                             {!! Form::select('years', $years, $year_now, ['class'=>'form-control form-control-my-search inspector_sort ', 'style'=> 'width: 80px;', 'id'=>'years']) !!}
                             <span class="bold"> година. </span>&nbsp;&nbsp;
@@ -75,7 +81,7 @@
                             $search_value_ret = null;
                         }
                         ?>
-                        {!! Form::open(array('url'=>'/контрол/сертификати', 'method'=>'POST')) !!}
+                        {!! Form::open(array('url'=>'/контрол/сертификати-внос', 'method'=>'POST')) !!}
                             {!! Form::label('search', ' Тъпси по:', ['class'=>'labels']) !!}
                             {!! Form::select('search', array(0 =>'', 1=>'Сертификат №', 2=>'Фактура №'), $search_ret, ['class'=>'form-control class_search', 'style'=>'display: inline-block; width: 150px']) !!}
                             {!! Form::text('search_value', $search_value_ret, ['class'=>'form-control search_value', 'size'=>30, 'style'=>'display: inline-block; width: 120px']) !!}
@@ -90,7 +96,7 @@
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_alls">
-                {!! Form::open(['url' => '/контрол/сертификати/сортирай', 'method' => 'POST']) !!}
+                {!! Form::open(['url' => '/контрол/сертификати-внос/сортирай', 'method' => 'POST']) !!}
                 @include('quality.certificates.includes.sorting')
                 {!! Form::close() !!}
             </div>
@@ -98,7 +104,7 @@
     </fieldset>
     <hr/>
     <div class="btn_add_certificate" style="text-align: right">
-        <a href="{!! URL::to('/контрол/сертификати') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
+        <a href="{!! URL::to('/контрол/сертификати-внос') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
             &nbsp; Изчисти сортирането!
         </a>
     </div>

@@ -5,7 +5,6 @@ namespace odbh\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use odbh\Http\Requests\QCertificatesRequest;
-use odbh\Http\Requests\StocksRequest;
 
 use odbh\Crop;
 use odbh\Invoice;
@@ -31,7 +30,8 @@ class QCertificatesController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'choose', 'create_import']]);
+        $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'choose', 'create_import', 'import_ending',
+                                                'import_finish', 'import_lock', 'import_unlock']]);
         
 
         $this->index = Set::select('q_index', 'authority_bg', 'authority_en')->get()->toArray();
@@ -75,9 +75,8 @@ class QCertificatesController extends Controller
         $years = array_filter(array_unique($array));
 
         $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->get();
-//        $certificates = QCertificate::orderBy('is_all', 'asc')->get();
 
-        return view('quality.certificates.index', compact('certificates', 'years', 'year_now', 'inspectors', 'firms'));
+        return view('quality.certificates.import.index', compact('certificates', 'years', 'year_now', 'inspectors', 'firms'));
     }
 
     /**
@@ -145,11 +144,11 @@ class QCertificatesController extends Controller
             $certificates = QCertificate::where('invoice_number','=',$request['search_value'])->get();
         };
 
-        return view('quality.certificates.index', compact('certificates', 'years', 'year_now', 'search_return', 'inspectors', 'firms'));
+        return view('quality.certificates.import.index', compact('certificates', 'years', 'year_now', 'search_return', 'inspectors', 'firms'));
     }
 
-    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) {
-
+    public function sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) 
+    {
         $inspectors = User::select('id', 'short_name')
             ->where('active', '=', 1)
             ->where('ppz','=', 1)
@@ -233,22 +232,20 @@ class QCertificatesController extends Controller
             $firm_sql = ' ';
         }
 
-//        dd("SELECT * FROM qcertificates WHERE import >0 $years_sql $inspector_sql $firm_sql");
         $certificates = DB::select("SELECT * FROM qcertificates WHERE import >0 $years_sql $inspector_sql $firm_sql");
-//        dd($certificates);
-
-        return view('quality.certificates.index', compact('certificates', 'firms', 'inspectors', 'years',
+        
+        return view('quality.certificates.import.index', compact('certificates', 'firms', 'inspectors', 'years',
             'years_start_sort', 'years_end_sort', 'sort_inspector', 'sort_firm', 'year_now'));
     }
 
 
-        /** ВНОС НАЧАЛО//////////////// */
+    /** ВНОС НАЧАЛО//////////////// */
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function import_create()
+    public function create()
     {
         $type = 1;
         $edit = 0;
@@ -297,7 +294,7 @@ class QCertificatesController extends Controller
      * @param  \odbh\Http\Requests\QCertificatesRequest $request
      * @return Response
      */
-    public function import_store(QCertificatesRequest $request)
+    public function store(QCertificatesRequest $request)
     {
         $index = $this->index;
         $user = User::select('id', 'all_name', 'all_name_en', 'short_name', 'stamp_number')->where('id', '=', Auth::user()->id)->get()->toArray();
@@ -481,7 +478,7 @@ class QCertificatesController extends Controller
     {
         $certificate = QCertificate::findOrFail($request->certificate_id);
         $data = [
-            'is_all' => $request->certificate_id,
+            'is_all' => 1,
         ];
         $certificate->fill($data);
         $certificate->save();
@@ -506,7 +503,7 @@ class QCertificatesController extends Controller
         $firm = Importer::findOrFail($certificate->importer_id);
         $invoice = $certificate->invoice->toArray();
 
-        return view('quality.certificates.show', compact('certificate', 'stocks', 'firm', 'invoice'));
+        return view('quality.certificates.import.show', compact('certificate', 'stocks', 'firm', 'invoice'));
     }
 
     /**

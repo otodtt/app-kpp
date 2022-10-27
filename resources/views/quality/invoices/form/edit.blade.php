@@ -1,6 +1,6 @@
 @extends('layouts.quality')
 @section('title')
-    {{ 'Добави Фактура!' }}
+    {{ 'Редактирай Фактура!' }}
 @endsection
 
 @section('css')
@@ -12,12 +12,21 @@
     <hr class="my_hr"/>
     <div class="alert alert-info my_alert" role="alert">
         <div class="row">
-            {{--@if()--}}
-            {{--@elseif()--}}
-            <h3 class="my_center" style="color: #d9534f;">Добавяне на Фактура към Сертификат за Внос!</h3>
+            @if($invoice->invoice_for == 1)
+            <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Сертификат за Внос!</h3>
+            @elseif($invoice->invoice_for == 2)
+            <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Сертификат за Внос!</h3>
+            @elseif($invoice->invoice_for == 3)
+            <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Вътрешен Сертификат!</h3>
+            @else
+            <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Сертификат!</h3>
+            @endif
+            
         </div>
     </div>
-    <div class="alert alert-danger my_alert" role="alert"></div>
+    <div class="info-wrap">
+        <a href="{!! URL::to('/контрол/сертификат/'.$invoice->certificate_id)!!}" class="fa fa-user btn btn-success my_btn my_float"> Назад към сертификата!</a>
+    </div>
 
     <div class="form-group">
         @if(count($errors)>0)
@@ -78,7 +87,7 @@
     </div>
     <hr class="hr_in"/>
 
-    {!! Form::open(['url'=>'контрол/фактури-внос/'.$certificate['id'].'/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
+    {!! Form::model($invoice, ['url'=>'контрол/фактури-внос/'.$invoice['id'].'/update', 'method'=>'POST', 'autocomplete'=>'on']) !!}
 
     {{--ФАКТУРА И ДАТА--}}
     <div class="container-fluid" >
@@ -90,11 +99,11 @@
                             В сумата когато се налага изпозвай ТОЧКА!</span></p><hr class="hr_in"/>
                         <div class="col-md-3 col-md-6_my" >
                             {!! Form::label('invoice', 'Фактура №', ['class'=>'my_labels']) !!}<br>
-                            {!! Form::text('invoice', null, ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>20 ]) !!}
+                            {!! Form::text('invoice', $invoice['number_invoice'], ['class'=>'form-control form-control-my', 'size'=>10, 'maxlength'=>20 ]) !!}
                         </div>
                         <div class="col-md-4 col-md-6_my" >
                             {!! Form::label('date_invoice', 'Дата Фактура:', ['class'=>'my_labels']) !!}<br>
-                            {!! Form::text('date_invoice', null, ['class'=>'form-control form-control-my',
+                            {!! Form::text('date_invoice', date('d.m.Y',$invoice['date_invoice']), ['class'=>'form-control form-control-my',
                             'id'=>'date_invoice', 'size'=>13, 'maxlength'=>10, 'placeholder'=>'дд.мм.гггг',  'autocomplete'=>'off' ]) !!}
                         </div>
                         <div class="col-md-4 col-md-6_my" >
@@ -108,7 +117,7 @@
     </div>
 
     <div class="col-md-12" id="add_stock" style="text-align: center; margin-top: 10px;">
-        {!! Form::submit('Добави Фактура!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
+        {!! Form::submit('Редактирай Фактура!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
     </div>
     <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
 

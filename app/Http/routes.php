@@ -13,7 +13,6 @@
 
 Route::resource('/', 'LogController');
 Route::post('log/store', 'LogController@store');
-//Route::get('/home', 'LogController@home');
 Route::get('/logout', 'LogController@logout');
 
 ///// Front Controller
@@ -93,19 +92,22 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('crops/delete/{id}', 'CropsController@destroy');
     Route::post('/контрол/култури/{id}/update', 'CropsController@update');
 
-    // /////// Q-СЕРТИФИКАТИ
-    Route::resource('контрол/сертификати', 'QCertificatesController');
-    Route::resource('контрол/сертификати', 'QCertificatesController@index');
-    Route::post('контрол/сертификати', 'QCertificatesController@search');
-    Route::post('контрол/сертификати/сортирай', 'QCertificatesController@import_sort');
+    // /////// СЕРТИФИКАТИ
     Route::get('/контрол/сертификат-избери', 'QCertificatesController@choose');
 
+    // /////// Q-СЕРТИФИКАТИ
+    Route::resource('контрол/сертификати-внос', 'QCertificatesController');
+    Route::resource('контрол/сертификати-внос', 'QCertificatesController@index');
+    Route::post('контрол/сертификати-внос', 'QCertificatesController@search');
+    Route::post('контрол/сертификати-внос/сортирай', 'QCertificatesController@sort');
+    
     ///// внос
-    Route::get('/контрол/сертификати-внос/добави', 'QCertificatesController@import_create');
-    Route::post('/контрол/сертификати-внос/store', 'QCertificatesController@import_store');
-    Route::get('контрол/сертификат-внос/{id}/завърши', 'QCertificatesController@import_ending');
+    Route::get('/контрол/сертификати-внос/добави', 'QCertificatesController@create');
+    Route::post('/контрол/сертификати-внос/store', 'QCertificatesController@store');
     Route::get('контрол/сертификат-внос/{id}/edit', 'QCertificatesController@edit');
     Route::post('контрол/сертификат-внос/{id}/update', 'QCertificatesController@update');
+
+    Route::get('контрол/сертификат-внос/{id}/завърши', 'QCertificatesController@import_ending');
     Route::post('/import-finish/store', 'QCertificatesController@import_finish');
     ///// внос покажи
     Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
@@ -146,10 +148,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // Route::any('/контрол/сертификати/завърши-внос', 'QCertificatesController@store_import');
-    
-    // dd(Route::any('/контрол/сертификати/завърши-внос', 'QCertificatesController@store'));
-
-   
     
 
 

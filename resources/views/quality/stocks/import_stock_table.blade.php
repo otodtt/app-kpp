@@ -21,7 +21,7 @@
                     {{ $stock->certificate_number }} / {{ date('d.m.Y', $stock->date_issue) }}
                 </td>
                 <td>
-                    {{ $stock->firm_name }} 
+                    <p style="text-transform: uppercase;">{{ $stock->firm_name }}</p>
                 </td>
                 <td style="text-align: left">
                     <?php

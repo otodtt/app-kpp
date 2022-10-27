@@ -35,9 +35,9 @@
             </td>
             <td class="left">
                 @if($importer->trade == 0 )
-                    <p>Внос</p>
+                    <p style="color: "><i class="fa fa-arrow-down" aria-hidden="true"></i> Внос</p>
                 @elseif($importer->trade == 1)
-                    <p>Износ</p>
+                    <p  style="color: blue"><i class="fa fa-arrow-up" aria-hidden="true"></i> Износ</p>
                 @elseif($importer->trade == 2)
                     <p>Внос/Износ</p>
                 @else

@@ -24,7 +24,7 @@ class InvoicesController extends Controller
     {
         parent::__construct();
         $this->middleware('quality', ['only'=>['create', 'store', 'edit', 'update', 'choose',
-                    'create_import', 'import_store', 'import_update', 'import_edit']]);
+                    'import_create', 'import_store', 'import_update', 'import_edit']]);
 
 
         $this->index = Set::select('q_index', 'authority_bg', 'authority_en')->get()->toArray();
@@ -69,8 +69,6 @@ class InvoicesController extends Controller
         };
 
         $for_sort = array(''=>'издаден за', 1=>'Сетификат за внос', 2=>'Сетификат за износ', 3=>'Вътрешен Сетификат');
-
-//        dd($array);
 
         return view('quality.invoices.invoices', compact('invoices', 'firms', 'search_return', 'search_value_return', 'for_sort'));
     }
@@ -153,7 +151,6 @@ class InvoicesController extends Controller
 
         return view('quality.invoices.invoices', compact('invoices', 'for_sort', 'firms',
             'years_start_sort', 'years_end_sort', 'sort_for',  'sort_firm'));
-
     }
 
 
@@ -179,7 +176,7 @@ class InvoicesController extends Controller
     {
         $certificate = QCertificate::findOrFail($id);
 
-        return view('quality.certificates.import.invoices.create', compact('certificate'));
+        return view('quality.invoices.form.create', compact('certificate'));
     }
 
     /**
@@ -234,9 +231,9 @@ class InvoicesController extends Controller
     public function import_edit($id)
     {
         $invoice = Invoice::findOrFail($id);
-        $certificate =QCertificate::findOrFail($invoice->id);
+        $certificate = QCertificate::findOrFail($invoice->id);
 
-        return view('quality.certificates.import.invoices.edit', compact('invoice', 'certificate'));
+        return view('quality.invoices.form.edit', compact('invoice', 'certificate'));
     }
 
     /**

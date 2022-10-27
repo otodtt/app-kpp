@@ -36,6 +36,6 @@
     </div>
 
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px; text-align: center;">
-        <a href="{{ '/контрол/сертификати' }}" class="fa fa-arrow-circle-left btn btn-default my_btn-success"> Откажи! Назад към сертификатите!</a>
+        <a href="{{ '/контрол/сертификати-внос' }}" class="fa fa-arrow-circle-left btn btn-default my_btn-success"> Откажи! Назад към сертификатите!</a>
     </div>
 @endsection

@@ -20,7 +20,7 @@
     <hr/>
     <div class="btn-group" >
         <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
-        <a href="{!! URL::to('/контрол/сертификати')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
+        <a href="{!! URL::to('/контрол/сертификати-внос')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
         <a href="{!! URL::to('/контрол/фактури')!!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
         <span class="fa fa-trademark btn btn-default my_btn"> Всички фирми</span>
         <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
@@ -30,10 +30,19 @@
     </div>
     <hr/>
     <div class="btn-group" >
-        <span class="fa fa-truck btn btn-default my_btn"> Търговци</span>
+        <span class="fa fa-truck btn btn-default my_btn "> Търговци</span>
         <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-archive btn btn-info my_btn"> Опаковчици</a>
     </div>
     <hr/>
+    @if(count($errors)>0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error  }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
@@ -116,8 +125,6 @@
     <div class="refresh">
         <a href="{{ url('/контрол/търговци') }}" class="fa fa-eraser btn btn-primary my_btn">&nbsp; Изчисти сортирането!</a>
     </div>
-    {{--<hr/>--}}
-
 
     @include('quality.importers.table')
 @endsection

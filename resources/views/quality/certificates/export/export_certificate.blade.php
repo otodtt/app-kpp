@@ -40,7 +40,7 @@
             @include('quality.certificates.forms.form_create_certificate')
 
             <div class="col-md-6 " >
-                <a href="{{ '/контрол/сертификати' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
+                <a href="{{ '/контрол/сертификати-внос' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
             </div>
             <div class="col-md-6" id="add_certificate" >
                 {!! Form::submit('Добави и продължи!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}

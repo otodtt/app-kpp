@@ -24,7 +24,7 @@
                 {{$invoice->sum}}
             </td>
             <td>
-                {{$invoice->importer_name}}
+                <span style="text-transform: uppercase;">{{$invoice->importer_name}}</span>
                 <a href="{!!URL::to('/контрол/търговци/'.$invoice->id.'/show')!!}" class="fa fa-binoculars btn btn-default my_btn" style="float: right"></a>
             </td>
             <td>

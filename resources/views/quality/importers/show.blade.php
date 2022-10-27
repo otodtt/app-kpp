@@ -4,13 +4,10 @@
 @endsection
 
 @section('css')
-    {{--{!!Html::style("css/date/jquery.datetimepicker.css" )!!}--}}
-    {{-- {!!Html::style("css/opinions/logo_document.css" )!!} --}}
     {!!Html::style("css/qcertificates/show_opinion.css" )!!}
-{{--    {!!Html::style("css/qcertificates/body_table.css" )!!}--}}
-{{--    {!!Html::style("css/firms_objects/firms_all_css.css" )!!}--}}
     {!!Html::style("css/table/jquery.dataTables.css" )!!}
     {!!Html::style("css/table/table_firms.css " )!!}
+    {!!Html::style("css/firms_objects/firms_all_css.css" )!!}
 @endsection
 
 @section('message')
@@ -19,15 +16,34 @@
 
 @section('content')
     <div class="info-wrap">
-        <a href="{!! URL::to('контрол/търговци')!!}" class="fa fa-truck btn btn-success my_btn my_floats"> Назад!</a>
-        @if($importer->trade == 0)
-            <h4 class="bold title_doc" >ФИРМА ВНОСИТЕЛ</h4>
-        @elseif($importer->trade == 1)
-            <h4 class="bold title_doc" >ФИРМА ИЗНОСИТЕЛ</h4>
-        @elseif($importer->trade == 2)
-            <h4 class="bold title_doc" >ФИРМА ВНОС/ИЗНОС</h4>
-        @endif
-
+        {{-- <a href="{!! URL::to('контрол/търговци')!!}" class="fa fa-truck btn btn-success my_btn my_floats"> Назад!</a> --}}
+        <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
+            @if($importer->trade == 0)
+                <h4 class="bold layout-title" >ФИРМА ВНОСИТЕЛ</h4>
+            @elseif($importer->trade == 1)
+                <h4 class="bold layout-title" >ФИРМА ИЗНОСИТЕЛ</h4>
+            @elseif($importer->trade == 2)
+                <h4 class="bold layout-title" >ФИРМА ВНОС/ИЗНОС</h4>
+            @endif
+        </div>
+        <hr class="my_hr"/>
+        <div class="btn-group" >
+            <a href="/" class="fa fa-home btn btn-info my_btn"> Началo</a>
+            <a href="{!! URL::to('/контрол/сертификати-внос')!!}" class="fa fa-certificate btn btn-info my_btn"> Сертификати</a>
+            <a href="{!! URL::to('/контрол/фактури')!!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
+            <span class="fa fa-trademark btn btn-default my_btn"> Всички фирми</span>
+            <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Стоки/Култури</a>
+        </div>
+        <div class="btn_add_firm">
+            <a href="{!!URL::to('/контрол/търговци/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави ФИРМА</a>
+        </div>
+        {{-- <hr/> --}}
+        <hr class="my_hr"/>
+        <div class="btn-group" >
+            <span class="fa fa-truck btn btn-default my_btn"> Търговци</span>
+            <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-archive btn btn-info my_btn"> Опаковчици</a>
+        </div>
+        {{-- <hr/> --}}
         
         <hr class="my_hr"/>
         @if(count($errors)>0)

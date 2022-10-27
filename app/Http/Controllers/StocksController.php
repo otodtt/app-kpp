@@ -41,7 +41,7 @@ class StocksController extends Controller
      */
     public function import_index()
     {
-        $stocks = Stock::where('import', '>', 0)->orderBy('certificate_id', 'asc')->get();
+        $stocks = Stock::where('import', '>', 0)->orderBy('certificate_id', 'desc')->get();
         $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
         $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
         $inspectors = User::select('id', 'short_name')
@@ -179,8 +179,8 @@ class StocksController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param Crop $int
      */
-    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) {
-
+    public function import_sort(Request $request, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null ) 
+    {
         $inspectors = User::select('id', 'short_name')
             ->where('active', '=', 1)
             ->where('ppz','=', 1)
@@ -257,7 +257,7 @@ class StocksController extends Controller
         $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
         $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
 
-        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $years_sql $crop_sql $inspector_sql $firm_sql");
+        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $years_sql $crop_sql $inspector_sql $firm_sql ORDER BY certificate_id DESC;");
 
         return view('quality.stocks.index', compact('stocks', 'list', 'firms', 'inspectors',
                 'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector', 'sort_firm'));
