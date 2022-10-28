@@ -3,11 +3,11 @@
         <tr>
             <th>N</th>
             {{-- <th>Дата на издаване</th> --}}
-            <th>Серт. Номер/Дата</th>
-            <th>Издаден на</th>
             <th>Култура</th>
             <th>Опаковки</th>
             <th>Количество</th>
+            <th>Стока за</th>
+            <th>Фирма, номер и дата</th>
             <th>Инспектор</th>
             <th>Виж</th>
         </tr>
@@ -17,12 +17,6 @@
         @foreach ($stocks as $stock)
             <tr>
                 <td class="right"><?= $n++ ?></td>
-                <td>
-                    {{ $stock->certificate_number }} / {{ date('d.m.Y', $stock->date_issue) }}
-                </td>
-                <td>
-                    <p style="text-transform: uppercase;">{{ $stock->firm_name }}</p>
-                </td>
                 <td style="text-align: left">
                     <?php
                     if(strlen($stock->variety) > 0) {
@@ -54,7 +48,21 @@
                     <span style="float: right; margin-right: 10px">- {{ $stock->number_packages }}</span>
                 </td>
                 <td style="text-align: right; padding-right: 4px">{{ $stock->weight}}</td>
-                 {{--<td style="text-align: right; padding-right: 4px">{{ number_format($stock->weight, 0, ',', ' ') }}</td>--}}
+                <td>
+                    @if($type_crops == 1)
+                        <p style="text-align: center">Консумация</p>
+                    @elseif($type_crops == 2)
+                        <p style="text-align: center">Преработка</p>
+                    @else
+                        <p style="text-align: center">Консумация</p>
+                    @endif
+                </td>
+                <td>
+                    <p style="text-transform: uppercase;">
+                        {{ $stock->firm_name }}
+                        <span style="float: right; margin-right: 5px">{{ $stock->certificate_number }} / {{ date('d.m.Y', $stock->date_issue) }}</span>
+                    </p>
+                </td>
                 <td>{{ $stock->inspector_name }}</td>
                 <td>
                     <a href='/контрол/сертификат/{{ $stock->certificate_id }}'class="fa fa-binoculars btn btn-primary my_btn"></a>
@@ -64,9 +72,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="5" style="text-align: right">
-                Всичко:
-            </th>
+            <th colspan="3" style="text-align: right">Всичко:</th>
             <th >
                 <?php  $total = 0; ?>
                 @foreach($stocks as $k=>$stock)
@@ -77,6 +83,8 @@
                 @endforeach
                 <p style="text-center: left; margin-left: 10px"> {{ number_format($total, 0, ',', ' ') }} kg.</p>
             </th>
+            <th></th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>

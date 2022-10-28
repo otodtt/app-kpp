@@ -72,6 +72,7 @@ class StocksController extends Controller
             'date_issue' => $request->date_issue,
             'import' => 2,
             'type_pack' => (int)$request->type_package,
+            'type_crops' => $request->type_crops,
             'number_packages' => $request->number_packages,
             'different' => $request->different,
             'crop_id' => $request->crops,
@@ -100,6 +101,7 @@ class StocksController extends Controller
         }
         $data = [
             'type_pack' => (int)$request->type_package,
+            'type_crops' => (int)$request->type_crops,
             'number_packages' => $request->number_packages,
             'different' => $different,
             'crop_id' => $request->crops,
@@ -111,6 +113,7 @@ class StocksController extends Controller
             'date_update' => date('d.m.Y', time()),
             'updated_by' => Auth::user()->id,
         ];
+
         $stock->fill($data);
         $stock->save();
 
@@ -150,6 +153,7 @@ class StocksController extends Controller
         else {
             $article = 0;
         }
+//        dd($article);
         return view('quality.certificates.import.stock_edit', compact('id', 'crops', 'certificate', 'stocks', 'count', 'lock', 'article', 'qualitys', 'packages' ));
     }
 
@@ -190,7 +194,6 @@ class StocksController extends Controller
         $inspectors = array_sort_recursive($inspectors);
 
         if (Input::has('start_year') || Input::has('end_year') || Input::has('crop_sort') || Input::has('inspector_sort') || Input::has('firm_sort')) {
-
             $years_start_sort = Input::get('start_year');
             $years_end_sort = Input::get('end_year');
             $sort_crop = Input::get('crop_sort');
@@ -308,8 +311,160 @@ class StocksController extends Controller
     }
 
 
+    /** КОНСУМАЦИЯ ПРЕРАБОТКА
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function consume(Request $request)
+    {
+        $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
 
+        if( Input::has('type_crops')) {
+            $type_crops = Input::get('type_crops');
+            $type_sql = ' AND type_crops='.$type_crops;
+        }
+        else {
+            $type_crops = 1;
+            $type_sql = ' AND type_crops=1';
+        }
 
+        if( Input::has('stock_number')) {
+            $stock_number = Input::get('stock_number');
+            $stock_sql  = ' AND certificate_number ='.$stock_number;
+        }
+        else {
+            $stock_sql = '';
+        }
+//        if( Input::has('search_firm')) {
+//            $search_firm = Input::get('search_firm');
+//            $firms_sql  = ' AND firm_id ='.$search_firm;
+//        }
+//        else {
+//            $firms_sql = '';
+//        }
+        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $type_sql $stock_sql ORDER BY certificate_id DESC;");
+
+        return view('quality.stocks.consume.index', compact('stocks', 'list', 'firms', 'inspectors', 'type_crops'));
+    }
+
+    /**
+     * Сортира по задедени критерии.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param null $crop_sort
+     * @param  int $start_year
+     * @param  int $end_year
+     * @param  int $inspector_sort
+     * @param  int $firm_sort
+     * @param  int $type_crops
+     *
+     * @return \Illuminate\Http\Response
+     * @internal param Crop $int
+     */
+    public function consume_sort(Request $request, $type_crops = null, $start_year = null, $end_year = null, $crop_sort = null, $inspector_sort = null, $firm_sort = null )
+    {
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
+
+        if (Input::has('start_year') || Input::has('end_year')  || Input::has('type_hidden') || Input::has('crop_sort') || Input::has('inspector_sort') || Input::has('firm_sort')) {
+            $years_start_sort = Input::get('start_year');
+            $years_end_sort = Input::get('end_year');
+            $sort_crop = Input::get('crop_sort');
+            $sort_inspector = Input::get('inspector_sort');
+            $sort_firm = Input::get('firm_sort');
+            $crops_type = Input::get('type_hidden');
+        } else {
+            $years_start_sort = $start_year;
+            $years_end_sort = $end_year;
+            $sort_crop = $crop_sort;
+            $sort_inspector = $inspector_sort;
+            $sort_firm = $firm_sort;
+            $crops_type = $type_crops;
+        }
+
+        if ((isset($years_start_sort) && $years_start_sort != '') || (isset($years_end_sort) && $years_end_sort != '')) {
+            $this->validate($request, ['start_year' => 'date_format:d.m.Y']);
+            $this->validate($request, ['end_year' => 'date_format:d.m.Y']);
+
+            $start = strtotime($years_start_sort);
+            $timezone_paris_start = strtotime($years_start_sort.'Europe/Paris');
+
+            $end = strtotime($years_end_sort);
+            $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
+            if($start > 0 && $end == false){
+                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+            }
+            if($end > 0 && $start == false){
+                $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+            }
+            if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
+                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+            }
+            if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
+                $years_sql = ' AND date_issue>='.$start.' AND date_issue<='.$end.'';
+            }
+            if(($start > 0 && $end > 0) && ($start > $end)){
+                $years_sql = ' AND date_issue>='.$end.' AND date_issue<='.$start.'';
+            }
+        }
+        else{
+            $years_sql = ' ';
+        }
+
+        if( isset($crops_type) && (int)$crops_type != 0 ) {
+            $type_crops = $crops_type;
+            $type_sql = ' AND type_crops='.$crops_type;
+        }
+        else {
+            $type_crops = 1;
+            $type_sql = ' AND type_crops=1';
+        }
+
+        // Сортиране по култура
+        if (isset($sort_crop) && (int)$sort_crop != 0) {
+            $crop_sql = ' AND crop_id='.$sort_crop;
+        }
+        else{
+            $crop_sql = ' ';
+        }
+        // Сортиране по инспектор
+        if (isset($sort_inspector) && (int)$sort_inspector > 0){
+            $inspector_sql = ' AND added_by= '.$sort_inspector;
+        }
+        else{
+            $inspector_sql = '';
+        }
+        // Сортиране по фирма
+        if (isset($sort_firm) && (int)$sort_firm != 0) {
+            $firm_sql = ' AND firm_id='.$sort_firm;
+        }
+        else{
+            $firm_sql = ' ';
+        }
+
+        $list = Stock::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+
+        $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $type_sql $years_sql $crop_sql $inspector_sql $firm_sql ORDER BY certificate_id DESC;");
+
+        return view('quality.stocks.consume.index', compact('stocks', 'list', 'firms', 'inspectors', 'type_crops',
+            'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector', 'sort_firm'));
+    }
 
 
 

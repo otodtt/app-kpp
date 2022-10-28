@@ -149,6 +149,16 @@
                                 else {
                                     $class = '';
                                 }
+                                // \\\\
+                                if($stock['type_crops'] == 1) {
+                                    $type = 'За консумация';
+                                }
+                                elseif ($stock['type_crops'] == 2) {
+                                    $type = 'За преработка';
+                                }
+                                else {
+                                    $type = '';
+                                }
                             ?>
                             <ul>
                                 <li>
@@ -160,12 +170,15 @@
                                     @endif
                                     
                                     <p style="font-size: 16px; display: inline-block" class="bold">
-                                        <span style="display: inline-block; width: 300px;">{{$pack}} - {{$stock['number_packages'] }}</span>
+                                        <span style="display: inline-block; width: 200px;">{{$pack}} - {{$stock['number_packages'] }}</span>
                                         <span style="display: inline-block; width: 300px;">
                                             {{$stock['crops_name'] }}/{{$stock['crop_en']}} <span style="font-weight: normal;">{{$variety}}</span> 
                                         </span>
-                                        <span style="display: inline-block; width: 300px;">
+                                        <span style="display: inline-block; width: 150px;">
                                             {{$class}} - {{$stock['weight']}} kg
+                                        </span>
+                                        <span style="display: inline-block; width: 150px;">
+                                            - {{$type}}
                                         </span>
                                     </p>
                                     <div class="btn_add" style=" display: inline-block; margin-top: 5px">

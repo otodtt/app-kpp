@@ -32,6 +32,7 @@ class StocksRequest extends Request
         }
 
         return [
+            'type_crops'=>'required|not_in:0',
             'type_package'=>'required|not_in:0',
             'number_packages'=>'required|numeric|min:1',
             'crops'=>'required|not_in:0',
@@ -41,6 +42,7 @@ class StocksRequest extends Request
             'different'=> $different,
         ];
     }
+
     /**
      * Проверка на входящите данни и мои съобщения
      * @return array
@@ -48,6 +50,9 @@ class StocksRequest extends Request
     public function messages()
     {
         return [
+            'type_crops.required' => 'Избери дали е за консумация или преработка!',
+            'type_crops.not_in' => 'Избери дали е за консумация или преработка!',
+
             'type_package.required' => 'Избери вида на опаковката!',
             'type_package.not_in' => 'Избери вида на опаковката!',
 

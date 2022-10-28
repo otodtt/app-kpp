@@ -443,6 +443,7 @@ class QCertificatesController extends Controller
          $stock_firm = [
             'firm_id' => $request->importer_data,
             'firm_name' => $request->en_name,
+            'type_crops' => $request->type_crops,
             'date_update' => date('d.m.Y', time()),
             'updated_by' => Auth::user()->id,
         ];

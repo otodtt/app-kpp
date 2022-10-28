@@ -117,6 +117,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     
     // /////// СТОКИ
+
     Route::get('/контрол/стоки/внос', 'StocksController@import_index');
     Route::post('/import/add-stock/store', 'StocksController@import_stock_store');
     Route::post('/import/edit-stock/update/{id}', 'StocksController@import_stock_update');
@@ -125,6 +126,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/контрол/стоки/внос/{type}', 'StocksController@import_search');
     Route::post('/стоки/внос/сортирай/{start_year?}/{end_year?}/{crop_sort?}/{inspector_sort?}', 'StocksController@import_sort');
 
+    // /////// СТОКИ КОНСУМАЦИЯ ПРЕРАБОТКА
+    Route::get('/контрол/стоки/консумация-преработка', 'StocksController@consume');
+    Route::post('/контрол/стоки/консумация-преработка', 'StocksController@consume');
+    Route::post('/контрол/стоки/консумация-преработка/сортирай', 'StocksController@consume_sort');
 
     // /////// ФАКТУРИ
     Route::resource('контрол/фактури', 'InvoicesController');

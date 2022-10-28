@@ -35,7 +35,8 @@
                     <li role="separator" class="divider"></li>
                     <li ><a href="{!! URL::to( '/контрол/фактури') !!}" class="my_a back_link"> <i class="fa fa-files-o fa-fw  "></i> Издадени фактури</a></li>
                     <li ><a href="{!! URL::to( '/контрол/търговци') !!}" class="my_a back_link"> <i class="fa fa-truck fa-fw dark_color "></i> Всички фирми търговци</a></li>
-                    <li><a href="{!! URL::to('/контрол/стоки/внос')!!}" class="my_a back_link"> <i class="fa fa-leaf fa-fw green_color"></i> Стоки и култури</a></li>
+                    <li><a href="{!! URL::to('/контрол/стоки/внос')!!}" class="my_a back_link"> <i class="fa fa-tags fa-fw "></i> Стоки</a></li>
+                    <li><a href="{!! URL::to('/контрол/култури')!!}" class="my_a back_link"> <i class="fa fa-leaf fa-fw green_color"></i> Култури</a></li>
 
 
                     {{--<li><a href="{!! URL::to('/протоколи')!!}" class="my_a back_link"> <i class="fa fa-file-powerpoint-o fa-fw control_color"></i> Протоколи Контрол на Пазара</a></li>--}}

@@ -1,7 +1,7 @@
 @extends('layouts.quality')
 
 @section('title')
-    {{ 'Стоки Внос' }}
+    {{ 'Стоки Консумация/Преработка' }}
 @endsection
 
 @section('css')
@@ -20,7 +20,7 @@
 
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">СТОКИ ВНОС</h4>
+        <h4 class="bold layout-title">СТОКИ ЗА КОНСУМАЦЯ ИЛИ ПРЕРАБОТКА</h4>
     </div>
     <hr />
     <div class="btn-group">
@@ -36,8 +36,8 @@
     </div>
     <hr />
     <div class="btn-group">
-        <span class="fa fa-arrow-down btn btn-default my_btn"> Стоки/Внос</span>
-        <a href="{!! URL::to('/контрол/култури') !!}" class="fa fa-cutlery btn btn-info my_btn"> Стоки за</a>
+        <a href="{!! URL::to('/контрол/стоки/внос') !!}" class="fa fa-arrow-down btn btn-info my_btn"> Стоки внос</a>
+        <span class="fa fa-cutlery btn btn-default my_btn"> Стоки за</span>
     </div>
     <hr />
     @if(count($errors)>0)
@@ -52,36 +52,38 @@
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
-                <div id="search_wrap" class="col-md-4">
-                    {!! Form::open(['url' => '/контрол/стоки/внос/1', 'method' => 'POST']) !!}
-                        {!! Form::label('stock_number', 'Търси номер на сертификат:', ['class'=>'labels']) !!}
-                        {!! Form::text('stock_number', null, ['class' => 'form-control form-control-my search_value',
-                                        'size' => 30, 'maxlength'=>5, 'style'=>'height: 28px; padding: 0 8px; width: 100px; display: inline-block;',
-                                        'placeholder'=>'Номер']) !!}
-                        {!! Form::submit(' ТЪРСИ', ['class' => 'fa fa-search btn btn-primary my_btn']) !!}
+                <div id="search_wrap" class="col-md-6">
+                    {!! Form::open(['url' => '/контрол/стоки/консумация-преработка', 'method' => 'POST']) !!}
+                        <?php
+                        if($type_crops == 1){
+                            $cons = 'checked';
+                            $pro = '';
+                        }
+                        elseif($type_crops == 2) {
+                            $cons = '';
+                            $pro = 'checked';
+                        }
+                        else {
+                            $cons = 'checked';
+                            $pro = '';
+                        }
+                        ?>
+                        <label for="cons">Консумация</label>
+                        <input type="radio" id="cons" name="type_crops" value="1" {{$cons}}>
+                        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                        <label for="pro">Преработка</label>
+                        <input type="radio" id="pro" name="type_crops" value="2" {{$pro}}>
+                        &nbsp;&nbsp;&nbsp;
+                        {!! Form::submit(' ИЗБЕРИ!', ['class' => 'fa fa-search btn btn-success my_btn']) !!}
                     {!! Form::close() !!}
                 </div>
-                <div class="refresh col-md-6">
-                    {!! Form::open(['url' => '/контрол/стоки/внос/2', 'method' => 'POST']) !!}
-                        <?php
-                            if (isset($search_firm_return)) {
-                                $search_firm = $search_firm_return;
-                            } else {
-                                $search_firm = null;
-                            }
-                        ?>
-                        <input type="hidden" value="{{old('search_firm')}}">
-                        {!! Form::label('search_firm', 'Търси по фирма:', ['class'=>'labels']) !!}
-                        <select name="search_firm" id="search_firm" class="form-control form-control-my search_value" style="height: 28px; padding: 0 8px; width: 250px; display: inline-block">
-                            <option value="0"> Избери фирма</option>
-                            @foreach($firms as $k=>$firm)
-                                <option value="{{$k}}"
-                                        {{( $search_firm == $k )? 'selected':''}}
-                                        >{{ strtoupper($firm) }}
-                                </option>
-                            @endforeach
-                        </select>
-                        {!! Form::submit(' ТЪРСИ', ['class' => 'fa fa-search btn btn-primary my_btn']) !!}
+                <div id="search_wrap" class="col-md-5">
+                    {!! Form::open(['url' => '/контрол/стоки/консумация-преработка', 'method' => 'POST']) !!}
+                    {!! Form::label('stock_number', 'Търси номер на сертификат:', ['class'=>'labels']) !!}
+                    {!! Form::text('stock_number', null, ['class' => 'form-control form-control-my search_value',
+                                    'size' => 30, 'maxlength'=>5, 'style'=>'height: 28px; padding: 0 8px; width: 100px; display: inline-block;',
+                                    'placeholder'=>'Номер']) !!}
+                    {!! Form::submit(' ТЪРСИ', ['class' => 'fa fa-search btn btn-primary my_btn']) !!}
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -91,8 +93,9 @@
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
-                {!! Form::open(['url' => '/стоки/внос/сортирай', 'method' => 'POST']) !!}
+                {!! Form::open(['url' => '/контрол/стоки/консумация-преработка/сортирай', 'method' => 'POST']) !!}
                 @include('quality.stocks.sorting')
+                <input type="hidden" name="type_hidden" value="{{$type_crops}}">
                 {!! Form::close() !!}
             </div>
         </div>
@@ -100,14 +103,20 @@
     <hr class="my_hr" />
 
     <div class="btn_add_certificate" style="text-align: right">
-        <a href="{!! URL::to('/контрол/стоки/внос') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
+        <a href="{!! URL::to('/контрол/стоки/консумация-преработка') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
             &nbsp; Изчисти сортирането!
         </a>
     </div>
     <br />
-    {{-- <hr class="my_hr" /> --}}
-    {{-- <hr /> --}}
-    @include('quality.stocks.import_stock_table')
+    @if($type_crops == 1)
+        <h3 style="text-align: center">СТОКИ ЗА КОНСУМАЦИЯ</h3>
+    @elseif($type_crops == 2)
+        <h3 style="text-align: center">СТОКИ ЗА ПРЕРАБОТКА</h3>
+    @else
+        <h3 style="text-align: center">СТОКИ ЗА КОНСУМАЦИЯ</h3>
+    @endif
+
+    @include('quality.stocks.consume.stock_table')
 @endsection
 
 @section('scripts')
