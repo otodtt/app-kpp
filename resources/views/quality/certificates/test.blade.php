@@ -1,61 +1,78 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-  <head>
-    <title>CSS Table Rowspan Demo</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<style type='text/css'>
-.tablewrapper {
-  position: relative;
-}
-.table {
-  display: table;
-}
-.row {
-  display: table-row;
-}
-.cell {
-  display: table-cell;
-  border: 1px solid red;
-  padding: 1em;
-}
-.cell.empty
-{
-  border: none;
-  width: 100px;
-}
-.cell.rowspanned {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px;
-}
-</style>
 
-  </head>
-  <body>
-    <div class="tablewrapper">
-      <div class="table">
-        <div class="row">
-          {{-- <div class="cell">
-            Top left
-          </div> --}}
-          <div class="rowspanned cell">
-            Center
-          </div>
-          <div class="cell">
-            Top right
-          </div>
-        </div>
-        <div class="row">
-          {{-- <div class="cell">
-            Bottom left
-          </div> --}}
-          <div class="empty cell"></div>
-          <div class="cell">
-            Bottom right
-          </div>
-        </div>
+@section('css')
+{!! Html::style('css/firms_objects/firms_all_css.css') !!}
+{!! Html::style('css/table/jquery.dataTables.css') !!}
+{!! Html::style('css/table/table_firms.css') !!}
+{!! Html::style('css/table/crop.css') !!}
+{{-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> --}}
+
+  
+@endsection
+
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
       </div>
     </div>
-  </body>
-</html>
+  </div>
+  
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingTwo">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Collapsible Group Item #2
+      </a>
+    </h4>
+  </div>
+  <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+    <div class="panel-body">
+      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+
+    </div>
+  </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingThree">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Collapsible Group Item #3
+      </a>
+    </h4>
+  </div>
+  <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+    <div class="panel-body">
+      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia 
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+

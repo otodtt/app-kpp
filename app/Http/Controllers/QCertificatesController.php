@@ -198,13 +198,16 @@ class QCertificatesController extends Controller
             $end = strtotime($years_end_sort);
             $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
             if($start > 0 && $end == false){
-                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                // $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                $years_sql = ' AND date_issue='.$start;
             }
             if($end > 0 && $start == false){
-                $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+                // $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+                $years_sql = ' AND date_issue='.$end;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
-                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                // $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                $years_sql = ' AND date_issue='.$start;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
                 $years_sql = ' AND date_issue>='.$start.' AND date_issue<='.$end.'';

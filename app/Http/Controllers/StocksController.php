@@ -127,7 +127,8 @@ class StocksController extends Controller
      * @param $sid
      * @return Response
      */
-    public function import_stocks_edit($id, $sid) {
+    public function import_stocks_edit($id, $sid) 
+    {
         $qualitys = ['1' => 'I клас/I class', '2' => 'II клас/II class', '3' => 'OПС/GPS'];
         $packages = ['4' => 'Торби/ Bags', '3' => 'Кашони/ C. boxes', '2' => 'Палети/ Cages', '1' => 'Каси/ Pl. cases', '999' => 'ДРУГО'];
         $crops= Crop::select('id', 'name', 'name_en', 'group_id')
@@ -153,7 +154,7 @@ class StocksController extends Controller
         else {
             $article = 0;
         }
-//        dd($article);
+
         return view('quality.certificates.import.stock_edit', compact('id', 'crops', 'certificate', 'stocks', 'count', 'lock', 'article', 'qualitys', 'packages' ));
     }
 
@@ -217,13 +218,16 @@ class StocksController extends Controller
             $end = strtotime($years_end_sort);
             $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
             if($start > 0 && $end == false){
-                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                // $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                $years_sql = ' AND date_issue='.$start;
             }
             if($end > 0 && $start == false){
-                $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+                // $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+                $years_sql = ' AND date_issue='.$end;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
-                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                // $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                $years_sql = ' AND date_issue='.$start;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
                 $years_sql = ' AND date_issue>='.$start.' AND date_issue<='.$end.'';
@@ -345,13 +349,13 @@ class StocksController extends Controller
         else {
             $stock_sql = '';
         }
-//        if( Input::has('search_firm')) {
-//            $search_firm = Input::get('search_firm');
-//            $firms_sql  = ' AND firm_id ='.$search_firm;
-//        }
-//        else {
-//            $firms_sql = '';
-//        }
+        //        if( Input::has('search_firm')) {
+        //            $search_firm = Input::get('search_firm');
+        //            $firms_sql  = ' AND firm_id ='.$search_firm;
+        //        }
+        //        else {
+        //            $firms_sql = '';
+        //        }
         $stocks = DB::select("SELECT * FROM stocks WHERE import >0 $type_sql $stock_sql ORDER BY certificate_id DESC;");
 
         return view('quality.stocks.consume.index', compact('stocks', 'list', 'firms', 'inspectors', 'type_crops'));
@@ -407,13 +411,16 @@ class StocksController extends Controller
             $end = strtotime($years_end_sort);
             $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
             if($start > 0 && $end == false){
-                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                // $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                $years_sql = ' AND date_issue='.$start;
             }
             if($end > 0 && $start == false){
-                $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+                // $years_sql = ' AND date_issue='.$end.' OR date_issue='.$timezone_paris_end;
+                $years_sql = ' AND date_issue='.$end;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
-                $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                // $years_sql = ' AND date_issue='.$start.' OR date_issue='.$timezone_paris_start;
+                $years_sql = ' AND date_issue='.$start;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
                 $years_sql = ' AND date_issue>='.$start.' AND date_issue<='.$end.'';

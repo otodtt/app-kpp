@@ -29,7 +29,7 @@
         <a href="{!! URL::to('/контрол/фактури') !!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
         <a href="{!! URL::to('/контрол/търговци') !!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
         <span class="fa fa-tags btn btn-default my_btn"> Стоки</span>
-        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
+        <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
     </div>
     <div class="btn_add_firm">
         {{-- <a href="{!! URL::to('/контрол/култури/create') !!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави култура</a> --}}

@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('crops/show/{id}', 'CropsController@show');
     Route::post('crops/delete/{id}', 'CropsController@destroy');
     Route::post('/контрол/култури/{id}/update', 'CropsController@update');
+    Route::any('контрол/култури/внос', 'CropsController@crops_import');
 
     // /////// СЕРТИФИКАТИ
     Route::get('/контрол/сертификат-избери', 'QCertificatesController@choose');

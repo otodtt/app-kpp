@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-home btn btn-info my_btn" style="margin-top: 15px"> Откажи. Назад</a>
+    <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-home btn btn-info my_btn" style="margin-top: 15px"> Откажи. Назад</a>
     <hr class="my_hr"/>
     <div class="alert alert-info my_alert" role="alert" style="text-align: center">
         <h3>Редактиране на Кутура</h3>

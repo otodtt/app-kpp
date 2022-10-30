@@ -174,7 +174,7 @@
                                         <span style="display: inline-block; width: 300px;">
                                             {{$stock['crops_name'] }}/{{$stock['crop_en']}} <span style="font-weight: normal;">{{$variety}}</span> 
                                         </span>
-                                        <span style="display: inline-block; width: 150px;">
+                                        <span style="display: inline-block; width: 200px;">
                                             {{$class}} - {{$stock['weight']}} kg
                                         </span>
                                         <span style="display: inline-block; width: 150px;">

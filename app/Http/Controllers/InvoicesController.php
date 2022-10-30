@@ -110,13 +110,16 @@ class InvoicesController extends Controller
             $end = strtotime($years_end_sort);
             $timezone_paris_end = strtotime($years_end_sort.'Europe/Paris');
             if($start > 0 && $end == false){
-                $years_sql = ' AND date_invoice='.$start.' OR date_invoice='.$timezone_paris_start;
+                // $years_sql = ' AND date_invoice='.$start.' OR date_invoice='.$timezone_paris_start;
+                $years_sql = ' AND date_invoice='.$start;
             }
             if($end > 0 && $start == false){
-                $years_sql = ' AND date_invoice='.$end.' OR date_invoice='.$timezone_paris_end;
+                // $years_sql = ' AND date_invoice='.$end.' OR date_invoice='.$timezone_paris_end;
+                $years_sql = ' AND date_invoice='.$end;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start == (int)$end)){
-                $years_sql = ' AND date_invoice='.$start.' OR date_invoice='.$timezone_paris_start;
+                // $years_sql = ' AND date_invoice='.$start.' OR date_invoice='.$timezone_paris_start;
+                $years_sql = ' AND date_invoice='.$start;
             }
             if(((int)$start > 0 && (int)$end > 0) && ((int)$start < (int)$end)){
                 $years_sql = ' AND date_invoice>='.$start.' AND date_invoice<='.$end.'';

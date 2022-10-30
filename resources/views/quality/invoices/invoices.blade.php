@@ -25,7 +25,7 @@
         <span class="fa fa-files-o btn btn-default my_btn"> Фактури</span>
         <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
         <a href="{!! URL::to('/контрол/стоки/внос')!!}" class="fa fa-tags btn btn-info my_btn"> Стоки</a>
-        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
+        <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
     </div>
     <hr/>
     @if(count($errors)>0)
