@@ -240,7 +240,7 @@
                 </p>
             </div>
             <div class="col-md-12" style="text-align: center;">
-                <a href="{{ '/контрол/сертификат/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> КРАЙ! Назад към сертификатите!</a>
+                <a href="{{ '/контрол/сертификат-внос/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> КРАЙ! Назад към сертификатите!</a>
             </div>
         @endif
     @else
@@ -251,7 +251,7 @@
             </p>
         </div>
         <div class="col-md-12" style="text-align: center;">
-            <a href="{{ '/контрол/сертификат/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Назад към сертификатите!</a>
+            <a href="{{ '/контрол/сертификат-внос/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Назад към сертификатите!</a>
         </div>  
     @endif
 @endsection

@@ -38,7 +38,7 @@
                 @include('quality.certificates.forms.form_edit_certificate')
 
                 <div class="col-md-6 " >
-                    <a href="{{ '/контрол/сертификат/'.$certificate->id }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатa!</a>
+                    <a href="{{ '/контрол/сертификат-внос/'.$certificate->id }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатa!</a>
                 </div>
                 <div class="col-md-6" id="add_certificate" >
                     {!! Form::submit('Редактирай!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
@@ -57,7 +57,7 @@
             </p>
         </div>
         <div class="col-md-12" style="text-align: center;">
-            <a href="{{ '/контрол/сертификат/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Назад към сертификатите!</a>
+            <a href="{{ '/контрол/сертификат-внос/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Назад към сертификатите!</a>
         </div>
     @endif
 @endsection

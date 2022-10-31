@@ -139,7 +139,7 @@
                             </td>
                             <td>
                                 {{ $stock->certificate_number }}/{{ date('d.m.Y', $stock->date_issue) }}
-                                <a style="float: right" href="{!! URL::to('/контрол/сертификат/' . $stock->certificate_id) !!}"
+                                <a style="float: right" href="{!! URL::to('/контрол/сертификат-внос/' . $stock->certificate_id) !!}"
                                     class="fa fa-search btn btn-success my_btn"></a>
                             </td>
                             <td> 

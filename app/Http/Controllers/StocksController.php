@@ -10,6 +10,7 @@ use odbh\Http\Controllers\Controller;
 use odbh\Stock;
 use odbh\QCertificate;
 use odbh\Http\Requests\StocksRequest;
+use odbh\StockExport;
 use odbh\User;
 use odbh\Crop;
 use odbh\Set;
@@ -17,6 +18,7 @@ use Auth;
 use Input;
 use odbh\Importer;
 use Redirect;
+use Response;
 use Session;
 
 
@@ -34,7 +36,7 @@ class StocksController extends Controller
     }
 
     /**
-     * СПИСЪК СЪС СТОКИТЕ
+     * ВНОС СПИСЪК СЪС СТОКИТЕ
      * Display the specified resource.
      *
      * @return Response
@@ -474,7 +476,40 @@ class StocksController extends Controller
     }
 
 
-
+    /** ИЗНОС */
+    /**
+     * Display the specified resource.
+     *
+     *
+     * @param StocksRequest $request
+     * @return Response
+     */
+    public function export_stock_store(StocksRequest $request)
+    {
+        $data = [
+            'certificate_id' => $request->certificate_id,
+            'certificate_number' => $request->certificate_number,
+            'firm_id' => $request->firm_id,
+            'firm_name' => $request->firm_name,
+            'date_issue' => $request->date_issue,
+            'export' => 3,
+            'type_pack' => (int)$request->type_package,
+            'type_crops' => $request->type_crops,
+            'number_packages' => $request->number_packages,
+            'different' => $request->different,
+            'crop_id' => $request->crops,
+            'crops_name' => $request->crops_name,
+            'crop_en' => $request->crop_en,
+            'variety' => $request->variety,
+            'quality_class' => $request->quality_class,
+            'weight' => $request->weight,
+            'date_add' => date('d.m.Y', time()),
+            'inspector_name' => Auth::user()->short_name,
+            'added_by' => Auth::user()->id,
+        ];
+        StockExport::create($data);
+        return back();
+    }
 
 
 

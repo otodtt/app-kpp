@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-4">
             <div class="btn_add" style="text-align: center;">
-                <a href="{!!URL::to('/контрол/сертификати-износ/добави')!!}" class="fa fa-arrow-circle-left btn btn-success my_btn disabled">  Сертификат Износ</a>
+                <a href="{!!URL::to('/контрол/сертификати-износ/create')!!}" class="fa fa-arrow-circle-left btn btn-success my_btn">  Сертификат Износ</a>
             </div>
         </div>
     </div>

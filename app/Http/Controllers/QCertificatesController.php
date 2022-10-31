@@ -453,7 +453,7 @@ class QCertificatesController extends Controller
         Stock::where('certificate_id', $id)->update($stock_firm);
 
         Session::flash('message', 'Сертификата е редактиран успешно!');
-        return Redirect::to('/контрол/сертификат/'.$id);
+        return Redirect::to('/контрол/сертификат-внос/'.$id);
     }
 
     public function import_ending($id)
@@ -488,7 +488,7 @@ class QCertificatesController extends Controller
         $certificate->save();
         
         Session::flash('message', 'Записа е успешен!');
-        return Redirect::to('/контрол/сертификат/'.$request->certificate_id);
+        return Redirect::to('/контрол/сертификат-внос/'.$request->certificate_id);
     }
     /** ВНОС КРАЙ//////////////// */
 

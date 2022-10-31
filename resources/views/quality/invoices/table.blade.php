@@ -36,7 +36,7 @@
                     <span>вътрешен - </span>
                 @endif
                 {{$invoice->certificate_number}}
-                    <a href="{!!URL::to('/контрол/сертификат/'.$invoice->certificate_id )!!}" class="fa fa-search-plus btn btn-default my_btn" style="float: right"></a>
+                    <a href="{!!URL::to('/контрол/сертификат-внос/'.$invoice->certificate_id )!!}" class="fa fa-search-plus btn btn-default my_btn" style="float: right"></a>
             </td>
             {{--<td class="center last-column">--}}
                 {{--<a href="{!!URL::to('/контрол/търговци/'.$invoice->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>--}}

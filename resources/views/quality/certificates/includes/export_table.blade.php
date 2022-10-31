@@ -26,12 +26,12 @@
             ?>
         <tr>
             <td class="right"><?= $n++ ?></td>
-            <td>{{$certificate->import}}</td>
+            <td>{{$certificate->export}}</td>
             <td>{{ date('d.m.Y', $certificate->date_issue) }}</td>
             <td>{{strtoupper($certificate->importer_name)}}</td>
             <td style="text-align: right; padding-right: 4px">
                 @if( $certificate->invoice_id == '0')
-                    <a href='/контрол/фактури-внос/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
+                    <a href='/контрол/фактури-износ/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
                 @else
                     {{ $certificate->invoice_number }}/{{ date('d.m.Y' ,$certificate->invoice_date ) }}
                 @endif
@@ -41,9 +41,9 @@
             <td><span class="{{$alert}}">{{$all}}</span></td>
             <td>
                 @if ($certificate->is_all === 0)
-                <a href='/контрол/сертификат-внос/{{$certificate->id}}/завърши' class="fa fa-edit btn btn-danger my_btn"></a>
+                <a href='/контрол/сертификат-износ/{{$certificate->id}}/завърши' class="fa fa-edit btn btn-danger my_btn"></a>
                 @else
-                <a href='/контрол/сертификат/{{$certificate->id}}' class="fa fa-binoculars btn btn-primary my_btn"></a>
+                <a href='/контрол/сертификат-износ/{{$certificate->id}}' class="fa fa-binoculars btn btn-primary my_btn"></a>
                 @endif
             </td>
         </tr>

@@ -1,6 +1,6 @@
 @extends('layouts.quality')
 @section('title')
-    {{ 'Всички Сертификати' }}
+    {{ 'Сертификат износ' }}
 @endsection
 
 @section('css')
@@ -16,7 +16,7 @@
 
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">СЕРТИФИКАТИ ВНОС</h4>
+        <h4 class="bold layout-title">СЕРТИФИКАТИ ИЗНОС</h4>
     </div>
     <hr/>
     <div class="btn-group">
@@ -33,8 +33,8 @@
     </div>
     <hr/>
     <div class="btn-group" >
-        <span class="fa fa-arrow-down btn btn-default my_btn"> Сетификати/Внос</span>
-        <a href="{!! URL::to('/контрол/сертификати-износ')!!}" class="fa fa-arrow-up btn btn-info my_btn"> Сетификати/Износ</a>
+        <a href="{!! URL::to('/контрол/сертификати-внос')!!}" class="fa fa-arrow-down btn btn-info my_btn"> Сетификати/Внос</a>
+        <span class="fa fa-arrow-up btn btn-default my_btn"> Сетификати/Износ</span>
         <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-retweet btn btn-info my_btn"> Вътрешен</a>
     </div>
     <hr/>
@@ -110,7 +110,7 @@
         </a>
     </div>
     {{--<hr/>--}}
-    @include('quality.certificates.includes.table')
+    @include('quality.certificates.includes.export_table')
 @endsection
 
 @section('scripts')

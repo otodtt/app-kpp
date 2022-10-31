@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Време на генериране: 30 окт 2022 в 20:18
+-- Време на генериране: 31 окт 2022 в 15:17
 -- Версия на сървъра: 5.7.36
 -- Версия на PHP: 7.4.26
 
@@ -5672,8 +5672,6 @@ DROP TABLE IF EXISTS `qcertificates`;
 CREATE TABLE IF NOT EXISTS `qcertificates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `import` int(11) NOT NULL,
-  `export` int(11) NOT NULL,
-  `internal` int(11) NOT NULL,
   `is_all` tinyint(1) NOT NULL DEFAULT '0',
   `what_7` tinyint(2) NOT NULL,
   `type_crops` tinyint(2) NOT NULL,
@@ -5717,20 +5715,20 @@ CREATE TABLE IF NOT EXISTS `qcertificates` (
 -- Схема на данните от таблица `qcertificates`
 --
 
-INSERT INTO `qcertificates` (`id`, `import`, `export`, `internal`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_id`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice_id`, `invoice_number`, `invoice_date`, `sum`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
-(1, 1001, 0, 0, 1, 2, 2, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 1, 'Австрия', 'Austria', '', '07AAG455/ 15AAS175', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1595710800, '28.10.2022', 1, '6571020601', 1595710800, 11.35, 'Мария Чанкова', 'Marya Chankova', '26.10.2022', '28.10.2022', 10, 10, 0),
-(2, 1002, 0, 0, 1, 2, 1, 2, 'Forever 9 Eood', 'BULGARIA, SOFIA, DRUJBA BL. 9, VH. J, AP. 11', '203020031', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 7, 'Белгия', 'Belgium', '', '07AAG455/ 15AAS175', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1600117200, '28.10.2022', 6, '6571020602', 1600117200, 10, 'Мария Чанкова', 'Marya Chankova', '26.10.2022', '28.10.2022', 10, 10, 0),
-(3, 1003, 0, 0, 1, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 3, 'KOLLA TURKEY TARIM VE GIDA TICARET ANONIM SIRKETI', 'ATIFBEY MAH. 67 SOKAK NO.33, D.59 35410  GAZIEMIR/ IZMIR/ TURKEY', 'X-108', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', '', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1612562400, '28.10.2022', 5, '6571020603', 1612562400, 25, 'Антон Тонев', 'Anton Tonev', '26.10.2022', '', 9, 0, 0),
-(4, 1004, 0, 0, 1, 2, 2, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-108', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1626814800, '29.10.2022', 7, '6571020604', 1627074000, 24, 'Антон Тонев', 'Anton Tonev', '26.10.2022', '28.10.2022', 9, 10, 0),
-(5, 1005, 0, 0, 1, 2, 1, 5, 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', '203883835', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', '', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1637964000, '28.10.2022', 8, '6571020605', 1638223200, 55, 'Владимир Наков', 'Vladimir Nakov', '26.10.2022', '28.10.2022', 8, 10, 0),
-(6, 1006, 0, 0, 1, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 29, 'Малта', 'Malta', '', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1637964000, '29.10.2022', 9, '6571020606', 1638223200, 66, 'Владимир Наков', 'Vladimir Nakov', '26.10.2022', '', 8, 0, 0),
-(7, 1007, 0, 0, 1, 2, 1, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 'VIA G. BENCOVSKI N 14, SOFIA/ BULGARIA', '819411799', 999, 'SENOL HOCAOGLU KORUK ORGANIK TARIM URUNLERI', 'HURRIET MAH 1058 SK NO:43/2/ GAZIEMIR/ IZMIR/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1647295200, '28.10.2022', 2, '6571020607', 1666818000, 337, 'Мария Чанкова', 'Marya Chankova', '26.10.2022', '', 10, 0, 0),
-(8, 1008, 0, 0, 1, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 32, 'Нидерландия', 'Netherlands', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1657314000, '29.10.2022', 3, '6571020608', 1666818000, 505, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '28.10.2022', 10, 10, 0),
-(9, 1009, 0, 0, 1, 2, 1, 5, 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', '203883835', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '07AAG455/ 15AAS175', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 4, '6571020609', 1666645200, 12, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '', 10, 0, 1),
-(10, 1010, 0, 0, 1, 2, 1, 8, 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', '204875574', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 22, 'Кипър', 'Cyprus', '', '07AAG455/ 15AAS175', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 10, '6571020610', 1666299600, 99.7, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '27.10.2022', 10, 10, 1),
-(11, 1011, 0, 0, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 3, 'KOLLA TURKEY TARIM VE GIDA TICARET ANONIM SIRKETI', 'ATIFBEY MAH. 67 SOKAK NO.33, D.59 35410  GAZIEMIR/ IZMIR/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '31AJN161/ 31 AJH166', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 11, '6571020611', 1666818000, 11.35, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '28.10.2022', 10, 10, 0),
-(12, 1012, 0, 0, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 3, 'KOLLA TURKEY TARIM VE GIDA TICARET ANONIM SIRKETI', 'ATIFBEY MAH. 67 SOKAK NO.33, D.59 35410  GAZIEMIR/ IZMIR/ TURKEY', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', '', 'ass454/dfdf6453', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 0, '', 0, 0, 'Владимир Наков', 'Vladimir Nakov', '27.10.2022', '27.10.2022', 8, 8, 1),
-(13, 1013, 0, 0, 1, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-108', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666904400, '30.10.2022', 0, '', 0, 0, 'Антон Тонев', 'Anton Tonev', '28.10.2022', '28.10.2022', 9, 9, 0);
+INSERT INTO `qcertificates` (`id`, `import`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_id`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice_id`, `invoice_number`, `invoice_date`, `sum`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
+(1, 1001, 1, 2, 2, 1, 'Emi Frut Eood', 'ASENOVGRAD, UL. GOTCE DELCHEV 91', '200493997', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 1, 'Австрия', 'Austria', '', '07AAG455/ 15AAS175', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1595710800, '28.10.2022', 1, '6571020601', 1595710800, 11.35, 'Мария Чанкова', 'Marya Chankova', '26.10.2022', '28.10.2022', 10, 10, 0),
+(2, 1002, 1, 2, 1, 2, 'Forever 9 Eood', 'BULGARIA, SOFIA, DRUJBA BL. 9, VH. J, AP. 11', '203020031', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 7, 'Белгия', 'Belgium', '', '07AAG455/ 15AAS175', 'Турция/Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1600117200, '28.10.2022', 6, '6571020602', 1600117200, 10, 'Мария Чанкова', 'Marya Chankova', '26.10.2022', '28.10.2022', 10, 10, 0),
+(3, 1003, 1, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 3, 'KOLLA TURKEY TARIM VE GIDA TICARET ANONIM SIRKETI', 'ATIFBEY MAH. 67 SOKAK NO.33, D.59 35410  GAZIEMIR/ IZMIR/ TURKEY', 'X-108', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 9, 'България', 'Bulgaria', '', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1612562400, '28.10.2022', 5, '6571020603', 1612562400, 25, 'Антон Тонев', 'Anton Tonev', '26.10.2022', '', 9, 0, 0),
+(4, 1004, 1, 2, 2, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-108', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1626814800, '29.10.2022', 7, '6571020604', 1627074000, 24, 'Антон Тонев', 'Anton Tonev', '26.10.2022', '28.10.2022', 9, 10, 0),
+(5, 1005, 1, 2, 1, 5, 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', '203883835', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', '', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1637964000, '28.10.2022', 8, '6571020605', 1638223200, 55, 'Владимир Наков', 'Vladimir Nakov', '26.10.2022', '28.10.2022', 8, 10, 0),
+(6, 1006, 1, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 29, 'Малта', 'Malta', '', 'as232/ sds333', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1637964000, '29.10.2022', 9, '6571020606', 1638223200, 66, 'Владимир Наков', 'Vladimir Nakov', '26.10.2022', '', 8, 0, 0),
+(7, 1007, 1, 2, 1, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 'VIA G. BENCOVSKI N 14, SOFIA/ BULGARIA', '819411799', 999, 'SENOL HOCAOGLU KORUK ORGANIK TARIM URUNLERI', 'HURRIET MAH 1058 SK NO:43/2/ GAZIEMIR/ IZMIR/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1647295200, '28.10.2022', 2, '6571020607', 1666818000, 337, 'Мария Чанкова', 'Marya Chankova', '26.10.2022', '', 10, 0, 0),
+(8, 1008, 1, 2, 1, 3, 'Kolla Munchen Gbmh', 'MAISTRASSE 45 D-80337, MUNCHEN, GERMANY', 'EORI:DE2402149 VAT NO:BG 3074097765', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 32, 'Нидерландия', 'Netherlands', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1657314000, '29.10.2022', 3, '6571020608', 1666818000, 505, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '28.10.2022', 10, 10, 0),
+(9, 1009, 1, 2, 1, 5, 'Goldan Fruts 2016 Ltd ', 'Bulgaria, Sliven, ul. Felix Kanix 7A ', '203883835', 2, 'Degirmenciler Zirai Urun Isleme Paketleme Pazarlama Ve Tasimacilik Ticaret Ve San Ltd Sti', 'KULAK MAH.INONU  BLV NO. 7102  HUZURKENT-AKDENIZ/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '07AAG455/ 15AAS175', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 4, '6571020609', 1666645200, 12, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '', 10, 0, 1),
+(10, 1010, 1, 2, 1, 8, 'Rodopi Les 65 Eood ', 'STR.POLKOVNIK VESELIN VALKOV 235, 6300 HASKOVO, BULGARIA', '204875574', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 22, 'Кипър', 'Cyprus', '', '07AAG455/ 15AAS175', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 10, '6571020610', 1666299600, 99.7, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '27.10.2022', 10, 10, 0),
+(11, 1011, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 3, 'KOLLA TURKEY TARIM VE GIDA TICARET ANONIM SIRKETI', 'ATIFBEY MAH. 67 SOKAK NO.33, D.59 35410  GAZIEMIR/ IZMIR/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 36, 'Румъния', 'Romania', '', '31AJN161/ 31 AJH166', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 11, '6571020611', 1666818000, 11.35, 'Мария Чанкова', 'Marya Chankova', '27.10.2022', '28.10.2022', 10, 10, 0),
+(12, 1012, 1, 2, 1, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 'EICHENSTRASSE 11-A-D, DE-85445 OBERDING, GERMANY', 'ATU57056358', 3, 'KOLLA TURKEY TARIM VE GIDA TICARET ANONIM SIRKETI', 'ATIFBEY MAH. 67 SOKAK NO.33, D.59 35410  GAZIEMIR/ IZMIR/ TURKEY', 'X-106', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 12, 'Германия', 'Germany', '', 'ass454/dfdf6453', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666818000, '30.10.2022', 0, '', 0, 0, 'Владимир Наков', 'Vladimir Nakov', '27.10.2022', '27.10.2022', 8, 8, 1),
+(13, 1013, 1, 2, 1, 13, 'G.m.g. Bulgaria', 'IZGREV DIANANABAD NO: 3, ENT. 3 FLOOR 4, SOFIA 1172', '201931548', 4, 'HERG GOCTAR FROZAN ARAS TABZIR/ IRAN', '', 'X-108', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 49, 'Чехия', 'Czech Republic', '', 'as232/ sds333', 'Turkey', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1666904400, '30.10.2022', 0, '', 0, 0, 'Антон Тонев', 'Anton Tonev', '28.10.2022', '28.10.2022', 9, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -5779,7 +5777,14 @@ CREATE TABLE IF NOT EXISTS `qxcertificates` (
   `updated_by` tinyint(2) NOT NULL,
   `is_lock` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `qxcertificates`
+--
+
+INSERT INTO `qxcertificates` (`id`, `export`, `is_all`, `what_7`, `type_crops`, `importer_id`, `importer_name`, `importer_address`, `importer_vin`, `packer_id`, `packer_name`, `packer_address`, `stamp_number`, `authority_bg`, `authority_en`, `id_country`, `for_country_bg`, `for_country_en`, `observations`, `transport`, `from_country`, `customs_bg`, `customs_en`, `place_bg`, `place_en`, `date_issue`, `valid_until`, `invoice_id`, `invoice_number`, `invoice_date`, `sum`, `inspector_bg`, `inspector_en`, `date_add`, `date_update`, `added_by`, `updated_by`, `is_lock`) VALUES
+(1, 2001, 1, 3, 1, 14, 'Euro Plants Ltd', 'Kostur, Svilengrad, Bulgaria/ 6533', '203782284', 1, 'LIDER GIDA SANAYI VE DIS TICARET LTD STI.', 'CARSI MAH.DEREBOYU SOK.NO:18/1/ ORTAHISAR/ TRABZON/ TURKEY', 'X-103', 'БАБХ: ОДБХ-Хасково', 'BFSA: RDFS-Haskovo', 22, 'Кипър', 'Cyprus', 'ВАЖНО!!! Когато се избира \"За преработка\" текста \"', '07AAG455/ 15AAS175', 'България', 'МБ Свиленград', 'CP Svilengrad', 'Свиленград', 'Svilengrad', 1667167200, '02.11.2022', 0, '', 0, 0, 'Мария Чанкова', 'Marya Chankova', '31.10.2022', '', 10, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5834,8 +5839,6 @@ CREATE TABLE IF NOT EXISTS `stocks` (
   `firm_name` varchar(200) NOT NULL,
   `date_issue` int(11) NOT NULL,
   `import` int(11) NOT NULL,
-  `export` int(11) NOT NULL,
-  `internal` int(11) NOT NULL,
   `type_crops` tinyint(1) NOT NULL,
   `type_pack` int(11) NOT NULL,
   `number_packages` int(11) NOT NULL,
@@ -5858,30 +5861,71 @@ CREATE TABLE IF NOT EXISTS `stocks` (
 -- Схема на данните от таблица `stocks`
 --
 
-INSERT INTO `stocks` (`id`, `certificate_id`, `certificate_number`, `firm_id`, `firm_name`, `date_issue`, `import`, `export`, `internal`, `type_crops`, `type_pack`, `number_packages`, `different`, `crop_id`, `crops_name`, `crop_en`, `variety`, `quality_class`, `weight`, `inspector_name`, `date_add`, `date_update`, `added_by`, `updated_by`) VALUES
-(1, 1, 1001, 1, 'Emi Frut Eood', 1595710800, 2, 0, 0, 2, 4, 12, '', 18, 'Картофи', 'Potato', '', '1', 1100, 'М. Чанкова', '26.10.2022', '28.10.2022', 10, 10),
-(2, 2, 1002, 2, 'Forever 9 Eood', 1600117200, 2, 0, 0, 1, 3, 22, '', 19, 'Домати ', 'Tomato', 'Идеал', '2', 2200, 'М. Чанкова', '26.10.2022', '28.10.2022', 10, 10),
-(3, 2, 1002, 2, 'Forever 9 Eood', 1600117200, 2, 0, 0, 1, 4, 33, '', 18, 'Картофи', 'Potato', '', '2', 3300, 'М. Чанкова', '26.10.2022', '28.10.2022', 10, 10),
-(4, 3, 1003, 3, 'Kolla Munchen Gbmh', 1612562400, 2, 0, 0, 1, 2, 33, '', 20, 'Патладжан', 'Eggplant', '', '2', 3300, 'А. Тонев', '26.10.2022', '', 9, 0),
-(5, 4, 1004, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1626814800, 2, 0, 0, 2, 1, 44, '', 18, 'Картофи', 'Potato', '', '3', 4400, 'А. Тонев', '26.10.2022', '28.10.2022', 9, 10),
-(6, 4, 1004, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1626814800, 2, 0, 0, 2, 4, 55, '', 27, 'Броколи ', 'Broccoli', '', '3', 5500, 'А. Тонев', '26.10.2022', '28.10.2022', 9, 10),
-(7, 5, 1005, 5, 'Goldan Fruts 2016 Ltd ', 1637964000, 2, 0, 0, 1, 3, 6, '', 33, 'Чесън', 'Garlic', '', '1', 660, 'В. Наков', '26.10.2022', '28.10.2022', 8, 10),
-(8, 6, 1006, 13, 'G.m.g. Bulgaria', 1637964000, 2, 0, 0, 1, 2, 7, '', 66, 'Портокали', 'Oranges', '', '1', 770, 'В. Наков', '26.10.2022', '', 8, 0),
-(9, 7, 1007, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 1647295200, 2, 0, 0, 1, 4, 8, '', 67, 'Грейпфрут', 'Grapefruit', '', '3', 880, 'М. Чанкова', '26.10.2022', '26.10.2022', 10, 10),
-(10, 7, 1007, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 1647295200, 2, 0, 0, 1, 4, 99, '', 30, 'Пъпеши', 'Melons', '', '2', 990, 'М. Чанкова', '26.10.2022', '', 10, 0),
-(11, 7, 1007, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 1647295200, 2, 0, 0, 1, 4, 10, '', 18, 'Картофи', 'Potato', '', '1', 1011, 'М. Чанкова', '26.10.2022', '', 10, 0),
-(12, 8, 1008, 3, 'Kolla Munchen Gbmh', 1657314000, 2, 0, 0, 1, 4, 8, '', 66, 'Портокали', 'Oranges', '', '1', 800, 'М. Чанкова', '27.10.2022', '28.10.2022', 10, 10),
-(13, 8, 1008, 3, 'Kolla Munchen Gbmh', 1657314000, 2, 0, 0, 1, 3, 9, '', 65, 'Лимони', 'Lemons', '', '2', 900, 'М. Чанкова', '27.10.2022', '28.10.2022', 10, 10),
-(14, 9, 1009, 5, 'Goldan Fruts 2016 Ltd ', 1666818000, 2, 0, 0, 1, 4, 22, '', 46, 'Череши', 'Cherries', '', '1', 200, 'М. Чанкова', '27.10.2022', '', 10, 0),
-(15, 9, 1009, 5, 'Goldan Fruts 2016 Ltd ', 1666818000, 2, 0, 0, 1, 1, 50, '', 30, 'Пъпеши', 'Melons', '', '3', 20000, 'М. Чанкова', '27.10.2022', '', 10, 0),
-(16, 10, 1010, 8, 'Rodopi Les 65 Eood ', 1666818000, 2, 0, 0, 1, 4, 12, '', 43, 'Ябълки', 'Apples', '', '1', 987, 'М. Чанкова', '27.10.2022', '27.10.2022', 10, 10),
-(17, 10, 1010, 8, 'Rodopi Les 65 Eood ', 1666818000, 2, 0, 0, 1, 3, 9, '', 46, 'Череши', 'Cherries', '', '2', 900, 'М. Чанкова', '27.10.2022', '27.10.2022', 10, 10),
-(18, 11, 1011, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1666818000, 2, 0, 0, 1, 1, 55, '', 31, 'Тикви', 'Pumpkin', '', '3', 5500, 'М. Чанкова', '27.10.2022', '28.10.2022', 10, 10),
-(19, 12, 1012, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1666818000, 2, 0, 0, 1, 4, 100, '', 18, 'Картофи', 'Potato', '', '3', 20500, 'В. Наков', '27.10.2022', '27.10.2022', 8, 8),
-(20, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 0, 0, 1, 4, 50, '', 32, 'Лук', 'Onion', '', '3', 500, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9),
-(21, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 0, 0, 1, 4, 60, '', 34, 'Праз', 'Leek', '', '3', 600, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9),
-(22, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 0, 0, 1, 3, 70, '', 38, 'Зеле Кале', 'Kale', '', '1', 700, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9),
-(23, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 0, 0, 1, 4, 80, '', 37, 'Безглавеста салата', 'Lettuce', '', '1', 800, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9);
+INSERT INTO `stocks` (`id`, `certificate_id`, `certificate_number`, `firm_id`, `firm_name`, `date_issue`, `import`, `type_crops`, `type_pack`, `number_packages`, `different`, `crop_id`, `crops_name`, `crop_en`, `variety`, `quality_class`, `weight`, `inspector_name`, `date_add`, `date_update`, `added_by`, `updated_by`) VALUES
+(1, 1, 1001, 1, 'Emi Frut Eood', 1595710800, 2, 2, 4, 12, '', 18, 'Картофи', 'Potato', '', '1', 1100, 'М. Чанкова', '26.10.2022', '28.10.2022', 10, 10),
+(2, 2, 1002, 2, 'Forever 9 Eood', 1600117200, 2, 1, 3, 22, '', 19, 'Домати ', 'Tomato', 'Идеал', '2', 2200, 'М. Чанкова', '26.10.2022', '28.10.2022', 10, 10),
+(3, 2, 1002, 2, 'Forever 9 Eood', 1600117200, 2, 1, 4, 33, '', 18, 'Картофи', 'Potato', '', '2', 3300, 'М. Чанкова', '26.10.2022', '28.10.2022', 10, 10),
+(4, 3, 1003, 3, 'Kolla Munchen Gbmh', 1612562400, 2, 1, 2, 33, '', 20, 'Патладжан', 'Eggplant', '', '2', 3300, 'А. Тонев', '26.10.2022', '', 9, 0),
+(5, 4, 1004, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1626814800, 2, 2, 1, 44, '', 18, 'Картофи', 'Potato', '', '3', 4400, 'А. Тонев', '26.10.2022', '28.10.2022', 9, 10),
+(6, 4, 1004, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1626814800, 2, 2, 4, 55, '', 27, 'Броколи ', 'Broccoli', '', '3', 5500, 'А. Тонев', '26.10.2022', '28.10.2022', 9, 10),
+(7, 5, 1005, 5, 'Goldan Fruts 2016 Ltd ', 1637964000, 2, 1, 3, 6, '', 33, 'Чесън', 'Garlic', '', '1', 660, 'В. Наков', '26.10.2022', '28.10.2022', 8, 10),
+(8, 6, 1006, 13, 'G.m.g. Bulgaria', 1637964000, 2, 1, 2, 7, '', 66, 'Портокали', 'Oranges', '', '1', 770, 'В. Наков', '26.10.2022', '', 8, 0),
+(9, 7, 1007, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 1647295200, 2, 1, 4, 8, '', 67, 'Грейпфрут', 'Grapefruit', '', '3', 880, 'М. Чанкова', '26.10.2022', '26.10.2022', 10, 10),
+(10, 7, 1007, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 1647295200, 2, 1, 4, 99, '', 30, 'Пъпеши', 'Melons', '', '2', 990, 'М. Чанкова', '26.10.2022', '', 10, 0),
+(11, 7, 1007, 11, 'Balkan Fruit Ltd Michele Mastropasqua P.lva ', 1647295200, 2, 1, 4, 10, '', 18, 'Картофи', 'Potato', '', '1', 1011, 'М. Чанкова', '26.10.2022', '', 10, 0),
+(12, 8, 1008, 3, 'Kolla Munchen Gbmh', 1657314000, 2, 1, 4, 8, '', 66, 'Портокали', 'Oranges', '', '1', 800, 'М. Чанкова', '27.10.2022', '28.10.2022', 10, 10),
+(13, 8, 1008, 3, 'Kolla Munchen Gbmh', 1657314000, 2, 1, 3, 9, '', 65, 'Лимони', 'Lemons', '', '2', 900, 'М. Чанкова', '27.10.2022', '28.10.2022', 10, 10),
+(14, 9, 1009, 5, 'Goldan Fruts 2016 Ltd ', 1666818000, 2, 1, 4, 22, '', 46, 'Череши', 'Cherries', '', '1', 200, 'М. Чанкова', '27.10.2022', '', 10, 0),
+(15, 9, 1009, 5, 'Goldan Fruts 2016 Ltd ', 1666818000, 2, 1, 1, 50, '', 30, 'Пъпеши', 'Melons', '', '3', 20000, 'М. Чанкова', '27.10.2022', '', 10, 0),
+(16, 10, 1010, 8, 'Rodopi Les 65 Eood ', 1666818000, 2, 1, 4, 12, '', 43, 'Ябълки', 'Apples', '', '1', 987, 'М. Чанкова', '27.10.2022', '27.10.2022', 10, 10),
+(17, 10, 1010, 8, 'Rodopi Les 65 Eood ', 1666818000, 2, 1, 3, 9, '', 46, 'Череши', 'Cherries', '', '2', 900, 'М. Чанкова', '27.10.2022', '27.10.2022', 10, 10),
+(18, 11, 1011, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1666818000, 2, 1, 1, 55, '', 31, 'Тикви', 'Pumpkin', '', '3', 5500, 'М. Чанкова', '27.10.2022', '28.10.2022', 10, 10),
+(19, 12, 1012, 7, 'Ogl - Food Trade Lebensmittelvertrieb Gmbh', 1666818000, 2, 1, 4, 100, '', 18, 'Картофи', 'Potato', '', '3', 20500, 'В. Наков', '27.10.2022', '27.10.2022', 8, 8),
+(20, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 1, 4, 50, '', 32, 'Лук', 'Onion', '', '3', 500, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9),
+(21, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 1, 4, 60, '', 34, 'Праз', 'Leek', '', '3', 600, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9),
+(22, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 1, 3, 70, '', 38, 'Зеле Кале', 'Kale', '', '1', 700, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9),
+(23, 13, 1013, 13, 'G.m.g. Bulgaria', 1666904400, 2, 1, 4, 80, '', 37, 'Безглавеста салата', 'Lettuce', '', '1', 800, 'А. Тонев', '28.10.2022', '28.10.2022', 9, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `stocks_export`
+--
+
+DROP TABLE IF EXISTS `stocks_export`;
+CREATE TABLE IF NOT EXISTS `stocks_export` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `certificate_id` int(11) NOT NULL,
+  `certificate_number` int(11) NOT NULL,
+  `firm_id` int(11) NOT NULL,
+  `firm_name` varchar(200) NOT NULL,
+  `date_issue` int(11) NOT NULL,
+  `export` int(11) NOT NULL,
+  `type_crops` tinyint(1) NOT NULL,
+  `type_pack` int(11) NOT NULL,
+  `number_packages` int(11) NOT NULL,
+  `different` varchar(100) NOT NULL,
+  `crop_id` int(11) NOT NULL,
+  `crops_name` varchar(200) NOT NULL,
+  `crop_en` varchar(200) NOT NULL,
+  `variety` varchar(200) NOT NULL,
+  `quality_class` varchar(100) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `inspector_name` varchar(100) NOT NULL,
+  `date_add` varchar(20) NOT NULL,
+  `date_update` varchar(20) NOT NULL,
+  `added_by` tinyint(2) NOT NULL,
+  `updated_by` tinyint(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Схема на данните от таблица `stocks_export`
+--
+
+INSERT INTO `stocks_export` (`id`, `certificate_id`, `certificate_number`, `firm_id`, `firm_name`, `date_issue`, `export`, `type_crops`, `type_pack`, `number_packages`, `different`, `crop_id`, `crops_name`, `crop_en`, `variety`, `quality_class`, `weight`, `inspector_name`, `date_add`, `date_update`, `added_by`, `updated_by`) VALUES
+(1, 1, 2001, 14, 'Euro Plants Ltd', 1667167200, 3, 1, 4, 100, '', 21, 'Пипер ', 'Pepper', '', '1', 1000, 'М. Чанкова', '31.10.2022', '', 10, 0),
+(2, 1, 2001, 14, 'Euro Plants Ltd', 1667167200, 3, 1, 3, 200, '', 19, 'Домати ', 'Tomato', '', '2', 2000, 'М. Чанкова', '31.10.2022', '', 10, 0);
 
 -- --------------------------------------------------------
 

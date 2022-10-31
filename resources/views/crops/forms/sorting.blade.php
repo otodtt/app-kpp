@@ -21,14 +21,14 @@ if ((int) $final_year == 0) {
     $final_year = null;
 }
 ?>
-<div class="col-md-6">
+<div class="col-md-6" style="padding: 0;">
     {!! Form::label('initial_year', 'От дата: ', ['class' => 'labels']) !!}
     {!! Form::text('initial_year', $initial_year, [
         'class' => 'form-control form-control-my-search search_value',
         'size' => 10,
         'maxlength' => 10,
         'id' => 'start_year',
-        'style' => 'height: 34px; width: 110px',
+        'style' => 'height: 34px; width: 100px',
         'autocomplete' => 'off',
     ]) !!}
     &nbsp;&nbsp; | &nbsp;&nbsp;
@@ -38,12 +38,12 @@ if ((int) $final_year == 0) {
         'size' => 30,
         'maxlength' => 10,
         'id' => 'end_year',
-        'style' => 'height: 34px; width: 110px',
+        'style' => 'height: 34px; width: 100px',
         'autocomplete' => 'off',
     ]) !!}
 </div>
-<div class="col-md-4">
-    {!! Form::label('crop_sort', ' Сортирай:', ['class' => 'labels']) !!}
+<div class="col-md-4"  style="padding: 0;">
+    {{--{!! Form::label('crop_sort', ' Сортирай:', ['class' => 'labels']) !!}--}}
     <select name="crop_sort" id="crop_sort" class="localsID form-control"
         style="display: inline-block; width: 150px; margin-right: 30px;">
         <option value="0">по стока</option>

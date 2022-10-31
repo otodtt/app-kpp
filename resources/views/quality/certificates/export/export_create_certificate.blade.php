@@ -12,7 +12,7 @@
     <hr class="my_hr"/>
     <div class="alert alert-info my_alert" role="alert">
         <div class="row">
-            <h3 class="my_center" style="color: #d9534f;">Добавяне на Сертификат за ВНОС!</h3>
+            <h3 class="my_center" style="color: #d9534f;">Добавяне на Сертификат за ИЗНОС!</h3>
         </div>
     </div>
     <div class="alert alert-danger my_alert" role="alert">
@@ -33,13 +33,12 @@
             </div>
         @endif
 
-        {!! Form::open(['url'=>'контрол/сертификати-внос/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
-        
-           
-            @include('quality.certificates.forms.form_create_certificate')
+        {!! Form::open(['url'=>'контрол/сертификати-износ/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
+
+            @include('quality.certificates.export.forms.form_create_certificate')
 
             <div class="col-md-6 " >
-                <a href="{{ '/контрол/сертификати-внос' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
+                <a href="{{ '/контрол/сертификати-износ' }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатите!</a>
             </div>
             <div class="col-md-6" id="add_certificate" >
                 {!! Form::submit('Добави и продължи!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}

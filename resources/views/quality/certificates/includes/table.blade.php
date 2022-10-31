@@ -43,7 +43,7 @@
                 @if ($certificate->is_all === 0)
                 <a href='/контрол/сертификат-внос/{{$certificate->id}}/завърши' class="fa fa-edit btn btn-danger my_btn"></a>
                 @else
-                <a href='/контрол/сертификат/{{$certificate->id}}' class="fa fa-binoculars btn btn-primary my_btn"></a>
+                <a href='/контрол/сертификат-внос/{{$certificate->id}}' class="fa fa-binoculars btn btn-primary my_btn"></a>
                 @endif
             </td>
         </tr>

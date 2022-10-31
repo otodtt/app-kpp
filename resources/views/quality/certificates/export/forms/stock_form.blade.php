@@ -1,32 +1,6 @@
 <div class="container-fluid"  id="container" >
     <div class="row">
         <div class="col-md-12" >
-            <fieldset id="show_type" class="small_field show_type " style="margin-top: 10px">
-                <p class="description">
-                    ВНИМАНИЕ!!! Промени ако е необходимо!!!
-                </p>
-                <hr class="hr_in"/>
-                <?php
-                    if($certificate->type_crops == 1) {
-                        $type1 = 'checked';
-                        $type2 = '';
-                    }
-                    elseif($certificate->type_crops == 2) {
-                        $type1 = '';
-                        $type2 = 'checked';
-                    }
-                    else {
-                        $type1 = '';
-                        $type2 = '';
-                    }
-                ?>
-                <label class="labels_limit"><span>За консумация</span>
-                    {!! Form::radio('type_crops', 1, $type1 ) !!}
-                </label>&nbsp;&nbsp;|
-                <label class="labels_limit"><span>&nbsp;&nbsp;За преработка</span>
-                    {!! Form::radio('type_crops', 2, $type2 ) !!}
-                </label>&nbsp; | &nbsp;
-            </fieldset>
             <fieldset class="small_field"><legend class="small_legend">Данни на стоката</legend>
                 {{-- ОПАКОВКИ --}}
                 <div class="col-md-4 col-md-6_my" >
@@ -70,9 +44,9 @@
                                 <select name="crops" id="crops" class="localsID form-control">
                                     <option value="0">-- Избери --</option>
                                     @foreach($crops as $crop)
-                                    <option value="{{$crop['id']}}" 
+                                    <option value="{{$crop['id']}}"
                                         {{(old('crops') == $crop['id'])? 'selected':''}}
-                                        crop_en="{{$crop['name_en']}}" 
+                                        crop_en="{{$crop['name_en']}}"
                                         crops_name="{{$crop['name']}}"
                                         group_id="{{$crop['group_id']}}"
                                     >{{ mb_strtoupper($crop['name'], 'utf-8') }}
@@ -83,9 +57,10 @@
                                 {!! Form::hidden('crops_name', old('crops_name'), ['id'=>'crops_name']) !!}
                                 {!! Form::hidden('group_id', old('group_id'), ['id'=>'group_id']) !!}
                                 <input type="hidden" name="certificate_id" value="{{$id}}">
-                                <input type="hidden" name="certificate_number" value="{{$certificate->import}}">
+                                <input type="hidden" name="certificate_number" value="{{$certificate->export}}">
                                 <input type="hidden" name="firm_id" value="{{$certificate->importer_id}}">
                                 <input type="hidden" name="firm_name" value="{{$certificate->importer_name}}">
+                                <input type="hidden" name="type_crops" value="1">
                             </div>
                             <div class="col-md-6">
                                 <div class="col-md-12">
@@ -121,7 +96,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="description">Поле 11</p><hr class="hr_in"/>
-                                
+
                                 {{-- <label class="weigh"><span>Количество: </span> --}}
                                 <label for="weight">Количество:</label>
                                 <br>

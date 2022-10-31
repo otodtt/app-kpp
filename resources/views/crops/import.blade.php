@@ -46,12 +46,12 @@
         <div class="wrap_sort">
             <div id="wr_choiz_all">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4" style="padding-right: 0;">
                         {!! Form::open(['url' => '/контрол/култури/внос', 'method' => 'POST']) !!}
                             {!! Form::label('years', 'Справка за:', ['class' => 'labels']) !!}
                             {!! Form::select('years', $years, $year_now, [
                                 'class' => 'form-control form-control-my-search inspector_sort ',
-                                'style' => 'width: 80px;',
+                                'style' => 'width: 70px;',
                                 'id' => 'years',
                             ]) !!}
                             <span class="bold"> година. </span>&nbsp;&nbsp;
@@ -62,7 +62,7 @@
                             <input type="hidden" name="crop_sort" value="{{$sort_crop}}">
                         {!! Form::close() !!}
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8"  style="padding: 0;">
                         {!! Form::open(['url' => '/контрол/култури/внос', 'method' => 'POST']) !!}
                             @include('crops.forms.sorting')
                             <input type="hidden" name="years" value="{{$year_now}}">
@@ -143,7 +143,7 @@
                                                                 <p style="display: inline-block">
                                                                     {{ $val['certificate_number'] }}/{{ date('d.m.Y', $val['date_issue']) }}
                                                                 </p>
-                                                                <a href="{!! URL::to('/контрол/сертификат/' . $val['certificate_id']) !!}"
+                                                                <a href="{!! URL::to('/контрол/сертификат-внос/' . $val['certificate_id']) !!}"
                                                                     class="fa fa-search-plus btn btn-default my_btn"
                                                                     style="float: right"></a>
                                                             </td>
@@ -246,7 +246,7 @@
                             @foreach ($stock as $val)
                                 <td>
                                     {{ $val['certificate_number'] }}/{{ date('d.m.Y', $val['date_issue']) }}
-                                    <a href="{!! URL::to('/контрол/сертификат/' . $val['certificate_id']) !!}" class="fa fa-search-plus btn btn-default my_btn"
+                                    <a href="{!! URL::to('/контрол/сертификат-внос/' . $val['certificate_id']) !!}" class="fa fa-search-plus btn btn-default my_btn"
                                         style="float: right"></a>
                                 </td>
                                 <td>

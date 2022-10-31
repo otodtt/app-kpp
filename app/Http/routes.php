@@ -111,14 +111,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('контрол/сертификат-внос/{id}/завърши', 'QCertificatesController@import_ending');
     Route::post('/import-finish/store', 'QCertificatesController@import_finish');
     ///// внос покажи
-    Route::get('контрол/сертификат/{id}', 'QCertificatesController@show');
+    Route::get('контрол/сертификат-внос/{id}', 'QCertificatesController@show');
     ///// LOCK UNLOCK
     Route::post('lock-import-certificate/{id}', 'QCertificatesController@import_lock');
     Route::post('unlock-import-certificate/{id}', 'QCertificatesController@import_unlock');
 
     
     // /////// СТОКИ
-
     Route::get('/контрол/стоки/внос', 'StocksController@import_index');
     Route::post('/import/add-stock/store', 'StocksController@import_stock_store');
     Route::post('/import/edit-stock/update/{id}', 'StocksController@import_stock_update');
@@ -126,6 +125,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/import/stock/{id}/delete', 'StocksController@import_destroy');
     Route::post('/контрол/стоки/внос/{type}', 'StocksController@import_search');
     Route::post('/стоки/внос/сортирай/{start_year?}/{end_year?}/{crop_sort?}/{inspector_sort?}', 'StocksController@import_sort');
+    // /////// СТОКИ ИЗНОС
+    Route::post('/export/add-stock/store', 'StocksController@export_stock_store');
 
     // /////// СТОКИ КОНСУМАЦИЯ ПРЕРАБОТКА
     Route::get('/контрол/стоки/консумация-преработка', 'StocksController@consume');
@@ -144,11 +145,17 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-     ///// Добаи ИЗНОС
-    //  Route::get('/контрол/сертификати-износ/добави', 'QCertificatesController@export_create');
-    //  Route::post('/контрол/сертификати-износ/store', 'QCertificatesController@export_store');
-    //  Route::get('контрол/сертификат-износ/{id}/завърши', 'QCertificatesController@end_export');
- 
+     ///// ИЗНОС
+    Route::resource('/контрол/сертификати-износ', 'QXCertificatesController');
+    Route::post('/контрол/сертификати-износ/store', 'QXCertificatesController@store');
+    Route::get('контрол/сертификат-износ/{id}/завърши', 'QXCertificatesController@export_ending');
+    Route::post('/export-finish/store', 'QXCertificatesController@export_finish');
+
+    ///// ИЗНОС покажи
+    Route::get('контрол/сертификат-износ/{id}', 'QXCertificatesController@show');
+
+//    Route::get('/контрол/сертификати-износ/добави', 'QXCertificatesController@create');
+
 
 
 

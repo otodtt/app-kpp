@@ -222,7 +222,7 @@ class InvoicesController extends Controller
         $certificate->save();
 
         Session::flash('message', 'Записа е успешен!');
-        return Redirect::to('/контрол/сертификат/'.$id);
+        return Redirect::to('/контрол/сертификат-внос/'.$id);
     }
 
     /**
@@ -270,7 +270,7 @@ class InvoicesController extends Controller
         $certificate->fill($invoice_data);
         $certificate->save();
         Session::flash('message', 'Записа е успешен!');
-        return Redirect::to('/контрол/сертификат/'.$certificate->id);
+        return Redirect::to('/контрол/сертификат-внос/'.$certificate->id);
     }
 
     /**

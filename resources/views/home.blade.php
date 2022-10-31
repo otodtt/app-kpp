@@ -25,7 +25,8 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <fieldset class=""><legend class="">Сертификати</legend>
-                                    <a class="my_a back_link" href="{!! URL::to( 'контрол/сертификати-внос') !!}"> <i class="fa fa-certificate fa-fw yellow"></i> Издадени сертификати</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( 'контрол/сертификати-внос') !!}"> <i class="fa fa-arrow-down fa-fw"></i> Сертификати внос</a><br/>
+                                    <a class="my_a back_link" href="{!! URL::to( 'контрол/сертификати-износ') !!}"> <i class="fa fa-arrow-up fa-fw "></i> Сертификати износ</a><br/>
                                     {{-- <a class="my_a back_link" href="{!! URL::to( '/контрол/търговци') !!}"><i class="fa fa-truck fa-fw dark_color "></i> Всички фирми търговци</a><br/>
                                     <a class="my_a back_link" href="{!! URL::to( '/контрол/култури/внос') !!}"><i class="fa fa-leaf fa-fw green_color"></i> Всички култури</a><br/> --}}
                                     <a class="my_a back_link" href="{!! URL::to( '/test') !!}"><i class="fa fa-cubes fa-fw green_color"></i> ТЕСТ</a><br/>

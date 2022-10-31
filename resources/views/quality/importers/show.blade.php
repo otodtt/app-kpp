@@ -167,7 +167,7 @@
                         {{--<span>Сетификат за износ - </span>--}}
                         {{--@endif--}}
 
-                        <a href="{!!URL::to('/контрол/сертификат/'.$certificate->id )!!}" class="fa fa-binoculars btn btn-success my_btn"></a>
+                        <a href="{!!URL::to('/контрол/сертификат-внос/'.$certificate->id )!!}" class="fa fa-binoculars btn btn-success my_btn"></a>
                     </td>
                 </tr>
             @endforeach

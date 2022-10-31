@@ -65,7 +65,7 @@
                 </td>
                 <td>{{ $stock->inspector_name }}</td>
                 <td>
-                    <a href='/контрол/сертификат/{{ $stock->certificate_id }}'class="fa fa-binoculars btn btn-primary my_btn"></a>
+                    <a href='/контрол/сертификат-внос/{{ $stock->certificate_id }}'class="fa fa-binoculars btn btn-primary my_btn"></a>
                 </td>
             </tr>
         @endforeach

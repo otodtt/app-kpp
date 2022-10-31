@@ -312,7 +312,7 @@
                                 </td>
                                 <td class="cell second-row-cell cell-control autority" style="height: 1cm  !important" colspan="2">
                                     <p class="p_info" style="margin-bottom: 3px">
-                                        3. Контролен орган / Inspectionbody
+                                        3. Контролен орган / Inspection body
                                     </p>
                                     <p class="p_content bold"  style="line-height: 15px">
                                         {{$certificate->authority_bg }}
