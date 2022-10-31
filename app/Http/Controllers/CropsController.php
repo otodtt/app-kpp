@@ -259,6 +259,7 @@ class CropsController extends Controller
 
         $lists = Stock::orderBy('crop_id', 'asc')->where('date_issue', '>=', $time_start)->where('date_issue', '<=', $time_end)->lists('crops_name', 'crop_id')->toArray();
 
+        $stocks = array();
         foreach($lists as $k=>$list){
             $stocks[$list] = DB::select("SELECT * FROM stocks WHERE crop_id=$k $date_sql $crops_sql ");
         }
