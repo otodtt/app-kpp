@@ -1,7 +1,7 @@
 @extends('layouts.quality')
 
 @section('title')
-    {{ 'Стоки Внос' }}
+    {{ 'Стоки Износ' }}
 @endsection
 
 @section('css')
@@ -20,7 +20,7 @@
 
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">СТОКИ ВНОС</h4>
+        <h4 class="bold layout-title">СТОКИ ИЗНОС</h4>
     </div>
     <hr />
     <div class="btn-group">
@@ -29,15 +29,15 @@
         <a href="{!! URL::to('/контрол/фактури') !!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
         <a href="{!! URL::to('/контрол/търговци') !!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
         <span class="fa fa-tags btn btn-default my_btn"> Стоки</span>
-        <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
+        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
     </div>
     <div class="btn_add_firm">
         {{-- <a href="{!! URL::to('/контрол/култури/create') !!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави култура</a> --}}
     </div>
     <hr />
     <div class="btn-group">
-        <span class="fa fa-arrow-down btn btn-default my_btn"> Стоки/Внос</span>
-        <a href="{!! URL::to('/контрол/стоки/износ') !!}" class="fa fa-arrow-up btn btn-info my_btn"> Стоки/Износ</a>
+        <a href="{!! URL::to('/контрол/стоки/внос') !!}" class="fa fa-arrow-down btn btn-info my_btn"> Стоки/Внос</a>
+        <span class="fa fa-arrow-up btn btn-default my_btn"> Стоки/Износ</span>
         <a href="{!! URL::to('/контрол/стоки/консумация-преработка') !!}" class="fa fa-cutlery btn btn-info my_btn"> Стоки за</a>
     </div>
     <hr />
@@ -54,7 +54,7 @@
         <div class="wrap_sort">
             <div id="wr_choiz_all">
                 <div id="search_wrap" class="col-md-4">
-                    {!! Form::open(['url' => '/контрол/стоки/внос/1', 'method' => 'POST']) !!}
+                    {!! Form::open(['url' => '/контрол/стоки/износ', 'method' => 'POST']) !!}
                         {!! Form::label('stock_number', 'Търси номер на сертификат:', ['class'=>'labels']) !!}
                         {!! Form::text('stock_number', null, ['class' => 'form-control form-control-my search_value',
                                         'size' => 30, 'maxlength'=>5, 'style'=>'height: 28px; padding: 0 8px; width: 100px; display: inline-block;',
@@ -63,7 +63,7 @@
                     {!! Form::close() !!}
                 </div>
                 <div class="refresh col-md-6">
-                    {!! Form::open(['url' => '/контрол/стоки/внос/2', 'method' => 'POST']) !!}
+                    {!! Form::open(['url' => '/контрол/стоки/износ', 'method' => 'POST']) !!}
                         <?php
                             if (isset($search_firm_return)) {
                                 $search_firm = $search_firm_return;
@@ -101,7 +101,7 @@
     <hr class="my_hr" />
 
     <div class="btn_add_certificate" style="text-align: right">
-        <a href="{!! URL::to('/контрол/стоки/внос') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
+        <a href="{!! URL::to('/контрол/стоки/износ') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
             &nbsp; Изчисти сортирането!
         </a>
     </div>

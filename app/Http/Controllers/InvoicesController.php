@@ -10,6 +10,7 @@ use odbh\Http\Requests\InvoicesRequest;
 use odbh\Importer;
 use odbh\Invoice;
 use odbh\QCertificate;
+use odbh\QXCertificate;
 use odbh\User;
 use Auth;
 use Redirect;
@@ -148,7 +149,7 @@ class InvoicesController extends Controller
         }
 
         $for_sort = array(''=>'издаден за', 1=>'Сетификат за внос', 2=>'Сетификат за износ', 3=>'Вътрешен Сетификат');
-        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '>=', 0)->lists('name_en', 'id')->toArray();
 
         $invoices = DB::select("SELECT * FROM invoices WHERE id >0 $years_sql  $firm_sql $for_sql");
 
@@ -234,7 +235,7 @@ class InvoicesController extends Controller
     public function import_edit($id)
     {
         $invoice = Invoice::findOrFail($id);
-        $certificate = QCertificate::findOrFail($invoice->id);
+        $certificate = QCertificate::where('id', $invoice->certificate_id)->get();
 
         return view('quality.invoices.form.edit', compact('invoice', 'certificate'));
     }
@@ -272,6 +273,112 @@ class InvoicesController extends Controller
         Session::flash('message', 'Записа е успешен!');
         return Redirect::to('/контрол/сертификат-внос/'.$certificate->id);
     }
+
+    /** ФАКТУРИ ВНОС  */
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export_create($id)
+    {
+        $certificate = QXCertificate::findOrFail($id);
+
+        return view('quality.invoices.export.form.create', compact('certificate'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request|InvoicesRequest $request
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export_store(InvoicesRequest $request, $id)
+    {
+        $certificate = QXCertificate::findOrFail($id);
+
+        $data = [
+            'invoice_for' => 2,
+            'number_invoice' => $request->invoice,
+            'date_invoice' =>strtotime(stripslashes($request->date_invoice)),
+            'sum' => round($request->sum, 2),
+            'certificate_id' => $certificate->id,
+            'certificate_number' => $certificate->export,
+            'importer_id' => $certificate->importer_id,
+            'importer_name' => $certificate->importer_name,
+            'identifier' => $certificate->stamp_number.'/'.$certificate->export,
+            'date_create' => date('d.m.Y', time()),
+            'created_by' => Auth::user()->id,
+        ];
+        $invoice = Invoice::create($data);
+        $invoice_id = $invoice->id;
+
+        // Добавяне данни към сертификата
+        $invoice_data = [
+            'invoice_id' => $invoice_id,
+            'invoice_number' => $request->invoice,
+            'invoice_date' => strtotime(stripslashes($request->date_invoice)),
+            'sum' => round($request->sum, 2),
+        ];
+
+        $certificate->fill($invoice_data);
+        $certificate->save();
+
+        Session::flash('message', 'Записа е успешен!');
+        return Redirect::to('/контрол/сертификат-износ/'.$id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export_edit($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        $certificate = QXCertificate::where('id', $invoice->certificate_id)->get();
+
+        return view('quality.invoices.export.form.edit', compact('invoice', 'certificate'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\InvoicesRequest|InvoicesRequest $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export_update(InvoicesRequest $request, $id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        $data = [
+            'number_invoice' => $request->invoice,
+            'date_invoice' =>strtotime(stripslashes($request->date_invoice)),
+            'sum' => round($request->sum, 2),
+            'date_update' => date('d.m.Y', time()),
+            'updated_at' => Auth::user()->id,
+        ];
+        $invoice->fill($data);
+        $invoice->save();
+
+        // Редактиране данни към сертификата
+        $certificate = QXCertificate::where('invoice_id', $invoice->id)->firstOrFail();
+        $invoice_data = [
+            'invoice_number' => $request->invoice,
+            'invoice_date' => strtotime(stripslashes($request->date_invoice)),
+            'sum' => round($request->sum, 2),
+        ];
+
+        $certificate->fill($invoice_data);
+        $certificate->save();
+        Session::flash('message', 'Записа е успешен!');
+        return Redirect::to('/контрол/сертификат-износ/'.$certificate->id);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

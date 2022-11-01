@@ -72,7 +72,7 @@
                         <p class="description">
                             Поле № 1 Избери фирмата! Търговец /Trader &nbsp; &nbsp; &nbsp;<br>
                         </p>
-                        <label for="importers_choice">Избери вносител:</label>
+                        <label for="importers_choice">Избери износител:</label>
                         <select name="importer_data" id="importer_data" class="localsID form-control">
                             <option value="">-- Избери --</option>
                             @foreach($importers as $importer)
@@ -130,6 +130,7 @@
                         <label for="packer_data">Избери Опаковчик:</label>
                         <select name="packer_data" id="packer_data" class="localsID form-control" style="width: 97%">
                             <option value="">-- Избери --</option>
+                            <option value="888" {{(old('packer_data') == 888)? 'selected':''}}>БЕЗ ФИРМА!</option>
                             <option value="999" {{(old('packer_data') == 999)? 'selected':''}}>ФИРМАТА Я НЯМА. ДОБАВИ!</option>
                             @foreach($packers as $packer)
                                 <option value="{{$packer['id']}}"

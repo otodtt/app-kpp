@@ -36,7 +36,14 @@
                     <span>вътрешен - </span>
                 @endif
                 {{$invoice->certificate_number}}
-                    <a href="{!!URL::to('/контрол/сертификат-внос/'.$invoice->certificate_id )!!}" class="fa fa-search-plus btn btn-default my_btn" style="float: right"></a>
+                @if($invoice->invoice_for == 1)
+                        <a href="{!!URL::to('/контрол/сертификат-внос/'.$invoice->certificate_id )!!}" class="fa fa-search-plus btn btn-default my_btn" style="float: right"></a>
+                @elseif($invoice->invoice_for == 2)
+                        <a href="{!!URL::to('/контрол/сертификат-износ/'.$invoice->certificate_id )!!}" class="fa fa-search-plus btn btn-default my_btn" style="float: right"></a>
+                @elseif($invoice->invoice_for == 3)
+                    <span>вътрешен - </span>
+                @endif
+
             </td>
             {{--<td class="center last-column">--}}
                 {{--<a href="{!!URL::to('/контрол/търговци/'.$invoice->id.'/edit')!!}" class="fa fa-edit btn btn-primary my_btn"></a>--}}

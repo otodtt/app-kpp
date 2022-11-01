@@ -40,11 +40,12 @@
                         </p>
                         <hr class="hr_in"/>
                         <label class="labels_limit"><span>За консумация</span>
-                            {!! Form::radio('type_crops', 1) !!}
+                            <span>&nbsp;&nbsp;<i class="fa fa-check-circle-o" aria-hidden="true"></i></span>
                         </label>&nbsp;&nbsp;|
                         <label class="labels_limit"><span>&nbsp;&nbsp;За преработка</span>
-                            {!! Form::radio('type_crops', 2) !!}
+                            <span>&nbsp;&nbsp;<i class="fa fa-circle-o" aria-hidden="true"></i></span>
                         </label>&nbsp; | &nbsp;
+                        <input type="hidden" name="type_crops" value="1">
                     </fieldset>
                 </div>
             </fieldset>
@@ -65,7 +66,7 @@
                         <p class="description">
                             Поле № 1 Избери фирмата! Търговец /Trader &nbsp; &nbsp; &nbsp;<br>
                         </p>
-                        <label for="importer_data">Избери вносител:</label>
+                        <label for="importer_data">Избери износител:</label>
                         <select name="importer_data" id="importer_data" class="localsID form-control">
                             <option value="">-- Избери --</option>
                             @foreach($importers as $key => $importer)
@@ -145,6 +146,14 @@
                         <label for="packer_data">Избери Опаковчик:</label>
                         <select name="packer_data" id="packer_data" class="localsID form-control" style="width: 97%">
                             <option value="">-- Избери --</option>
+                            <option value="888"
+                                    @if (old('packer_data') == null)
+                                        {{( $certificate->packer_id  == 888) ? 'selected':''}}
+                                    @else
+                                        {{(old('packer_data') == 888) ? 'selected':''}}
+                                    @endif
+                                    {{(old('packer_data') == 888)? 'selected':''}}
+                                >БЕЗ ФИРМА!</option>
                             @foreach($packers as $packer)
                                 <option value="{{$packer['id']}}"
                                         @if (old('packer_data') == null)

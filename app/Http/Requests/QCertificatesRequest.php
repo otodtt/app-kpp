@@ -31,6 +31,7 @@ class QCertificatesRequest extends Request
             $name = 'latin|min:3|max:500';
             $address = 'latin|min:5|max:500';
         }
+
         return [
             // 'what_7'=>'required',
             'type_crops'=>'required',

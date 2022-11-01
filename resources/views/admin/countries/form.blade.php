@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <label>Не е член:
                 {!! Form::radio('EC', 0, false) !!}
             </label>

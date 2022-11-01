@@ -154,7 +154,7 @@ class CropsController extends Controller
         $crop->save();
 
         Session::flash('message', 'Културата е редактирана успешно!');
-        return Redirect::to('/контрол/култури/внос');
+        return Redirect::to('/контрол/култури');
     }
 
     /**

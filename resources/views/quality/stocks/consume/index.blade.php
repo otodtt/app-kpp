@@ -9,9 +9,6 @@
     {!! Html::style('css/table/jquery.dataTables.css') !!}
     {!! Html::style('css/table/table_firms.css') !!}
     {!!Html::style("css/date/jquery.datetimepicker.css" )!!}
-    {{-- {!! Html::style('css/table/crop.css') !!} --}}
-    {{-- {!!Html::style("css/certificates/index_certificates.css" )!!} --}}
-    {{-- {!!Html::style("css/certificates/table_certificates.css" )!!} --}}
 @endsection
 
 @section('message')
@@ -29,7 +26,7 @@
         <a href="{!! URL::to('/контрол/фактури') !!}" class="fa fa-files-o btn btn-info my_btn"> Фактури</a>
         <a href="{!! URL::to('/контрол/търговци') !!}" class="fa fa-trademark btn btn-info my_btn"> Всички фирми</a>
         <span class="fa fa-tags btn btn-default my_btn"> Стоки</span>
-        <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
+        <a href="{!! URL::to('/контрол/култури')!!}" class="fa fa-leaf btn btn-info my_btn"> Култури</a>
     </div>
     <div class="btn_add_firm">
         {{-- <a href="{!! URL::to('/контрол/култури/create') !!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави култура</a> --}}
@@ -37,6 +34,7 @@
     <hr />
     <div class="btn-group">
         <a href="{!! URL::to('/контрол/стоки/внос') !!}" class="fa fa-arrow-down btn btn-info my_btn"> Стоки внос</a>
+        <a href="{!! URL::to('/контрол/стоки/износ') !!}" class="fa fa-arrow-up btn btn-info my_btn"> Стоки/Износ</a>
         <span class="fa fa-cutlery btn btn-default my_btn"> Стоки за</span>
     </div>
     <hr />

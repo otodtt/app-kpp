@@ -16,6 +16,7 @@ use odbh\Stock;
 use odbh\Importer;
 use odbh\Set;
 use odbh\Country;
+use odbh\StockExport;
 use odbh\User;
 use Auth;
 use Redirect;
@@ -71,7 +72,7 @@ class QXCertificatesController extends Controller
         }
         $years = array_filter(array_unique($array));
 
-        $certificates = QXCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->get();
+        $certificates = QXCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->orderBy('id', 'desc')->get();
 
         return view('quality.certificates.export.index', compact('certificates', 'years', 'year_now', 'inspectors', 'firms'));
     }
@@ -84,7 +85,6 @@ class QXCertificatesController extends Controller
     public function create()
     {
         $type = 2;
-        $edit = 0;
         $index = $this->index;
 
         $packers = Packer::select('id', 'packer_name', 'packer_address')->get()->toArray();
@@ -186,6 +186,7 @@ class QXCertificatesController extends Controller
             'date_add' => date('d.m.Y', time()),
             'added_by' => Auth::user()->id,
         ];
+//        dd($data);
 
         if ($request->packer_data == 999) {
             $data_packer = [
@@ -251,7 +252,7 @@ class QXCertificatesController extends Controller
         $firm = Importer::findOrFail($certificate->importer_id);
         $invoice = $certificate->export_invoice->toArray();
 
-        return view('quality.certificates.import.show', compact('certificate', 'stocks', 'firm', 'invoice'));
+        return view('quality.certificates.export.show', compact('certificate', 'stocks', 'firm', 'invoice'));
     }
 
     /**
@@ -262,7 +263,20 @@ class QXCertificatesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $type = 2;
+        $index = $this->index;
+        $certificate = QXCertificate::findOrFail($id);
+        $packers = Packer::select('id', 'packer_name', 'packer_address')->get()->toArray();
+        $importers = Importer::select(['id', 'name_bg', 'name_en', 'address_en', 'vin', 'trade'])
+            ->where('is_active', '=', 1)
+            ->where('trade', '=', 1)
+            ->orWhere('trade', '=', 2)
+            ->get()->toArray();
+
+        $countries = Country::select('id', 'name', 'name_en', 'EC')->where('EC', '=', 1)->orderBy('name', 'asc')->get()->toArray();
+        $lock = $certificate->is_lock;
+
+        return view('quality.certificates.export.export_edit_certificate', compact('type', 'certificate', 'importers', 'index', 'countries', 'lock', 'packers'));
     }
 
     /**
@@ -272,9 +286,60 @@ class QXCertificatesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QCertificatesRequest $request, $id)
     {
-        //
+        $certificate = QXCertificate::findOrFail($id);
+        $data = [
+            'type_crops' => $request->type_crops,
+            'importer_id' => $request->importer_data,
+            'importer_name' => $request->en_name,
+            'importer_address' => $request->en_address,
+            'importer_vin' => $request->vin_hidden,
+            'packer_id' => $request->packer_data,
+            'packer_name' => $request->name_of_packer,
+            'packer_address' => $request->address_of_packer,
+            'from_country' => $request->from_country,
+            'id_country' => $request->id_country,
+            'for_country_bg' => $request->for_country_bg,
+            'for_country_en' => $request->for_country_en,
+            'observations' => $request->observations,
+            'transport' => $request->transport,
+            'customs_bg' => $request->customs_bg,
+            'customs_en' => $request->customs_en,
+            'place_bg' => $request->place_bg,
+            'place_en' => $request->place_en,
+            'valid_until' => $request->valid_until,
+            'date_update' => date('d.m.Y', time()),
+            'updated_by' => Auth::user()->id,
+        ];
+
+        $certificate->fill($data);
+        $certificate->save();
+
+        // Промяна на Фирмата във ФАКТУРИТЕ
+        $data_firm = [
+            'importer_id' => $request->importer_data,
+            'importer_name' => $request->en_name,
+            'date_update' => date('d.m.Y', time()),
+            'updated_at' => Auth::user()->id,
+        ];
+        Invoice::where('certificate_id', $id)
+                ->where('invoice_for', 2)
+                ->where('certificate_number', $certificate->export)
+                ->update($data_firm);
+
+        // Промяна на Фирмата във СТОКИТЕ
+        $stock_firm = [
+            'firm_id' => $request->importer_data,
+            'firm_name' => $request->en_name,
+            'type_crops' => $request->type_crops,
+            'date_update' => date('d.m.Y', time()),
+            'updated_by' => Auth::user()->id,
+        ];
+        StockExport::where('certificate_id', $id)->update($stock_firm);
+
+        Session::flash('message', 'Сертификата е редактиран успешно!');
+        return Redirect::to('/контрол/сертификат-износ/'.$id);
     }
 
     /**
@@ -286,5 +351,41 @@ class QXCertificatesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request|QCertificatesRequest $request
+     * @param  int $id
+     * @return Response
+     */
+    public function export_lock(Request $request, $id)
+    {
+        $certificate = QXCertificate::findOrFail($id);
+        $data = [
+            'is_lock' => 1,
+        ];
+        $certificate->fill($data);
+        $certificate->save();
+        return back();
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request|QCertificatesRequest $request
+     * @param  int $id
+     * @return Response
+     */
+    public function export_unlock(Request $request, $id)
+    {
+        $certificate = QXCertificate::findOrFail($id);
+        $data = [
+            'is_lock' => 0,
+        ];
+        $certificate->fill($data);
+        $certificate->save();
+        return back();
     }
 }

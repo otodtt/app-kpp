@@ -33,8 +33,8 @@
     </div>
     <hr/>
     <div class="btn-group" >
-        <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-arrow-down btn btn-info my_btn"> Култури/Внос</a>
         <span class="fa fa-leaf btn btn-default my_btn"> Всички Култури</span>
+        <a href="{!! URL::to('/контрол/култури/внос')!!}" class="fa fa-arrow-down btn btn-info my_btn"> Култури/Внос</a>
     </div>
     <hr/>
     <fieldset class="form-group">

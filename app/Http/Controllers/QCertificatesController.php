@@ -74,7 +74,7 @@ class QCertificatesController extends Controller
         }
         $years = array_filter(array_unique($array));
 
-        $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->get();
+        $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->orderBy('id', 'desc')->get();
 
         return view('quality.certificates.import.index', compact('certificates', 'years', 'year_now', 'inspectors', 'firms'));
     }
@@ -116,7 +116,7 @@ class QCertificatesController extends Controller
             $array[date('Y', $cert->date_issue)] = date('Y', $cert->date_issue);
         }
         $years = array_filter(array_unique($array));
-        $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->get();
+        $certificates = QCertificate::where('date_issue','>=',$time_start)->where('date_issue','<=',$time_end)->orderBy('is_all', 'asc')->orderBy('id', 'desc')->get();
 
 
         $search_return = $request['search'];
@@ -235,7 +235,7 @@ class QCertificatesController extends Controller
             $firm_sql = ' ';
         }
 
-        $certificates = DB::select("SELECT * FROM qcertificates WHERE import >0 $years_sql $inspector_sql $firm_sql");
+        $certificates = DB::select("SELECT * FROM qcertificates WHERE import >0 $years_sql $inspector_sql $firm_sql ORDER BY id DESC");
         
         return view('quality.certificates.import.index', compact('certificates', 'firms', 'inspectors', 'years',
             'years_start_sort', 'years_end_sort', 'sort_inspector', 'sort_firm', 'year_now'));
@@ -440,7 +440,10 @@ class QCertificatesController extends Controller
             'date_update' => date('d.m.Y', time()),
             'updated_at' => Auth::user()->id,
         ];
-        Invoice::where('certificate_id', $id)->update($data_firm);
+        Invoice::where('certificate_id', $id)
+            ->where('invoice_for', 1)
+            ->where('certificate_number', $certificate->import)
+            ->update($data_firm);
 
          // Промяна на Фирмата във СТОКИТЕ
          $stock_firm = [

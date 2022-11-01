@@ -39,7 +39,7 @@ class QCertificate extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function invoice(){
-        return $this->hasMany('odbh\Invoice', 'certificate_id');
+        return $this->hasMany('odbh\Invoice', 'certificate_id')->where('invoice_for', 1);
     }
 }
 

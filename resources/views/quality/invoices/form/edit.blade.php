@@ -15,7 +15,7 @@
             @if($invoice->invoice_for == 1)
             <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Сертификат за Внос!</h3>
             @elseif($invoice->invoice_for == 2)
-            <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Сертификат за Внос!</h3>
+            <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Сертификат за Износ!</h3>
             @elseif($invoice->invoice_for == 3)
             <h3 class="my_center" style="color: #d9534f;">Редактиране на Фактура към Вътрешен Сертификат!</h3>
             @else
@@ -53,7 +53,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <br>
-                                    <p>Номер: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['stamp_number']}}/{{$certificate['import']}}</span></p>
+                                    <p>Номер: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate[0]['stamp_number']}}/{{$certificate[0]['import']}}</span></p>
                                     <br>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <div class="col-md-12">
                                     <p class="description">Инспектор издал сертификата</p><hr class="hr_in"/>
                                     <br>
-                                    <p>Инспектор: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['inspector_bg']}}</span></p>
+                                    <p>Инспектор: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate[0]['inspector_bg']}}</span></p>
                                     <br>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                             <p class="description">1. Търговец /Trader</p><hr class="hr_in"/>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>Фирма: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['importer_name']}}</span></p><br>
+                                    <p>Фирма: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate[0]['importer_name']}}</span></p><br>
                                 </div>
                             </div>
                         </fieldset>

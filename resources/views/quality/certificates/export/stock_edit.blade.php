@@ -12,7 +12,7 @@
     <hr class="my_hr"/>
     <div class="alert alert-info my_alert" role="alert">
         <div class="row">
-            <h3 class="my_center" style="color: #d9534f;">Редактиране на Стоки към Сертификат за ВНОС!</h3>
+            <h3 class="my_center" style="color: #d9534f;">Редактиране на Стоки към Сертификат за ИЗНОС!</h3>
         </div>
     </div>
     <div class="alert alert-danger my_alert" role="alert">
@@ -62,7 +62,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <br>
-                                    <p>Номер: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['stamp_number']}}/{{$certificate['import']}}</span></p>
+                                    <p>Номер: <span style="font-weight: bold; text-transform: uppercase;">{{$certificate['stamp_number']}}/{{$certificate['export']}}</span></p>
                                     <br>
                                 </div>
                             </div>
@@ -149,21 +149,11 @@
                                 else {
                                     $class = '';
                                 }
-                                // \\\\
-                                if($stock['type_crops'] == 1) {
-                                    $type = 'За консумация';
-                                }
-                                elseif ($stock['type_crops'] == 2) {
-                                    $type = 'За преработка';
-                                }
-                                else {
-                                    $type = '';
-                                }
                             ?>
                             <ul>
                                 <li>
                                     @if ( $count > 1)
-                                        <form action="{{ url('/import/stock/'.$stock['id'].'/delete') }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази стока?');">
+                                        <form action="{{ url('/export/stock/'.$stock['id'].'/delete') }}" method="post" style="display: inline-block" onsubmit="return confirm('Наистина ли искате да изтриете тази стока?');">
                                             <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
                                             <input type="hidden" name="_token" value="<?php echo csrf_token() ?>" id="token">
                                         </form>
@@ -177,12 +167,9 @@
                                         <span style="display: inline-block; width: 200px;">
                                             {{$class}} - {{$stock['weight']}} kg
                                         </span>
-                                        <span style="display: inline-block; width: 150px;">
-                                            - {{$type}}
-                                        </span>
                                     </p>
                                     <div class="btn_add" style=" display: inline-block; margin-top: 5px">
-                                        <a href="{!!URL::to('/import/stock/'.$certificate->id.'/'.$stock['id']).'/edit'!!}" class="fa fa-edit btn btn-success"></a>
+                                        <a href="{!!URL::to('/export/stock/'.$certificate->id.'/'.$stock['id']).'/edit'!!}" class="fa fa-edit btn btn-success"></a>
                                     </div>
                                 </li>
                             </ul>
@@ -199,12 +186,13 @@
         {{-- ДОБАВЯНЕ НА СТОКИ --}}
         @if ($article == 0)
             <div class="add_stock" >
-                {!! Form::open(['url'=>'import/add-stock/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
+                {!! Form::open(['url'=>'export/add-stock/store', 'method'=>'POST', 'autocomplete'=>'on']) !!}
                     <div class="alert alert-success my_alert" role="alert" style="margin-top: 20px">
                         <p class="my_p"><span class="fa fa-success" aria-hidden="true"></span> <span class="bold">Тук се добавят само нови стоки!</span>
                         </p>
                     </div>
-                    @include('quality.certificates.forms.stock_form')
+                    @include('quality.certificates.export.forms.stock_form')
+                    <input type="hidden" name="date_issue" value="{{$certificate['date_issue']}}">
                 
                     <div class="col-md-12" id="add_stock" style="text-align: center; margin-top: 10px;">
                         {!! Form::submit('Добави Продукт!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}
@@ -216,12 +204,12 @@
         @else
             {{-- РЕДАКТИРАНЕ НА СТОКИ --}}
             <div class="add_stock">
-                {!! Form::model($article, ['url'=>'import/edit-stock/update/'.$article[0]['id'], 'method'=>'POST', 'autocomplete'=>'on']) !!}
+                {!! Form::model($article, ['url'=>'export/edit-stock/update/'.$article[0]['id'], 'method'=>'POST', 'autocomplete'=>'on']) !!}
                     <div class="alert alert-success my_alert" role="alert" style="margin-top: 20px">
                         <p class="my_p"><span class="fa fa-success" aria-hidden="true"></span> <span class="bold">Редактиране на стока!</span>
                         </p>
                     </div>
-                    @include('quality.certificates.forms.stock_edit_form')
+                    @include('quality.certificates.export.forms.stock_edit_form')
                 
                     <div class="col-md-12" id="add_stock" style="text-align: center; margin-top: 10px;">
                         {!! Form::submit('Редактирай!', ['class'=>'btn btn-primary', 'id'=>'submit']) !!}
@@ -240,7 +228,7 @@
                 </p>
             </div>
             <div class="col-md-12" style="text-align: center;">
-                <a href="{{ '/контрол/сертификат-внос/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> КРАЙ! Назад към сертификатите!</a>
+                <a href="{{ '/контрол/сертификат-износ/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> КРАЙ! Назад към сертификатите!</a>
             </div>
         @endif
     @else
@@ -251,7 +239,7 @@
             </p>
         </div>
         <div class="col-md-12" style="text-align: center;">
-            <a href="{{ '/контрол/сертификат-внос/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Назад към сертификатите!</a>
+            <a href="{{ '/контрол/сертификат-износ/'.$certificate['id'] }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Назад към сертификатите!</a>
         </div>  
     @endif
 @endsection

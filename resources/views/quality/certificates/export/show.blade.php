@@ -5,7 +5,6 @@
 
 @section('css')
     {!!Html::style("css/date/jquery.datetimepicker.css" )!!}
-    {{-- {!!Html::style("css/opinions/logo_document.css" )!!} --}}
     {!!Html::style("css/qcertificates/show_opinion.css" )!!}
     {!!Html::style("css/qcertificates/body_table.css" )!!}
     @if($certificate->is_lock == 1)
@@ -54,7 +53,7 @@
                 </div>
                 <div style="display: table-row">
                     <div class="small_field_left " style="display: table-cell">
-                        <p >Сертификат №: <span class="bold">{{$certificate->stamp_number }}/{{$certificate->import }}</span></p>
+                        <p >Сертификат №: <span class="bold">{{$certificate->stamp_number }}/{{$certificate->export }}</span></p>
                         <hr class="my_hr_in"/>
                         <p >Фирма: <span class="bold" style="text-transform: uppercase">{{$certificate->importer_name }}</span></p>
                         <p >ЕИК/VAT: <span class="bold">{{$certificate->importer_vin }}</span> </p>
@@ -162,7 +161,7 @@
                         <div class="col-md-2">
                             <p >
                                 Фактура: <span class="bold" style="text-transform: uppercase"></span>
-                                <a href='/контрол/фактури-внос/{{$certificate->invoice_id}}/edit' class="fa fa-edit btn btn-success my_btn" style="float: right"> Edit</a>
+                                <a href='/контрол/фактури-износ/{{$certificate->invoice_id}}/edit' class="fa fa-edit btn btn-success my_btn" style="float: right"> Edit</a>
                             </p>
                             <hr class="my_hr_in"/>
                             <p ><span class="bold" style="text-transform: none">{{$invoice[0]['number_invoice'] }}/{{ date('d.m.Y' ,$invoice[0]['date_invoice']) }}</span></p>
@@ -176,7 +175,7 @@
                             <p ><span class="bold red" style="text-transform: none">Поълни фактурта!</span></p>
                             <hr class="my_hr_in"/>
                             <p >
-                                <a href='/контрол/фактури-внос/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
+                                <a href='/контрол/фактури-износ/{{$certificate->id}}' class="fa fa-plus-circle btn btn-danger my_btn"> Add</a>
                             </p>
                         </div>
                     @endif
@@ -189,10 +188,10 @@
                         <p style="font-weight: normal"><span class="bold" style="text-transform: none;">ВНИМАНИЕ!!!</span> Само администратор или инспектора съставил Сертификата могат да го Редактират!</p>
                         <hr class="my_hr_in"/>
                         <div class="btn_add" style="text-align: left; display: inline-block; margin-top: 5px">
-                            <a href="{!!URL::to('/контрол/сертификат-внос/'.$certificate->id.'/edit')!!}" class="fa fa-edit btn btn-primary">  Редактирай Данните</a>
+                            <a href="{!!URL::to('/контрол/сертификат-износ/'.$certificate->id.'/edit')!!}" class="fa fa-edit btn btn-primary">  Редактирай Данните</a>
                         </div>
                         <div class="btn_add" style="float: right; display: inline-block; margin-top: 5px">
-                            <a href="{!!URL::to('/import/stock/'.$certificate->id.'/0/edit')!!}" class="fa fa-edit btn btn-danger">  Редактирай Стоките</a>
+                            <a href="{!!URL::to('/export/stock/'.$certificate->id.'/0/edit')!!}" class="fa fa-edit btn btn-danger">  Редактирай Стоките</a>
                         </div>
                     </div>
                 @endif
@@ -201,7 +200,7 @@
             <div class="col-md-12 row-table-bottom " style="display: table" >
                 @if($certificate->is_lock == 0)
                     <div class="small_field_bottom" style="display: table-cell">
-                        {!! Form::model($certificate, ['url'=>'lock-import-certificate/'.$certificate->id , 'method'=>'POST', 'id'=>'form']) !!}
+                        {!! Form::model($certificate, ['url'=>'lock-export-certificate/'.$certificate->id , 'method'=>'POST', 'id'=>'form']) !!}
                         <button type="submit" class="btn-sm btn-default " id="complexConfirm">
                             <i class="fa fa-print"></i> Подготви за печат!
                         </button>
@@ -219,7 +218,7 @@
                     </div>
                     @if(Auth::user()->admin == 2 )
                         <div class="small_field_bottom" style="display: table-cell">
-                            {!! Form::model($certificate, ['url'=>'unlock-import-certificate/'.$certificate->id , 'method'=>'POST', 'id'=>'form']) !!}
+                            {!! Form::model($certificate, ['url'=>'unlock-export-certificate/'.$certificate->id , 'method'=>'POST', 'id'=>'form']) !!}
                             <button type="submit" class="btn-sm btn-success " id="unlockConfirm">
                                 <i class="fa fa-unlock"></i> Откючи!
                             </button>
@@ -278,7 +277,7 @@
                                         Certificate of conformity with the European Union marketing standards applicable to fresh fruit and vegetables, according Regulation 543/2011
                                     </p>
                                     <p class="p_content number_sert" style="">
-                                        №/No {{ $certificate->stamp_number }}/{{ $certificate->import }}
+                                        №/No {{ $certificate->stamp_number }}/{{ $certificate->export }}
                                     </p>
                                     <p class="p_info line" style="margin-bottom: 3px">
                                         (Настоящият сертификат е предназначен изключително за контролните органи)
@@ -299,11 +298,17 @@
                                         2. Опаковчик, посочен върху опаковката (ако е  различен от търговеца)/ Packer identified on packaging (if other than trader)
                                     </p>
                                     <p class="p_content" style="margin-top: 20px">
-                                        @if( strlen($certificate->packer_address) > 0)
-                                            {{$certificate->packer_name }}, {{ $certificate->packer_address }}
+                                        @if ($certificate->packer_id != 888)
+                                            @if( strlen($certificate->packer_address) > 0)
+                                                {{$certificate->packer_name }}, {{ $certificate->packer_address }}
+                                            @else
+                                                {{$certificate->packer_name }} {{ $certificate->packer_address }}
+                                            @endif
+
                                         @else
-                                            {{$certificate->packer_name }} {{ $certificate->packer_address }}
+                                        <span>--------------</span>
                                         @endif
+
 
                                     </p>
                                     {{--<p class="p_content">--}}

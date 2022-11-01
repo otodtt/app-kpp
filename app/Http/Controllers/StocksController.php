@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use odbh\Http\Requests;
 use odbh\Http\Controllers\Controller;
+use odbh\QXCertificate;
 use odbh\Stock;
 use odbh\QCertificate;
 use odbh\Http\Requests\StocksRequest;
@@ -475,6 +476,51 @@ class StocksController extends Controller
             'years_start_sort', 'years_end_sort', 'sort_crop', 'sort_inspector', 'sort_firm'));
     }
 
+    /**
+     * ВНОС СПИСЪК СЪС СТОКИТЕ
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function export_index(Request $request)
+    {
+        $search_value_return = $request['stock_number'];
+        $search_firm_return = $request['search_firm'];
+
+        if(count((array)$request['stock_number']) != 0) {
+            $this->validate($request, ['stock_number' => 'required|digits_between:1,4'],
+                [
+                    'stock_number.required' => 'Попълни търсения номер!',
+                    'stock_number.digits_between' => 'Номера трябва да е между една и четири цифри!',
+                ]);
+            $stocks = StockExport::where('certificate_number', '=', $request['stock_number'])->get();
+        }
+        elseif (count((array)$request['search_firm']) != 0) {
+            $this->validate($request, ['search_firm' => 'required|not_in:0'],
+                [
+                    'search_firm.required' => 'Избери фирма!',
+                    'search_firm.not_in' => 'Избери фирма!',
+                ]);
+
+            $stocks = StockExport::where('firm_id', '=', $request['search_firm'])->get();
+        }
+        else {
+            $stocks = StockExport::where('export', '>', 0)->orderBy('certificate_id', 'desc')->get();
+        }
+
+        $list = StockExport::orderBy('crop_id', 'asc')->lists('crops_name', 'crop_id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 1)->lists('name_en', 'id')->toArray();
+        $inspectors = User::select('id', 'short_name')
+            ->where('active', '=', 1)
+            ->where('ppz','=', 1)
+            ->where('stamp_number','<', 5000)
+            ->lists('short_name', 'id')->toArray();
+        $inspectors[''] = 'по инспектор';
+        $inspectors = array_sort_recursive($inspectors);
+
+        return view('quality.stocks.export.index', compact('stocks', 'list', 'firms', 'inspectors', 'search_firm_return'));
+    }
 
     /** ИЗНОС */
     /**
@@ -507,9 +553,97 @@ class StocksController extends Controller
             'inspector_name' => Auth::user()->short_name,
             'added_by' => Auth::user()->id,
         ];
+
         StockExport::create($data);
         return back();
     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @param $sid
+     * @return Response
+     */
+    public function export_stocks_edit($id, $sid)
+    {
+        $qualitys = ['1' => 'I клас/I class', '2' => 'II клас/II class', '3' => 'OПС/GPS'];
+        $packages = ['4' => 'Торби/ Bags', '3' => 'Кашони/ C. boxes', '2' => 'Палети/ Cages', '1' => 'Каси/ Pl. cases', '999' => 'ДРУГО'];
+        $crops= Crop::select('id', 'name', 'name_en', 'group_id')
+            ->where('group_id', '=', 4)
+            ->orWhere('group_id', '=', 5)
+            ->orWhere('group_id', '=', 6)
+            ->orWhere('group_id', '=', 7)
+            ->orWhere('group_id', '=', 8)
+            ->orWhere('group_id', '=', 9)
+            ->orWhere('group_id', '=', 10)
+            ->orWhere('group_id', '=', 11)
+            ->orWhere('group_id', '=', 15)
+            ->orWhere('group_id', '=', 16)
+            ->orderBy('group_id', 'asc')->get()->toArray();
+
+        $certificate = QXCertificate::findOrFail($id);
+        $stocks = $certificate->export_stocks->toArray();
+        $count = count($stocks);
+        $lock = $certificate->is_lock;
+
+        if ($sid != 0) {
+            $article = StockExport::select()->where('id','=', $sid)->where('certificate_id','=', $id)->get()->toArray();
+        }
+        else {
+            $article = 0;
+        }
+
+        return view('quality.certificates.export.stock_edit', compact('id', 'crops', 'certificate', 'stocks', 'count', 'lock', 'article', 'qualitys', 'packages' ));
+    }
+
+    public function export_stock_update(StocksRequest $request, $id)
+    {
+
+        $stock = StockExport::findOrFail($id);
+
+        if ($request->type_package != 999) {
+            $different = '';
+        } else {
+            $different = $request->different;
+        }
+        $data = [
+            'type_pack' => (int)$request->type_package,
+            'type_crops' => (int)$request->type_crops,
+            'number_packages' => $request->number_packages,
+            'different' => $different,
+            'crop_id' => $request->crops,
+            'crops_name' => $request->crops_name,
+            'crop_en' => $request->crop_en,
+            'variety' => $request->variety,
+            'quality_class' => $request->quality_class,
+            'weight' => $request->weight,
+            'date_update' => date('d.m.Y', time()),
+            'updated_by' => Auth::user()->id,
+        ];
+
+        $stock->fill($data);
+        $stock->save();
+
+        return Redirect::to('/export/stock/'.$stock->certificate_id.'/0/edit');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function export_destroy($id)
+    {
+        $stock = StockExport::find($id);
+        $stock->delete();
+        return back();
+    }
+
+
+
 
 
 

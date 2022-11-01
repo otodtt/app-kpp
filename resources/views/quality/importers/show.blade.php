@@ -41,7 +41,8 @@
         {{-- <hr/> --}}
         <hr class="my_hr"/>
         <div class="btn-group" >
-            <span class="fa fa-truck btn btn-default my_btn"> Търговци</span>
+            {{--<span class="fa fa-truck btn btn-default my_btn"> Търговци</span>--}}
+            <a href="{!! URL::to('/контрол/търговци')!!}" class="fa fa-truck btn btn-info my_btn"> Търговци</a>
             <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-archive btn btn-info my_btn"> Опаковчици</a>
         </div>
         {{-- <hr/> --}}
