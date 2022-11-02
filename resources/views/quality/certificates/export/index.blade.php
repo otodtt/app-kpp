@@ -38,15 +38,6 @@
         <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-retweet btn btn-info my_btn"> Вътрешен</a>
     </div>
     <hr/>
-    {{-- <div class="btn-group" >
-        <a href="{!!URL::to('/контрол/сертификати-износ/добави')!!}" class="fa fa-retweet btn btn-primary my_btn" style="margin-right: 5px"> Добави Сертификат ИЗНОС</a>
-        <a href="{!!URL::to('/контрол/сертификати-внос/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn" style="margin-right: 5px"> Добави Сертификат ВНОС</a>
-        <a href="{!!URL::to('/контрол/сертификати-вътрешен/добави')!!}" class="fa fa-arrow-circle-left btn btn-success my_btn disabled"> Добави Сертификат ВЪТРЕШЕН</a>
-    </div>
-    <div class="btn_add_firm">
-        <a href="{!!URL::to('/контрол/сертификати-внос/добави')!!}" class="fa fa-arrow-circle-right btn btn-danger my_btn"> Добави Сертификат</a>
-    </div>
-    <hr/> --}}
     @if(count($errors)>0)
         <div class="alert alert-danger">
             <ul>

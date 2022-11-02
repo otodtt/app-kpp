@@ -106,8 +106,6 @@
         </a>
     </div>
     <br />
-    {{-- <hr class="my_hr" /> --}}
-    {{-- <hr /> --}}
     @include('quality.stocks.import_stock_table')
 @endsection
 

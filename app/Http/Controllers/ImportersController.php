@@ -48,7 +48,6 @@ class ImportersController extends Controller
      */
     public function sort($sort = null, $type = null)
     {
-
         $input_sort = Input::get('sort');
         $input_type = Input::get('type');
         
@@ -126,16 +125,24 @@ class ImportersController extends Controller
     public function show($id)
     {
         $importer  = Importer::findOrFail($id);
-        $certificates = $importer->qcertificate;
-
-        foreach($certificates as $certificate){
-            $stocks[] = $certificate->stocks->toArray();
+        $import_certificates = $importer->qcertificate;
+        foreach($import_certificates as $certificate){
+            $import_stocks[] = $certificate->stocks->toArray();
         }
-        if(!isset($stocks)) {
-            $stocks = 0;
+        if(!isset($import_stocks)) {
+            $import_stocks = array();
         }
 
-        return view('quality.importers.show', compact( 'importer', 'certificates', 'stocks'));
+        $export_certificates = $importer->qxcertificate;
+        foreach($export_certificates as $certificate){
+            $export_stocks[] = $certificate->export_stocks->toArray();
+        }
+        if(!isset($export_stocks)) {
+            $export_stocks = array();
+        }
+
+        return view('quality.importers.show', compact( 'importer', 'import_certificates', 'import_stocks',
+                                            'export_certificates', 'export_stocks'));
     }
 
     /**
