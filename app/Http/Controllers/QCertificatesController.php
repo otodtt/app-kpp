@@ -55,7 +55,7 @@ class QCertificatesController extends Controller
             ->lists('short_name', 'id')->toArray();
         $inspectors[''] = 'по инспектор';
         $inspectors = array_sort_recursive($inspectors);
-        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->orWhere('trade', '=', 2)->lists('name_en', 'id')->toArray();
 
         if(isset($request['years'])){
             $year_now = $request['years'];
@@ -98,7 +98,7 @@ class QCertificatesController extends Controller
         $inspectors[''] = 'по инспектор';
         $inspectors = array_sort_recursive($inspectors);
 
-        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->orWhere('trade', '=', 2)->lists('name_en', 'id')->toArray();
 
         if(isset($request['years'])){
             $year_now = $request['years'];
@@ -156,7 +156,7 @@ class QCertificatesController extends Controller
             ->lists('short_name', 'id')->toArray();
         $inspectors[''] = 'по инспектор';
         $inspectors = array_sort_recursive($inspectors);
-        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->lists('name_en', 'id')->toArray();
+        $firms = Importer::where('is_active', '=', 1)->where('trade', '=', 0)->orWhere('trade', '=', 2)->lists('name_en', 'id')->toArray();
 
         if(isset($request['get_year'])){
             $year_now = $request['get_year'];

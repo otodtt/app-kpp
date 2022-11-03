@@ -92,7 +92,7 @@
     <fieldset class="form-group">
         <div class="wrap_sort">
             <div id="wr_choiz_all">
-                {!! Form::open(['url' => '/стоки/внос/сортирай', 'method' => 'POST']) !!}
+                {!! Form::open(['url' => '/стоки/износ/сортирай', 'method' => 'POST']) !!}
                 @include('quality.stocks.sorting')
                 {!! Form::close() !!}
             </div>
@@ -106,6 +106,7 @@
         </a>
     </div>
     <br />
+    <h4 style="text-align: center">СТОКИ ИЗНОС</h4>
     @include('quality.stocks.import_stock_table')
 @endsection
 

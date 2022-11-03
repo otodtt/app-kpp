@@ -88,10 +88,11 @@ Route::group(['middleware' => ['auth']], function () {
     //КУЛТУРИ
     Route::resource('контрол/култури', 'CropsController');
     Route::get('crops/edit/{id}', 'CropsController@edit');
-    Route::get('crops/show/{id}', 'CropsController@show');
+    Route::any('crops/show/{id}', 'CropsController@show');
     Route::post('crops/delete/{id}', 'CropsController@destroy');
     Route::post('/контрол/култури/{id}/update', 'CropsController@update');
     Route::any('контрол/култури/внос', 'CropsController@crops_import');
+    Route::any('контрол/култури/износ', 'CropsController@crops_export');
 
     // /////// СЕРТИФИКАТИ
     Route::get('/контрол/сертификат-избери', 'QCertificatesController@choose');
@@ -133,6 +134,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/export/stock/{id}/{sid?}/edit', 'StocksController@export_stocks_edit');
     Route::post('/export/edit-stock/update/{id}', 'StocksController@export_stock_update');
     Route::post('/export/stock/{id}/delete', 'StocksController@export_destroy');
+    Route::post('/стоки/износ/сортирай/{start_year?}/{end_year?}/{crop_sort?}/{inspector_sort?}', 'StocksController@export_sort');
 
     // /////// СТОКИ КОНСУМАЦИЯ ПРЕРАБОТКА
     Route::get('/контрол/стоки/консумация-преработка', 'StocksController@consume');
@@ -158,6 +160,10 @@ Route::group(['middleware' => ['auth']], function () {
 
      ///// ИЗНОС
     Route::resource('/контрол/сертификати-износ', 'QXCertificatesController');
+    Route::resource('контрол/сертификати-износ', 'QXCertificatesController@index');
+    Route::post('контрол/сертификати-износ', 'QXCertificatesController@search');
+    Route::post('контрол/сертификати-износ/сортирай', 'QXCertificatesController@sort');
+
     Route::post('/контрол/сертификати-износ/store', 'QXCertificatesController@store');
     Route::get('контрол/сертификат-износ/{id}/завърши', 'QXCertificatesController@export_ending');
     Route::post('/export-finish/store', 'QXCertificatesController@export_finish');

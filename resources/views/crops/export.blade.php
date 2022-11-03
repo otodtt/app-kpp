@@ -1,7 +1,7 @@
 @extends('layouts.quality')
 
 @section('title')
-    {{ 'Всички Култири/Внос' }}
+    {{ 'Всички Култири/Износ' }}
 @endsection
 
 @section('css')
@@ -11,9 +11,6 @@
     {!! Html::style('css/table/crop.css') !!}
 
     {!!Html::style("css/date/jquery.datetimepicker.css" )!!}
-
-    {{-- {!!Html::style("css/metisMenu.min.css" )!!} --}}
-    {{-- {!!Html::style("css/firms_objects/firm_info.css" )!!} --}}
 @endsection
 
 @section('message')
@@ -22,7 +19,7 @@
 
 @section('content')
     <div class="div-layout-title" style="margin-bottom: 20px; margin-top: 20px">
-        <h4 class="bold layout-title">КУЛТУРИ/ВНОС</h4>
+        <h4 class="bold layout-title">КУЛТУРИ/ИЗНОС</h4>
     </div>
     <hr />
     <div class="btn-group">
@@ -39,7 +36,8 @@
     <hr />
     <div class="btn-group">
         <a href="{!! URL::to('/контрол/култури') !!}" class="fa fa-leaf btn btn-info my_btn"> Всички Култури</a>
-        <span class="fa fa-arrow-down btn btn-default my_btn"> Култури/Внос</span>
+        <a href="{!! URL::to('/контрол/култури/внос') !!}" class="fa fa-arrow-up btn btn-info my_btn"> Култури/Внос</a>
+        <span class="fa fa-arrow-up btn btn-default my_btn"> Култури/Износ</span>
     </div>
     <hr />
     <fieldset class="form-group">
@@ -47,7 +45,7 @@
             <div id="wr_choiz_all">
                 <div class="row">
                     <div class="col-md-4" style="padding-right: 0;">
-                        {!! Form::open(['url' => '/контрол/култури/внос', 'method' => 'POST']) !!}
+                        {!! Form::open(['url' => '/контрол/култури/износ', 'method' => 'POST']) !!}
                             {!! Form::label('years', 'Справка за:', ['class' => 'labels']) !!}
                             {!! Form::select('years', $years, $year_now, [
                                 'class' => 'form-control form-control-my-search inspector_sort ',
@@ -63,7 +61,7 @@
                         {!! Form::close() !!}
                     </div>
                     <div class="col-md-8"  style="padding: 0;">
-                        {!! Form::open(['url' => '/контрол/култури/внос', 'method' => 'POST']) !!}
+                        {!! Form::open(['url' => '/контрол/култури/износ', 'method' => 'POST']) !!}
                             @include('crops.forms.sorting')
                             <input type="hidden" name="years" value="{{$year_now}}">
                         {!! Form::close() !!}
@@ -74,12 +72,12 @@
     </fieldset>
     <hr />
     <div class="btn_add_certificate" style="text-align: right">
-        <a href="{!! URL::to('контрол/култури/внос') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
+        <a href="{!! URL::to('контрол/култури/износ') !!}" class="fa fa-eraser btn btn-primary my_btn right_btn">
             &nbsp; Изчисти сортирането!
         </a>
     </div>
     <div class="btn_add_certificate" style="text-align: center; margin-bottom: 20px; margin-top: 20px">
-        <h3 style="text-transform: uppercase;">Внесени стоки за {{ $year_now }} <span
+        <h3 style="text-transform: uppercase;">Изнесени стоки за {{ $year_now }} <span
                 style="text-transform: none;">г.</span></h3>
     </div>
 
@@ -143,7 +141,7 @@
                                                                 <p style="display: inline-block">
                                                                     {{ $val['certificate_number'] }}/{{ date('d.m.Y', $val['date_issue']) }}
                                                                 </p>
-                                                                <a href="{!! URL::to('/контрол/сертификат-внос/' . $val['certificate_id']) !!}"
+                                                                <a href="{!! URL::to('/контрол/сертификат-износ/' . $val['certificate_id']) !!}"
                                                                     class="fa fa-search-plus btn btn-default my_btn"
                                                                     style="float: right"></a>
                                                             </td>
@@ -203,93 +201,6 @@
     </div>
 
     <br />
-
-    <div class="container">
-        <table class="table display my_table table-striped " cellspacing="0" width="100%" border="1px solid black">
-            <thead>
-                <tr>
-                    <th>N:</th>
-                    <th>Култура</th>
-                    <th>Общо Количество</th>
-                    <th>Сертификат номер/дата</th>
-                    <th>Опаковка/брой</th>
-                    <th>Качество</th>
-                    <th>Количество</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $n = 1;?>
-                @foreach ($stocks as $key => $stock)
-                    @if (count($stock) > 0)
-                        <tr>
-                            <td rowspan="{{ count($stock) }}" style="vertical-align: middle;" class="number_column"><?php echo $n++;?></td>
-                            <td rowspan="{{ count($stock) }}" style="vertical-align: middle;">
-                                {{ $key }}
-                                <a href="{!! URL::to('/crops/show/'. $stock[0]['crop_id']) !!}"
-                                                                    class="fa fa-binoculars btn btn-default my_btn"
-                                                                    style="float: right">
-                                </a>
-                            </td>
-                            <td rowspan="{{ count($stock) }}" style="vertical-align: middle;">
-                                <?php $total = 0; ?>
-                                @foreach ($stock as $val)
-                                    <?php
-                                    //$total += array_sum((array)$stock['weight']);
-                                    $total += array_sum((array) $val['weight']);
-                                    ?>
-                                @endforeach
-                                <p style=" margin-left: 10px; font-weight: bold;">
-                                    <span style="font-weight: normal">Всичко:</span>
-                                    <span style="float: right">{{ number_format($total, 0, ',', ' ') }} кг. ({{ number_format($total / 1000, 3, ',', ' ') }} т.)</span>
-                                </p>
-                            </td>
-                            @foreach ($stock as $val)
-                                <td>
-                                    {{ $val['certificate_number'] }}/{{ date('d.m.Y', $val['date_issue']) }}
-                                    <a href="{!! URL::to('/контрол/сертификат-внос/' . $val['certificate_id']) !!}" class="fa fa-search-plus btn btn-default my_btn"
-                                        style="float: right"></a>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($val['type_pack'] == 1) {
-                                        $type = 'Каси';
-                                    } elseif ($val['type_pack'] == 2) {
-                                        $type = 'Палети';
-                                    } elseif ($val['type_pack'] == 3) {
-                                        $type = 'Кашони';
-                                    } elseif ($val['type_pack'] == 4) {
-                                        $type = 'Торби';
-                                    } elseif ($val['type_pack'] == 999) {
-                                        $type = $val['different'];
-                                    } else {
-                                        $type = '';
-                                    }
-                                    
-                                    if ($val['quality_class'] == 1) {
-                                        $quality = ' I клас/I class';
-                                    } elseif ($val['quality_class'] == 2) {
-                                        $quality = 'II клас/II class';
-                                    } elseif ($val['quality_class'] == 3) {
-                                        $quality = 'OПС/GPS';
-                                    } else {
-                                        $quality = '';
-                                    }
-                                    ?>
-                                    {{ $type }} <span style="float: right"> {{ $val['number_packages'] }}</span>
-                                </td>
-                                <td>
-                                    {{ $quality }}
-                                </td>
-                                <td style="text-align: right">
-                                    {{ number_format($val['weight'], 0, ',', ' ') }}
-                                </td>
-                        </tr>
-                    @endforeach
-                @endif
-                @endforeach
-            </tbody>
-        </table>
-    </div>
 @endsection
 
 @section('scripts')
