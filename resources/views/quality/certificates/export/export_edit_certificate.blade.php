@@ -36,6 +36,7 @@
             {!! Form::model($certificate, ['url'=>'контрол/сертификат-износ/'.$certificate->id.'/update', 'method'=>'POST', 'autocomplete'=>'on']) !!}
             
                 @include('quality.certificates.export.forms.form_edit_certificate')
+                <input type="hidden" name="date_issue" value="{{$certificate['date_issue']}}">
 
                 <div class="col-md-6 " >
                     <a href="{{ '/контрол/сертификат-износ/'.$certificate->id }}" class="fa fa-arrow-circle-left btn btn-success my_btn-success"> Откажи! Назад към сертификатa!</a>

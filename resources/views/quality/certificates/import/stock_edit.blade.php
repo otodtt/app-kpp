@@ -205,6 +205,7 @@
                         </p>
                     </div>
                     @include('quality.certificates.forms.stock_form')
+                    <input type="hidden" name="date_issue" value="{{$certificate['date_issue']}}">
                 
                     <div class="col-md-12" id="add_stock" style="text-align: center; margin-top: 10px;">
                         {!! Form::submit('Добави Продукт!', ['class'=>'btn btn-danger', 'id'=>'submit']) !!}

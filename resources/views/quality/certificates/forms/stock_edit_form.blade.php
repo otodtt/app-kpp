@@ -4,32 +4,7 @@
  <div class="container-fluid"  id="container" >
     <div class="row">
         <div class="col-md-12" >
-            <fieldset id="show_type" class="small_field show_type " style="margin-top: 10px">
-                <p class="description">
-                    ВНИМАНИЕ!!! Промени ако е необходимо!!!
-                </p>
-                <hr class="hr_in"/>
-                <?php
-                if( $article[0]['type_crops']  == 1) {
-                    $type1 = 'checked';
-                    $type2 = '';
-                }
-                elseif($article[0]['type_crops'] == 2) {
-                    $type1 = '';
-                    $type2 = 'checked';
-                }
-                else {
-                    $type1 = '';
-                    $type2 = '';
-                }
-                ?>
-                <label class="labels_limit"><span>За консумация</span>
-                    {!! Form::radio('type_crops', 1, $type1 ) !!}
-                </label>&nbsp;&nbsp;|
-                <label class="labels_limit"><span>&nbsp;&nbsp;За преработка</span>
-                    {!! Form::radio('type_crops', 2, $type2 ) !!}
-                </label>&nbsp; | &nbsp;
-            </fieldset>
+            <input type="hidden" name="type_crops" value="{{$certificate->type_crops}}">
             <fieldset class="small_field"><legend class="small_legend">Данни на стоката</legend>
                 {{-- ОПАКОВКИ --}}
                 <div class="col-md-4 col-md-6_my" >
