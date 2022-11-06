@@ -349,7 +349,6 @@ class QXCertificatesController extends Controller
             'date_add' => date('d.m.Y', time()),
             'added_by' => Auth::user()->id,
         ];
-//        dd($data);
 
         if ($request->packer_data == 999) {
             $data_packer = [

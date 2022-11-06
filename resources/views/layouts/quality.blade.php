@@ -30,6 +30,7 @@
                 <ul class="dropdown-menu" >
                     <li><a href="{!! URL::to( '/контрол/сертификати-внос') !!}" class="my_a back_link"> <i class="fa fa-arrow-down fa-fw "></i> Сертификати внос</a></li>
                     <li><a href="{!! URL::to( '/контрол/сертификати-износ') !!}" class="my_a back_link"> <i class="fa fa-arrow-up fa-fw "></i> Сертификати износ</a></li>
+                    <li><a href="{!! URL::to( '/контрол/сертификати-вътрешен') !!}" class="my_a back_link"> <i class="fa fa-retweet fa-fw "></i> Сертификати вътрешен</a></li>
                     {{--<li><a href="{!! URL::to('/складове')!!}" class="my_a back_link"> <i class="fa fa-shield fa-fw blue_color"></i> Всички складове </a></li>--}}
                     {{--<li><a href="{!! URL::to('/цехове')!!}" class="my_a back_link"> <i class="fa fa-cubes fa-fw blue_color"></i> Всички цехове</a></li>--}}
                     {{--<li><a href="{!!URL::to('/изтекъл-срок')!!}" class="my_a back_link"> <i class="fa fa-times fa-fw blue_color"></i> С изтекъл или прекратен срок</a></li>--}}

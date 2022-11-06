@@ -113,11 +113,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/import-finish/store', 'QCertificatesController@import_finish');
     ///// внос покажи
     Route::get('контрол/сертификат-внос/{id}', 'QCertificatesController@show');
+
+    
+
     ///// LOCK UNLOCK
     Route::post('lock-import-certificate/{id}', 'QCertificatesController@import_lock');
     Route::post('unlock-import-certificate/{id}', 'QCertificatesController@import_unlock');
     Route::post('lock-export-certificate/{id}', 'QXCertificatesController@export_lock');
     Route::post('unlock-export-certificate/{id}', 'QXCertificatesController@export_unlock');
+
+   
 
     
     // /////// СТОКИ
@@ -156,11 +161,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('контрол/фактури-износ/{id}/update', 'InvoicesController@export_update');
 
 
-
-
      ///// ИЗНОС
     Route::resource('/контрол/сертификати-износ', 'QXCertificatesController');
     Route::resource('контрол/сертификати-износ', 'QXCertificatesController@index');
+    Route::get('контрол/сертификати-износ/create', 'QXCertificatesController@create');
     Route::post('контрол/сертификати-износ', 'QXCertificatesController@search');
     Route::post('контрол/сертификати-износ/сортирай', 'QXCertificatesController@sort');
 
@@ -173,38 +177,10 @@ Route::group(['middleware' => ['auth']], function () {
     ///// ИЗНОС покажи
     Route::get('контрол/сертификат-износ/{id}', 'QXCertificatesController@show');
 
-//    Route::get('/контрол/сертификати-износ/добави', 'QXCertificatesController@create');
 
-
-
-
-
-    // Route::any('/контрол/сертификати/завърши-внос', 'QCertificatesController@store_import');
-    
-
-
-
-
-
-    // Route::get('/контрол/сертификати/добави', 'QCertificatesController@create');
-    
-
-
-    // Route::post('/контрол/сертификати/store', 'QCertificatesController@store');
-    // Route::post('сертификати', 'CertificatesController@search');
-    // Route::get('сертификат/{id}', 'CertificatesController@show');
-    // // Сортиране на Сертификати
-    // Route::any('сертификати/сортирай/{abc_list?}/{start_year?}/{end_year?}/{limit_sort?}/{inspector_sort?}', 'CertificatesController@sort');
-    // // КРАЙ Сортиране на Сертификати
-    // // Добавяне и Редакция на Сертификати
-    // Route::get('сертификати/добави', 'CertificatesController@create');
-    // Route::post('сертификати/store', 'CertificatesController@store');
-
-    // Route::get('сертификат/{id}/редактирай', 'CertificatesController@edit');
-    // Route::post('сертификати/update/{id}', 'CertificatesController@update');
-    // // КРАЙ Добавяне и Редакция на Сертификати
-
-
+    ///// ВЪТРЕШНИ
+    Route::resource('/контрол/сертификати-вътрешен', 'QINCertificatesController');
+    Route::post('/контрол/сертификати-вътрешен/store', 'QINCertificatesController@store');
 
 
 

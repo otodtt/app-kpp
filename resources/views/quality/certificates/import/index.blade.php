@@ -35,7 +35,7 @@
     <div class="btn-group" >
         <span class="fa fa-arrow-down btn btn-default my_btn"> Сетификати/Внос</span>
         <a href="{!! URL::to('/контрол/сертификати-износ')!!}" class="fa fa-arrow-up btn btn-info my_btn"> Сетификати/Износ</a>
-        <a href="{!! URL::to('/контрол/опаковчици')!!}" class="fa fa-retweet btn btn-info my_btn"> Вътрешен</a>
+        <a href="{!! URL::to('/контрол/сертификати-вътрешен')!!}" class="fa fa-retweet btn btn-info my_btn"> Вътрешни</a>
     </div>
     <hr/>
     {{-- <div class="btn-group" >
